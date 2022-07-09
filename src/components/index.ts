@@ -3,8 +3,13 @@ import {
   RecentUsersRow,
   RecentUsersTable,
   UserProfileSummary,
+  SelectedUsersTransfersTable,
 } from './molecules';
-import { RecentUsersSection, SelectedUserSection } from './organisms';
+import {
+  RecentUsersSection,
+  SelectedUserSection,
+  SelectedUserTransfersSection,
+} from './organisms';
 
 export {
   CopyableRow,
@@ -13,6 +18,8 @@ export {
   RecentUsersSection,
   RecentUsersTable,
   SelectedUserSection,
+  SelectedUsersTransfersTable,
+  SelectedUserTransfersSection,
   Spinner,
   UserProfileSummary,
 };

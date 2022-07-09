@@ -1,3 +1,4 @@
+import { Transaction } from './../../types/index';
 import { User } from 'types/index';
 import { createRouter } from './context';
 import { z } from 'zod';
@@ -53,5 +54,38 @@ export const exampleRouter = createRouter()
 
       // return user
       return { user };
+    },
+  })
+  .query('transfers', {
+    input: z.object({
+      userId: z.string(),
+    }),
+    async resolve({ input }) {
+      // get userId from input
+      // const { userId } = input;
+      // console.log({ userId });
+      // TEMP hardcode userId until i add search + debounce
+      let userId = 'user:01fa5ac7-5b29-4ca9-9c5a-7f693d125608';
+      if (!userId.startsWith('user:')) {
+        return;
+      }
+
+      let baseURL = `https://api.staging.app.eco.com`;
+      let usersEndpoint = `/api/v1/admin/queryfacade/combinedhistory?pageNumber=1&pageSize=10&startDate=1&userID=${userId}&sortOrder=desc`;
+
+      // make fetch request to the server for given userId
+      const response = await fetch(`${baseURL}${usersEndpoint}`);
+
+      // parse the response
+      const body = await response.json();
+      if (!body || !body.data || !Array.isArray(body.data)) {
+        return;
+      }
+
+      // extract transfers from the response
+      const transfers: Transaction[] = body.data;
+
+      // return transfers
+      return { transfers };
     },
   });
