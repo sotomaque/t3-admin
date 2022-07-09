@@ -8,7 +8,7 @@ import { useUsers } from 'store';
 const Home: NextPage = () => {
   const { setRecentUsers, recentUsers, selectedUser, setLoading } = useUsers();
   const { data: usersData, isLoading: usersLoading } = trpc.useQuery([
-    'example.users',
+    'example.recentUsers',
   ]);
 
   useEffect(() => {
