@@ -1,6 +1,8 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@headlessui/react': ^1.6.6
+  '@heroicons/react': ^1.0.6
   '@tanstack/react-table': ^8.1.4
   '@trpc/client': ^9.25.3
   '@trpc/next': ^9.25.3
@@ -21,8 +23,11 @@ specifiers:
   tailwindcss: ^3.1.4
   typescript: 4.7.4
   zod: ^3.17.3
+  zustand: 4.0.0-rc.1
 
 dependencies:
+  '@headlessui/react': 1.6.6_biqbaboplfbrettd7655fr4n2y
+  '@heroicons/react': 1.0.6_react@18.2.0
   '@tanstack/react-table': 8.1.4_biqbaboplfbrettd7655fr4n2y
   '@trpc/client': 9.25.3_@trpc+server@9.25.3
   '@trpc/next': 9.25.3_gjz2vgkn3qadfgugkh65jdpnzq
@@ -34,6 +39,7 @@ dependencies:
   react-query: 3.39.1_biqbaboplfbrettd7655fr4n2y
   superjson: 1.9.1
   zod: 3.17.3
+  zustand: 4.0.0-rc.1_react@18.2.0
 
 devDependencies:
   '@types/node': 18.0.0
@@ -78,6 +84,25 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
+
+  /@headlessui/react/1.6.6_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-MFJtmj9Xh/hhBMhLccGbBoSk+sk61BlP6sJe4uQcVMtXZhCgGqd2GyIQzzmsdPdTEWGSF434CBi8mnhR6um46Q==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      react: ^16 || ^17 || ^18
+      react-dom: ^16 || ^17 || ^18
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    dev: false
+
+  /@heroicons/react/1.0.6_react@18.2.0:
+    resolution: {integrity: sha512-JJCXydOFWMDpCP4q13iEplA503MQO3xLoZiKum+955ZCtHINWnx26CUxVxxFQu/uLb4LW3ge15ZpzIkXKkJ8oQ==}
+    peerDependencies:
+      react: '>= 16'
+    dependencies:
+      react: 18.2.0
+    dev: false
 
   /@humanwhocodes/config-array/0.9.5:
     resolution: {integrity: sha512-ObyMyWxZiCu/yTisA7uzx81s40xR2fD5Cg/2Kq7G02ajkNubJf6BopgDTmDyc3U7sXpNKM8cYOw7s7Tyr+DnCw==}
@@ -2359,4 +2384,20 @@ packages:
 
   /zod/3.17.3:
     resolution: {integrity: sha512-4oKP5zvG6GGbMlqBkI5FESOAweldEhSOZ6LI6cG+JzUT7ofj1ZOC0PJudpQOpT1iqOFpYYtX5Pw0+o403y4bcg==}
+    dev: false
+
+  /zustand/4.0.0-rc.1_react@18.2.0:
+    resolution: {integrity: sha512-qgcs7zLqBdHu0PuT3GW4WCIY5SgXdsv30GQMu9Qpp1BA2aS+sNS8l4x0hWuyEhjXkN+701aGWawhKDv6oWJAcw==}
+    engines: {node: '>=12.7.0'}
+    peerDependencies:
+      immer: '>=9.0'
+      react: '>=16.8'
+    peerDependenciesMeta:
+      immer:
+        optional: true
+      react:
+        optional: true
+    dependencies:
+      react: 18.2.0
+      use-sync-external-store: 1.1.0_react@18.2.0
     dev: false
