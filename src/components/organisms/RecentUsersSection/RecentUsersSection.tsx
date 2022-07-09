@@ -1,18 +1,11 @@
 import RecentUsersTable from 'components/molecules/RecentUsersTable';
-import { Dispatch, SetStateAction } from 'react';
 import { User } from 'types';
 
 interface RecentUsersSectionProps {
   users: User[];
-  selectedUser: User | null;
-  setSelectedUser: Dispatch<SetStateAction<User | null>>;
 }
 
-const RecentUsersSection = ({
-  users,
-  selectedUser,
-  setSelectedUser,
-}: RecentUsersSectionProps) => {
+const RecentUsersSection = ({ users }: RecentUsersSectionProps) => {
   return (
     <div className="px-4 sm:px-6 lg:px-8">
       <div className="sm:flex sm:items-center">
@@ -35,11 +28,7 @@ const RecentUsersSection = ({
         <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
             <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
-              <RecentUsersTable
-                users={users}
-                selectedUser={selectedUser}
-                setSelectedUser={setSelectedUser}
-              />
+              <RecentUsersTable users={users} />
             </div>
           </div>
         </div>

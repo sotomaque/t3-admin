@@ -1,18 +1,15 @@
 import { XIcon } from '@heroicons/react/outline';
 import CopyableRow from 'components/atoms/CopyableRow';
 import { useUserAccounts, useUserKYC } from 'hooks';
-import { Dispatch, SetStateAction } from 'react';
+import { useUsers } from 'store';
 import { User } from 'types';
 
 interface UserProfileSummaryProps {
   user: User;
-  setSelectedUser: Dispatch<SetStateAction<User | null>>;
 }
 
-const UserProfileSummary = ({
-  user,
-  setSelectedUser,
-}: UserProfileSummaryProps) => {
+const UserProfileSummary = ({ user }: UserProfileSummaryProps) => {
+  const { clearSelectedUser } = useUsers();
   const {
     balances: { ecoBalances, usdcBalances },
     apy,
@@ -20,7 +17,7 @@ const UserProfileSummary = ({
   const { cognito, primeTrust } = useUserKYC({ user });
 
   const handleUnselecteClicked = () => {
-    setSelectedUser(null);
+    clearSelectedUser();
   };
 
   return (

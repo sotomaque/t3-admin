@@ -1,21 +1,17 @@
 import { useUserAccounts, useUserKYC } from 'hooks';
-import { Dispatch, SetStateAction } from 'react';
+import { useUsers } from 'store';
 import { User } from 'types';
 
 interface RecentUsersRowProps {
   user: User;
-  selectedUser: User | null;
-  setSelectedUser: Dispatch<SetStateAction<User | null>>;
 }
 
-const RecentUsersRow = ({
-  user,
-  selectedUser,
-  setSelectedUser,
-}: RecentUsersRowProps) => {
+const RecentUsersRow = ({ user }: RecentUsersRowProps) => {
+  const { selectedUser, setSelectedUser, clearSelectedUser } = useUsers();
+
   const handleOnClick = (user: User) => {
     if (selectedUser === user) {
-      setSelectedUser(null);
+      clearSelectedUser();
     } else {
       setSelectedUser(user);
     }

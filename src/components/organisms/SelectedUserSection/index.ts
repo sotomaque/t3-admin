@@ -1,3 +1,3 @@
-import SelectedUserSection from './SelectedUerSection';
+import SelectedUserSection from './SelectedUserSection';
 
 export default SelectedUserSection;
