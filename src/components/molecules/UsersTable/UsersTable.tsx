@@ -4,9 +4,11 @@ import {
   getCoreRowModel,
   useReactTable,
 } from '@tanstack/react-table';
+import { useUsers } from 'store';
 import { User } from 'types';
 
 const UsersTable = ({ users }: { users: User[] }) => {
+  const { selectedUser } = useUsers();
   const columns: ColumnDef<User>[] = [
     {
       accessorKey: 'userID',
@@ -74,7 +76,11 @@ const UsersTable = ({ users }: { users: User[] }) => {
               <tr
                 onClick={() => console.log(`${row.getValue('userID')} clicked`)}
                 key={row.id}
-                className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100"
+                className={`bg-white ${
+                  selectedUser &&
+                  selectedUser.userID === row.getValue('userID') &&
+                  'bg-gray-100'
+                } border-b transition duration-300 ease-in-out hover:bg-gray-100`}
               >
                 {row.getVisibleCells().map((cell) => (
                   <td
