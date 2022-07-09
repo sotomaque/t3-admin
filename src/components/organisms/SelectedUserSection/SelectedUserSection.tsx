@@ -1,20 +1,15 @@
 import { UserProfileSummary } from 'components/molecules';
-import { Dispatch, SetStateAction } from 'react';
 import { User } from 'types';
 
 interface SelectedUserSectionProps {
   user: User;
-  setSelectedUser: Dispatch<SetStateAction<User | null>>;
 }
 
-const SelectedUserSection = ({
-  user,
-  setSelectedUser,
-}: SelectedUserSectionProps) => {
+const SelectedUserSection = ({ user }: SelectedUserSectionProps) => {
   return (
     <div className="grid grid-cols-2 gap-6">
       <div className="col-span-1 bg-white">
-        <UserProfileSummary user={user} setSelectedUser={setSelectedUser} />
+        <UserProfileSummary user={user} />
       </div>
       <div className="col-span-1 bg-white">
         <div>TODO: User Flags</div>

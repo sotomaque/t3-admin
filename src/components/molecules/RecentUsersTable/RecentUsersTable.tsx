@@ -1,18 +1,11 @@
 import RecentUsersRow from 'components/molecules/RecentUsersRow';
-import { Dispatch, SetStateAction } from 'react';
 import { User } from 'types';
 
 interface RecentUsersTableProps {
   users: User[];
-  selectedUser: User | null;
-  setSelectedUser: Dispatch<SetStateAction<User | null>>;
 }
 
-const RecentUsersTable = ({
-  users,
-  selectedUser,
-  setSelectedUser,
-}: RecentUsersTableProps) => {
+const RecentUsersTable = ({ users }: RecentUsersTableProps) => {
   return (
     <table className="min-w-full divide-y divide-gray-300">
       {/* Head */}
@@ -82,11 +75,7 @@ const RecentUsersTable = ({
       <tbody className="divide-y divide-gray-200 bg-white">
         {users.map((user) => (
           <tr key={user.email} className="hover:bg-gray-50">
-            <RecentUsersRow
-              user={user}
-              selectedUser={selectedUser}
-              setSelectedUser={setSelectedUser}
-            />
+            <RecentUsersRow user={user} />
           </tr>
         ))}
       </tbody>

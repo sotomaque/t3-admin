@@ -4,19 +4,30 @@ import { useEffect, useState } from 'react';
 import { RecentUsersSection, Spinner, SelectedUserSection } from 'components';
 import { User } from 'types';
 import { trpc } from 'utils/trpc';
+import { useUsers } from 'store';
 
 const Home: NextPage = () => {
-  const [selectedUser, setSelectedUser] = useState<User | null>(null);
+  const {
+    setRecentUsers,
+    recentUsers,
+    setSelectedUser,
+    selectedUser,
+    setLoading,
+  } = useUsers();
+  // const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const { data: usersData, isLoading: usersLoading } = trpc.useQuery([
     'example.users',
   ]);
-  const [users, setUsers] = useState<User[] | null>(null);
 
   useEffect(() => {
     if (usersData && usersData.users) {
-      setUsers(usersData.users);
+      setRecentUsers(usersData.users);
     }
-  }, [usersData]);
+  }, [setRecentUsers, usersData]);
+
+  useEffect(() => {
+    setLoading(usersLoading);
+  }, [setLoading, usersLoading]);
 
   return (
     <>
@@ -30,27 +41,18 @@ const Home: NextPage = () => {
           <Spinner />
         </div>
       )}
-      {!!users && (
+      {!!recentUsers && !usersLoading && (
         <div className="bg-gray-100 h-full w-full py-10">
           <div className="max-w-10xl mx-auto px-4 sm:px-6 lg:px-4">
             <div className="max-w-7xl mx-auto">
               {/* Mock All Users */}
               <div className="p-4 bg-white">
-                <RecentUsersSection
-                  users={users}
-                  selectedUser={selectedUser}
-                  setSelectedUser={setSelectedUser}
-                />
+                <RecentUsersSection users={recentUsers} />
               </div>
 
               <div className="h-10" />
               {/* Mock Selected User */}
-              {selectedUser && (
-                <SelectedUserSection
-                  user={selectedUser}
-                  setSelectedUser={setSelectedUser}
-                />
-              )}
+              {selectedUser && <SelectedUserSection user={selectedUser} />}
             </div>
           </div>
         </div>
