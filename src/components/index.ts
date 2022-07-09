@@ -2,8 +2,9 @@ import { CopyableRow, Notification, Spinner } from './atoms';
 import {
   RecentUsersRow,
   RecentUsersTable,
-  UserProfileSummary,
   SelectedUsersTransfersTable,
+  SelectedUserTransferRow,
+  UserProfileSummary,
 } from './molecules';
 import {
   RecentUsersSection,
@@ -19,6 +20,7 @@ export {
   RecentUsersTable,
   SelectedUserSection,
   SelectedUsersTransfersTable,
+  SelectedUserTransferRow,
   SelectedUserTransfersSection,
   Spinner,
   UserProfileSummary,

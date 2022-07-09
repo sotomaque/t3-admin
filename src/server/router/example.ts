@@ -65,7 +65,7 @@ export const exampleRouter = createRouter()
       // const { userId } = input;
       // console.log({ userId });
       // TEMP hardcode userId until i add search + debounce
-      let userId = 'user:01fa5ac7-5b29-4ca9-9c5a-7f693d125608';
+      let userId = 'user:9530c662-582c-4b6c-9e58-83286411740d';
       if (!userId.startsWith('user:')) {
         return;
       }
