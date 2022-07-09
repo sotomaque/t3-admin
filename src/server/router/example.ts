@@ -67,24 +67,24 @@ export const exampleRouter = createRouter()
     async resolve({ input }) {
       // get username from input
       const { username } = input;
+
       let baseURL = `https://api.staging.app.eco.com`;
       let usernameEndpoint = `/api/v1/admin/users?username=${username}`;
+      let fullURL = `${baseURL}${usernameEndpoint}`;
 
       // make fetch request to the server for given username
-      const response = await fetch(`${baseURL}${usernameEndpoint}`);
-
+      const response = await fetch(fullURL);
       // parse the response
       const body = await response.json();
-
-      if (!body || !Array.isArray(body) || body.length <= 1) {
+      if (!body || !Array.isArray(body) || body.length < 1) {
         return;
       }
 
-      // extract users from the response
-      const user: User[] = body;
+      // extract user(s) from the response
+      const users: User[] = body;
 
-      // return user
-      return { user };
+      // return user(s)
+      return { users };
     },
   })
   .query('transfersByUserId', {
@@ -93,10 +93,9 @@ export const exampleRouter = createRouter()
     }),
     async resolve({ input }) {
       // get userId from input
-      // const { userId } = input;
-      // console.log({ userId });
-      // TEMP hardcode userId until i add search + debounce
-      let userId = 'user:9530c662-582c-4b6c-9e58-83286411740d';
+      const { userId } = input;
+
+      // validate userId
       if (!userId.startsWith('user:')) {
         return;
       }

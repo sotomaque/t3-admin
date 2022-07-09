@@ -1,3 +1,4 @@
+import { useUsers } from 'store';
 import { Transaction } from 'types';
 import SelectedUserTransferRow from '../SelectedUserTransferRow';
 
@@ -8,7 +9,16 @@ interface SelectedUsersTransfersTableProps {
 const SelectedUsersTransfersTable = ({
   transfers,
 }: SelectedUsersTransfersTableProps) => {
-  console.log({ transfers });
+  const { selectedUser } = useUsers();
+
+  if (transfers.length === 0) {
+    return (
+      <div className="p-4">
+        No Transfers for {selectedUser?.userID ?? 'this user'}
+      </div>
+    );
+  }
+
   return (
     <table className="min-w-full divide-y divide-gray-300">
       {/* Head */}

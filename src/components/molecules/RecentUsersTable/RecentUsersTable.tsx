@@ -1,4 +1,5 @@
 import RecentUsersRow from 'components/molecules/RecentUsersRow';
+import { useUsers } from 'store';
 import { User } from 'types';
 
 interface RecentUsersTableProps {
@@ -6,6 +7,7 @@ interface RecentUsersTableProps {
 }
 
 const RecentUsersTable = ({ users }: RecentUsersTableProps) => {
+  const { selectedUser } = useUsers();
   return (
     <table className="min-w-full divide-y divide-gray-300">
       {/* Head */}
@@ -74,7 +76,14 @@ const RecentUsersTable = ({ users }: RecentUsersTableProps) => {
       {/* Body */}
       <tbody className="divide-y divide-gray-200 bg-white">
         {users.map((user) => (
-          <tr key={user.email} className="hover:bg-gray-50">
+          <tr
+            key={user.email}
+            className={`${
+              selectedUser &&
+              selectedUser.userID === user.userID &&
+              'bg-gray-100'
+            } hover:bg-gray-50`}
+          >
             <RecentUsersRow user={user} />
           </tr>
         ))}
