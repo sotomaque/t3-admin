@@ -12,9 +12,15 @@ import {
   SelectedUserSection,
   SelectedUserTransfersSection,
 } from './organisms';
+import {
+  Layout,
+  SingleColumnContentWrapper,
+  TwoColumnContentWrapper,
+} from './layout';
 
 export {
   CopyableRow,
+  Layout,
   Notification,
   RecentUsersRow,
   RecentUsersSection,
@@ -23,7 +29,9 @@ export {
   SelectedUsersTransfersTable,
   SelectedUserTransferRow,
   SelectedUserTransfersSection,
+  SingleColumnContentWrapper,
   Spinner,
+  TwoColumnContentWrapper,
   UserFlagsCard,
   UserProfileSummary,
 };

@@ -1,6 +1,7 @@
 import { XIcon } from '@heroicons/react/outline';
 import RecentUsersTable from 'components/molecules/RecentUsersTable';
 import { useDebounce } from 'hooks';
+import { useRouter } from 'next/router';
 import { useEffect, useMemo, useState } from 'react';
 import { useUsers } from 'store';
 import { User } from 'types';
@@ -13,11 +14,9 @@ interface RecentUsersSectionProps {
 const RecentUsersSection = ({ users }: RecentUsersSectionProps) => {
   const [filter, setFilter] = useState('');
   const [searchedUser, setSearchedUser] = useState('');
-
   const debounedSearchValue = useDebounce(filter, 1000);
   const {
     data: userResults,
-    isLoading: userIsLoading,
     refetch: refetchSearch,
     isFetched: searchResultsFetched,
   } = trpc.useQuery(
@@ -33,10 +32,8 @@ const RecentUsersSection = ({ users }: RecentUsersSectionProps) => {
     }
   );
   const { searchResults, setSearchResults, clearSelectedUser } = useUsers();
+  const router = useRouter();
 
-  useEffect(() => {
-    console.log({ userIsLoading });
-  }, [userIsLoading]);
   useEffect(() => {
     if (debounedSearchValue) {
       console.log({ debounedSearchValue });
@@ -69,18 +66,19 @@ const RecentUsersSection = ({ users }: RecentUsersSectionProps) => {
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFilter(e.target.value);
   };
-
   const showSearchResults = useMemo(() => {
     return searchResults && searchResults?.length > 0;
   }, [searchResults]);
-
   const showNoReesultsFound = useMemo(() => {
     return Boolean(searchResultsFetched && !searchResults && filter);
   }, [searchResultsFetched, searchResults, filter]);
-
   const showRecentUsers = useMemo(() => {
     return !showSearchResults && !showNoReesultsFound;
   }, [showSearchResults, showNoReesultsFound]);
+
+  const onAddUserClicked = () => {
+    router.push('/new-user');
+  };
 
   return (
     <div className="p-4 sm:px-6 lg:px-8">
@@ -94,6 +92,7 @@ const RecentUsersSection = ({ users }: RecentUsersSectionProps) => {
         </div>
         <div className="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
           <button
+            onClick={() => onAddUserClicked()}
             type="button"
             className="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto"
           >
