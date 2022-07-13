@@ -53,12 +53,6 @@ const RecentUsersTable = ({ users }: RecentUsersTableProps) => {
             scope="col"
             className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
           >
-            Created At
-          </th>
-          <th
-            scope="col"
-            className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-          >
             Cognito
           </th>
           <th

@@ -15,27 +15,18 @@
   ```
 */
 import { Fragment } from 'react';
-import { Menu, Popover, Transition } from '@headlessui/react';
-import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline';
+import { Popover, Transition } from '@headlessui/react';
+import { MenuIcon, XIcon } from '@heroicons/react/outline';
 import { SearchIcon } from '@heroicons/react/solid';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
 
-const user = {
-  name: 'Tom Cook',
-  email: 'tom@example.com',
-  imageUrl:
-    'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-};
 const navigation = [
-  { name: 'Home', href: '/', current: true },
-  { name: 'Users', href: '/users', current: false },
-  { name: 'Services', href: '/services', current: false },
-  { name: 'Repos', href: '/repos', current: false },
-  { name: 'Dashboards', href: '/dashboards', current: false },
-];
-const userNavigation = [
-  { name: 'Your Profile', href: '#' },
-  { name: 'Settings', href: '#' },
-  { name: 'Sign out', href: '#' },
+  { name: 'Home', href: '/' },
+  { name: 'Users', href: '/users' },
+  { name: 'Services', href: '/services' },
+  { name: 'Repos', href: '/repos' },
+  { name: 'Dashboards', href: '/dashboards' },
 ];
 
 function classNames(...classes: string[]) {
@@ -43,16 +34,10 @@ function classNames(...classes: string[]) {
 }
 
 export default function Layout({ children }: { children: React.ReactNode }) {
+  const router = useRouter();
+  const currentRoute: string = router.asPath;
   return (
     <>
-      {/*
-        This example requires updating your template:
-
-        ```
-        <html class="h-full bg-gray-100">
-        <body class="h-full">
-        ```
-      */}
       <div className="min-h-full">
         <Popover as="header" className="pb-24 bg-indigo-600">
           {({ open }) => (
@@ -63,82 +48,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                   <div className="absolute left-0 flex-shrink-0 lg:static">
                     <a href="#">
                       <span className="sr-only">Workflow</span>
-                      <img
-                        className="h-8 w-auto"
-                        src="https://tailwindui.com/img/logos/workflow-mark-indigo-300.svg"
-                        alt="Workflow"
+                      <Image
+                        height="30"
+                        width="85"
+                        src="https://eco.github.io/assets/images/eco-logo-color-140.png"
+                        alt="Eco Admin"
                       />
                     </a>
-                  </div>
-
-                  {/* Right section on desktop */}
-                  <div className="hidden lg:ml-4 lg:flex lg:items-center lg:pr-0.5">
-                    <button
-                      type="button"
-                      className="flex-shrink-0 p-1 text-indigo-200 rounded-full hover:text-white hover:bg-white hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-white"
-                    >
-                      <span className="sr-only">View notifications</span>
-                      <BellIcon className="h-6 w-6" aria-hidden="true" />
-                    </button>
-
-                    {/* Profile dropdown */}
-                    <Menu as="div" className="ml-4 relative flex-shrink-0">
-                      <div>
-                        <Menu.Button className="bg-white rounded-full flex text-sm ring-2 ring-white ring-opacity-20 focus:outline-none focus:ring-opacity-100">
-                          <span className="sr-only">Open user menu</span>
-                          <img
-                            className="h-8 w-8 rounded-full"
-                            src={user.imageUrl}
-                            alt=""
-                          />
-                        </Menu.Button>
-                      </div>
-                      <Transition
-                        as={Fragment}
-                        leave="transition ease-in duration-75"
-                        leaveFrom="transform opacity-100 scale-100"
-                        leaveTo="transform opacity-0 scale-95"
-                      >
-                        <Menu.Items className="origin-top-right z-40 absolute -right-2 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-                          {userNavigation.map((item) => (
-                            <Menu.Item key={item.name}>
-                              {({ active }) => (
-                                <a
-                                  href={item.href}
-                                  className={classNames(
-                                    active ? 'bg-gray-100' : '',
-                                    'block px-4 py-2 text-sm text-gray-700'
-                                  )}
-                                >
-                                  {item.name}
-                                </a>
-                              )}
-                            </Menu.Item>
-                          ))}
-                        </Menu.Items>
-                      </Transition>
-                    </Menu>
-                  </div>
-
-                  {/* Search */}
-                  <div className="flex-1 min-w-0 px-12 lg:hidden">
-                    <div className="max-w-xs w-full mx-auto">
-                      <label htmlFor="desktop-search" className="sr-only">
-                        Search
-                      </label>
-                      <div className="relative text-white focus-within:text-gray-600">
-                        <div className="pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center">
-                          <SearchIcon className="h-5 w-5" aria-hidden="true" />
-                        </div>
-                        <input
-                          id="desktop-search"
-                          className="block w-full bg-white bg-opacity-20 py-2 pl-10 pr-3 border border-transparent rounded-md leading-5 text-gray-900 placeholder-white focus:outline-none focus:bg-opacity-100 focus:border-transparent focus:placeholder-gray-500 focus:ring-0 sm:text-sm"
-                          placeholder="Search"
-                          type="search"
-                          name="search"
-                        />
-                      </div>
-                    </div>
                   </div>
 
                   {/* Menu button */}
@@ -166,10 +82,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                             key={item.name}
                             href={item.href}
                             className={classNames(
-                              item.current ? 'text-white' : 'text-indigo-100',
-                              'text-sm font-medium rounded-md bg-white bg-opacity-0 px-3 py-2 hover:bg-opacity-10'
+                              // @ts-ignore nextline
+                              currentRoute === item.href && 'bg-opacity-10',
+                              'text-indigo-100 text-sm font-medium rounded-md bg-white bg-opacity-0 px-3 py-2 hover:bg-opacity-10'
                             )}
-                            aria-current={item.current ? 'page' : undefined}
+                            aria-current={
+                              currentRoute === item.href ? 'page' : undefined
+                            }
                           >
                             {item.name}
                           </a>
@@ -202,6 +121,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 </div>
               </div>
 
+              {/* Mobile Menu */}
               <Transition.Root as={Fragment}>
                 <div className="lg:hidden">
                   <Transition.Child
@@ -233,10 +153,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                         <div className="pt-3 pb-2">
                           <div className="flex items-center justify-between px-4">
                             <div>
-                              <img
-                                className="h-8 w-auto"
-                                src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
-                                alt="Workflow"
+                              <Image
+                                height="30"
+                                width="85"
+                                src="https://eco.github.io/assets/images/eco-logo-color-140.png"
+                                alt="Eco Admin"
                               />
                             </div>
                             <div className="-mr-2">
@@ -247,73 +168,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                             </div>
                           </div>
                           <div className="mt-3 px-2 space-y-1">
-                            <a
-                              href="#"
-                              className="block rounded-md px-3 py-2 text-base text-gray-900 font-medium hover:bg-gray-100 hover:text-gray-800"
-                            >
-                              Home
-                            </a>
-                            <a
-                              href="#"
-                              className="block rounded-md px-3 py-2 text-base text-gray-900 font-medium hover:bg-gray-100 hover:text-gray-800"
-                            >
-                              Profile
-                            </a>
-                            <a
-                              href="#"
-                              className="block rounded-md px-3 py-2 text-base text-gray-900 font-medium hover:bg-gray-100 hover:text-gray-800"
-                            >
-                              Resources
-                            </a>
-                            <a
-                              href="#"
-                              className="block rounded-md px-3 py-2 text-base text-gray-900 font-medium hover:bg-gray-100 hover:text-gray-800"
-                            >
-                              Company Directory
-                            </a>
-                            <a
-                              href="#"
-                              className="block rounded-md px-3 py-2 text-base text-gray-900 font-medium hover:bg-gray-100 hover:text-gray-800"
-                            >
-                              Openings
-                            </a>
-                          </div>
-                        </div>
-                        <div className="pt-4 pb-2">
-                          <div className="flex items-center px-5">
-                            <div className="flex-shrink-0">
-                              <img
-                                className="h-10 w-10 rounded-full"
-                                src={user.imageUrl}
-                                alt=""
-                              />
-                            </div>
-                            <div className="ml-3 min-w-0 flex-1">
-                              <div className="text-base font-medium text-gray-800 truncate">
-                                {user.name}
-                              </div>
-                              <div className="text-sm font-medium text-gray-500 truncate">
-                                {user.email}
-                              </div>
-                            </div>
-                            <button
-                              type="button"
-                              className="ml-auto flex-shrink-0 bg-white p-1 text-gray-400 rounded-full hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                            >
-                              <span className="sr-only">
-                                View notifications
-                              </span>
-                              <BellIcon
-                                className="h-6 w-6"
-                                aria-hidden="true"
-                              />
-                            </button>
-                          </div>
-                          <div className="mt-3 px-2 space-y-1">
-                            {userNavigation.map((item) => (
+                            {navigation.map((item, idx) => (
                               <a
-                                key={item.name}
                                 href={item.href}
+                                key={`${item.name}-mobile-${idx}`}
                                 className="block rounded-md px-3 py-2 text-base text-gray-900 font-medium hover:bg-gray-100 hover:text-gray-800"
                               >
                                 {item.name}

@@ -44,9 +44,6 @@ const RecentUsersRow = ({ user }: RecentUsersRowProps) => {
         {apy}%
       </td>
       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-        {`${new Date(user.created).toDateString()}`}
-      </td>
-      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
         {cognito}
       </td>
       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
