@@ -1,4 +1,8 @@
-import { UserProfileSummary, SelectedUserTransfersSection } from 'components';
+import {
+  UserProfileSummary,
+  SelectedUserTransfersSection,
+  UserFlagsCard,
+} from 'components';
 import { User } from 'types';
 
 interface SelectedUserSectionProps {
@@ -15,7 +19,7 @@ const SelectedUserSection = ({ user }: SelectedUserSectionProps) => {
           <UserProfileSummary user={user} />
         </div>
         <div className="col-span-1 md:bg-white">
-          <div>TODO: User Flags</div>
+          <UserFlagsCard user={user} />
         </div>
       </div>
       {/* Second Row */}

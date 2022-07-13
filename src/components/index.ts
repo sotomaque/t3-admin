@@ -4,6 +4,7 @@ import {
   RecentUsersTable,
   SelectedUsersTransfersTable,
   SelectedUserTransferRow,
+  UserFlagsCard,
   UserProfileSummary,
 } from './molecules';
 import {
@@ -23,5 +24,6 @@ export {
   SelectedUserTransferRow,
   SelectedUserTransfersSection,
   Spinner,
+  UserFlagsCard,
   UserProfileSummary,
 };
