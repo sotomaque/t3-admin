@@ -1,19 +1,3 @@
-/*
-  This example requires Tailwind CSS v2.0+ 
-  
-  This example requires some changes to your config:
-  
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/forms'),
-    ],
-  }
-  ```
-*/
 import { Fragment } from 'react';
 import { Popover, Transition } from '@headlessui/react';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
@@ -41,6 +25,24 @@ export default function Layout({
 }) {
   const router = useRouter();
   const currentRoute: string = router.asPath;
+
+  const isCurrentRouteSelected = ({
+    item,
+    idx,
+  }: {
+    item: {
+      name: string;
+      href: string;
+    };
+    idx: number;
+  }) => {
+    if (idx === 0) {
+      return item.href === currentRoute;
+    } else {
+      return currentRoute.startsWith(item.href);
+    }
+  };
+
   return (
     <>
       <div className="min-h-full">
@@ -82,13 +84,14 @@ export default function Layout({
                   <div className="grid grid-cols-3 gap-8 items-center">
                     <div className="col-span-2">
                       <nav className="flex space-x-4">
-                        {navigation.map((item) => (
+                        {navigation.map((item, idx) => (
                           <a
                             key={item.name}
                             href={item.href}
                             className={classNames(
-                              // @ts-ignore nextline
-                              currentRoute === item.href && 'bg-opacity-10',
+                              // @ts-ignore next-line
+                              isCurrentRouteSelected({ item, idx }) &&
+                                'bg-opacity-10',
                               'text-indigo-100 text-sm font-medium rounded-md bg-white bg-opacity-0 px-3 py-2 hover:bg-opacity-10'
                             )}
                             aria-current={
@@ -175,9 +178,7 @@ export default function Layout({
         <footer>
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 lg:max-w-7xl">
             <div className="border-t border-gray-200 py-8 text-sm text-gray-500 text-center sm:text-left">
-              <span className="block sm:inline">
-                &copy; 2021 Tailwind Labs Inc.
-              </span>{' '}
+              <span className="block sm:inline">&copy; 2022 Eco Inc.</span>{' '}
               <span className="block sm:inline">All rights reserved.</span>
             </div>
           </div>

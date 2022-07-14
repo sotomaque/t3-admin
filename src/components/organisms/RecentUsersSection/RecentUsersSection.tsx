@@ -15,7 +15,7 @@ const RecentUsersSection = ({ users }: RecentUsersSectionProps) => {
     useUsers();
 
   const onAddUserClicked = () => {
-    router.push('/new-user');
+    router.push('/users/new-user');
   };
 
   const onClearSearch = () => {
@@ -67,11 +67,11 @@ const RecentUsersSection = ({ users }: RecentUsersSectionProps) => {
           </button>
         </div>
         {searchResults && (
-          <div className="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
+          <div className="mt-4 sm:mt-0 sm:ml-2 sm:flex-none">
             <button
               onClick={() => onClearSearch()}
               type="button"
-              className="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto"
+              className="inline-flex items-center justify-center rounded-md border border-transparent bg-red-200 px-4 py-2 text-sm font-medium text-black shadow-sm hover:bg-red-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto"
             >
               Clear Serach
             </button>

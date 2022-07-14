@@ -2,12 +2,16 @@ import { CopyableRow, Notification, Spinner } from './atoms';
 import {
   RecentUsersRow,
   RecentUsersTable,
+  SearchUsers,
   SelectedUsersTransfersTable,
   SelectedUserTransferRow,
   UserFlagsCard,
   UserProfileSummary,
+  UserRegistrationProgress,
 } from './molecules';
 import {
+  AccessCodeSection,
+  EmailSection,
   RecentUsersSection,
   SelectedUserSection,
   SelectedUserTransfersSection,
@@ -19,12 +23,15 @@ import {
 } from './layout';
 
 export {
+  AccessCodeSection,
   CopyableRow,
+  EmailSection,
   Layout,
   Notification,
   RecentUsersRow,
   RecentUsersSection,
   RecentUsersTable,
+  SearchUsers,
   SelectedUserSection,
   SelectedUsersTransfersTable,
   SelectedUserTransferRow,
@@ -34,4 +41,5 @@ export {
   TwoColumnContentWrapper,
   UserFlagsCard,
   UserProfileSummary,
+  UserRegistrationProgress,
 };

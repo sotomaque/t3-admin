@@ -6,7 +6,7 @@ import { trpc } from 'utils/trpc';
 const SelectedUserTransfersSection = ({ userId }: { userId: string }) => {
   const { selectedUserTransactions, setSelectedUserTransactions } = useUsers();
   const { data: transfersData, isLoading: transfersLoading } = trpc.useQuery([
-    'example.transfersByUserId',
+    'transfer.transfersByUserId',
     {
       userId,
     },
