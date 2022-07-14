@@ -15,7 +15,7 @@ const RecentUsersSection = ({ users }: RecentUsersSectionProps) => {
     useUsers();
 
   const onAddUserClicked = () => {
-    router.push('/new-user');
+    router.push('/users/new-user');
   };
 
   const onClearSearch = () => {

@@ -41,6 +41,24 @@ export default function Layout({
 }) {
   const router = useRouter();
   const currentRoute: string = router.asPath;
+  console.log({ currentRoute });
+
+  const isCurrentRouteSelected = ({
+    item,
+    idx,
+  }: {
+    item: {
+      name: string;
+      href: string;
+    };
+    idx: number;
+  }) => {
+    if (idx === 0) {
+      return item.href === currentRoute;
+    } else {
+      return currentRoute.startsWith(item.href);
+    }
+  };
   return (
     <>
       <div className="min-h-full">
@@ -82,13 +100,14 @@ export default function Layout({
                   <div className="grid grid-cols-3 gap-8 items-center">
                     <div className="col-span-2">
                       <nav className="flex space-x-4">
-                        {navigation.map((item) => (
+                        {navigation.map((item, idx) => (
                           <a
                             key={item.name}
                             href={item.href}
                             className={classNames(
-                              // @ts-ignore nextline
-                              currentRoute === item.href && 'bg-opacity-10',
+                              // @ts-ignore next-line
+                              isCurrentRouteSelected({ item, idx }) &&
+                                'bg-opacity-10',
                               'text-indigo-100 text-sm font-medium rounded-md bg-white bg-opacity-0 px-3 py-2 hover:bg-opacity-10'
                             )}
                             aria-current={
