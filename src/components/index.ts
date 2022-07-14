@@ -2,6 +2,7 @@ import { CopyableRow, Notification, Spinner } from './atoms';
 import {
   RecentUsersRow,
   RecentUsersTable,
+  SearchUsers,
   SelectedUsersTransfersTable,
   SelectedUserTransferRow,
   UserFlagsCard,
@@ -25,6 +26,7 @@ export {
   RecentUsersRow,
   RecentUsersSection,
   RecentUsersTable,
+  SearchUsers,
   SelectedUserSection,
   SelectedUsersTransfersTable,
   SelectedUserTransferRow,
