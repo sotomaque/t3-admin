@@ -10,7 +10,7 @@ const SearchUsers = () => {
   const debounedSearchValue = useDebounce(filter, 1000);
   const { data: userResults } = trpc.useQuery(
     [
-      'example.usersByUsername',
+      'user.usersByUsername',
       {
         username: debounedSearchValue,
       },

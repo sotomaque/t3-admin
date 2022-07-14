@@ -12,7 +12,7 @@ import { trpc } from 'utils/trpc';
 const Users = () => {
   const { setRecentUsers, recentUsers, selectedUser, setLoading } = useUsers();
   const { data: usersData, isLoading: usersLoading } = trpc.useQuery([
-    'example.recentUsers',
+    'user.recentUsers',
   ]);
 
   useEffect(() => {

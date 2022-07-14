@@ -1,4 +1,8 @@
-import { EmailSection, SingleColumnContentWrapper } from 'components';
+import {
+  AccessCodeSection,
+  EmailSection,
+  SingleColumnContentWrapper,
+} from 'components';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
@@ -22,6 +26,7 @@ const NewUser = () => {
   const [email, setEmail] = useState('');
   const [hasSubmittedEmail, setHasSubmittedEmail] = useState(false);
   const [taskStatus, setTaskStatus] = useState<TaskStatusType | null>(null);
+  const [bearerToken, setBearerToken] = useState('');
 
   const handleOnBackClicked = () => {
     router.back();
@@ -30,10 +35,10 @@ const NewUser = () => {
   return (
     <SingleColumnContentWrapper>
       <div className="h-full w-full py-10">
-        <div className="max-w-10xl mx-auto px-4 sm:px-6 lg:px-4">
+        <div className="max-w-10xl mx-auto px-4 sm:px-2 lg:px-4">
           <div className="max-w-7xl mx-auto">
-            <div className="p-4 bg-white">
-              <div className="p-4 sm:px-6 lg:px-8">
+            <div className="p-4 sm:p-2 bg-white">
+              <div className="p-4 sm:px-2 lg:px-8">
                 {/* Add User Button */}
                 <div className="sm:flex sm:items-center">
                   <div className="sm:flex-auto">
@@ -68,6 +73,15 @@ const NewUser = () => {
                           setHasSubmittedEmail={setHasSubmittedEmail}
                           setTaskStatus={setTaskStatus}
                         />
+
+                        {/* Enter Access Code Section */}
+                        {hasSubmittedEmail && (
+                          <AccessCodeSection
+                            email={email}
+                            setBearerToken={setBearerToken}
+                            setTaskStatus={setTaskStatus}
+                          />
+                        )}
                       </div>
                     </div>
                   </div>

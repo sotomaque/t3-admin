@@ -1,5 +1,6 @@
 import { TaskStatusType } from 'pages/users/new-user';
-import { Dispatch, SetStateAction, useMemo, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect } from 'react';
+import { trpc } from 'utils/trpc';
 
 type EmailSectionProps = {
   email: string;
@@ -16,31 +17,22 @@ const EmailSection = ({
   setHasSubmittedEmail,
   setTaskStatus,
 }: EmailSectionProps) => {
-  const [loading, setLoading] = useState(false);
-  const isSendVerficationEmailDisabled = useMemo(
-    () => !email || loading || hasSubmittedEmail,
-    [email, hasSubmittedEmail, loading]
-  );
+  const { mutateAsync, isLoading, isSuccess } = trpc.useMutation([
+    'registration.sendOTP',
+  ]);
 
+  const isDisabled = isLoading || isSuccess || !email;
   const startPasswordlessFlow = async () => {
     if (!email) return;
-    setLoading(true);
-    setTaskStatus('Sending Verification Email');
-    const url = 'api/users/registration/sendOTP';
-    const response = await fetch(url, {
-      method: 'POST',
-      cache: 'no-cache',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email }),
-    });
-    if (response && response.status === 200) {
-      setTaskStatus('Verification Email Sent');
-      setHasSubmittedEmail(true);
-    }
-    setLoading(false);
+    mutateAsync({ email });
+    setHasSubmittedEmail(true);
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      setTaskStatus('Verification Email Sent');
+    }
+  }, [isSuccess, setTaskStatus]);
 
   return (
     <div className="mb-6 p-4 sm:mb-5 space-y-6 sm:space-y-5">
@@ -78,7 +70,7 @@ const EmailSection = ({
 
             <button
               type="button"
-              disabled={isSendVerficationEmailDisabled}
+              disabled={isLoading}
               onClick={(e) => {
                 e.preventDefault();
                 startPasswordlessFlow();
@@ -92,11 +84,7 @@ const EmailSection = ({
             duration-150 
             ease-in-out 
             focus:outline-none
-            ${
-              !isSendVerficationEmailDisabled &&
-              !hasSubmittedEmail &&
-              'hover:bg-indigo-600'
-            }
+            ${!isDisabled && !hasSubmittedEmail && 'hover:bg-indigo-600'}
             rounded 
             text-white 
             px-5
@@ -105,7 +93,7 @@ const EmailSection = ({
             items-center 
             text-xs`}
             >
-              {loading ? (
+              {isLoading ? (
                 <>
                   <svg
                     className="animate-spin h-5 w-5 mr-3"

@@ -9,6 +9,7 @@ import {
   UserProfileSummary,
 } from './molecules';
 import {
+  AccessCodeSection,
   EmailSection,
   RecentUsersSection,
   SelectedUserSection,
@@ -21,6 +22,7 @@ import {
 } from './layout';
 
 export {
+  AccessCodeSection,
   CopyableRow,
   EmailSection,
   Layout,

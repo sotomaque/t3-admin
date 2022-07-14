@@ -25,7 +25,6 @@ export default function Layout({
 }) {
   const router = useRouter();
   const currentRoute: string = router.asPath;
-  console.log({ currentRoute });
 
   const isCurrentRouteSelected = ({
     item,
@@ -43,6 +42,7 @@ export default function Layout({
       return currentRoute.startsWith(item.href);
     }
   };
+
   return (
     <>
       <div className="min-h-full">
