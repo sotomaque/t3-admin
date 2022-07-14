@@ -1,5 +1,6 @@
 import { TaskStatusType } from 'pages/users/new-user';
 import { Dispatch, SetStateAction, useEffect } from 'react';
+import { useUsers } from 'store';
 import { trpc } from 'utils/trpc';
 
 type EmailSectionProps = {
@@ -17,6 +18,7 @@ const EmailSection = ({
   setHasSubmittedEmail,
   setTaskStatus,
 }: EmailSectionProps) => {
+  const { setUserRegistrationStepAsCurrent } = useUsers();
   const { mutateAsync, isLoading, isSuccess } = trpc.useMutation([
     'registration.sendOTP',
   ]);
@@ -31,8 +33,9 @@ const EmailSection = ({
   useEffect(() => {
     if (isSuccess) {
       setTaskStatus('Verification Email Sent');
+      setUserRegistrationStepAsCurrent(1);
     }
-  }, [isSuccess, setTaskStatus]);
+  }, [isSuccess, setTaskStatus, setUserRegistrationStepAsCurrent]);
 
   return (
     <div className="mb-6 p-4 sm:mb-5 space-y-6 sm:space-y-5">

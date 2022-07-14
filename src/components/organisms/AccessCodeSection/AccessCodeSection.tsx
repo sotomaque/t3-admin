@@ -1,5 +1,6 @@
 import { TaskStatusType } from 'pages/users/new-user';
 import { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react';
+import { useUsers } from 'store';
 import { trpc } from 'utils/trpc';
 
 type AccessCodeErrror = 'Invalid Access Code' | 'Locked Account';
@@ -23,6 +24,7 @@ const AccessCodeSection = ({
     isLoading,
     isSuccess,
   } = trpc.useMutation(['registration.validateOTP']);
+  const { setUserRegistrationStepAsCurrent } = useUsers();
   const [hasSubmitted, setHasSubmitted] = useState(false);
   const [error, setError] = useState<AccessCodeErrror | null>(null);
 
@@ -54,8 +56,9 @@ const AccessCodeSection = ({
   useEffect(() => {
     if (isSuccess) {
       setTaskStatus('OTP Verified');
+      setUserRegistrationStepAsCurrent(2);
     }
-  }, [isSuccess, setTaskStatus]);
+  }, [isSuccess, setTaskStatus, setUserRegistrationStepAsCurrent]);
 
   const isVerifyAccessCodeDisabled = useMemo(
     () => !email || !accessCode || isLoading || hasSubmitted,

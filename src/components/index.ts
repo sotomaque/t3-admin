@@ -7,6 +7,7 @@ import {
   SelectedUserTransferRow,
   UserFlagsCard,
   UserProfileSummary,
+  UserRegistrationProgress,
 } from './molecules';
 import {
   AccessCodeSection,
@@ -40,4 +41,5 @@ export {
   TwoColumnContentWrapper,
   UserFlagsCard,
   UserProfileSummary,
+  UserRegistrationProgress,
 };
