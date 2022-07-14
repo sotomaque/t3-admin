@@ -60,7 +60,7 @@ export const exampleRouter = createRouter()
       return { user };
     },
   })
-  .query('userByUsername', {
+  .query('usersByUsername', {
     input: z.object({
       username: z.string(),
     }),
@@ -77,7 +77,7 @@ export const exampleRouter = createRouter()
       // parse the response
       const body = await response.json();
       if (!body || !Array.isArray(body) || body.length < 1) {
-        return;
+        return null;
       }
 
       // extract user(s) from the response

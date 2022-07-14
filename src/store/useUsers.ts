@@ -18,8 +18,11 @@ type UserState = {
   selectedUserReferrals: Referral[] | [];
   setSelectedUserReferrals: (referrals: Referral[]) => void;
 
+  filter: string;
   searchResults: User[] | null;
   setSearchResults: (results: User[] | null) => void;
+  setSearchFilter: (filter: string) => void;
+  clearSearchFilter: () => void;
 
   clearSelectedUser: () => void;
 };
@@ -43,9 +46,12 @@ export const useUsers = create<UserState>((set) => ({
   setSelectedUserReferrals: (selectedUserReferrals: Referral[]) =>
     set(() => ({ selectedUserReferrals })),
 
+  filter: '',
   searchResults: null,
   setSearchResults: (searchResults: User[] | null) =>
     set(() => ({ searchResults })),
+  setSearchFilter: (filter: string) => set(() => ({ filter })),
+  clearSearchFilter: () => set(() => ({ filter: '' })),
 
   clearSelectedUser: () =>
     set(() => ({
