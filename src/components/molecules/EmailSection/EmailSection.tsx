@@ -1,4 +1,4 @@
-import { TaskStatusType } from 'pages/users/new-user';
+import { TaskStatusType } from 'types/taskStatus';
 import { Dispatch, SetStateAction, useEffect } from 'react';
 import { useUsers } from 'store';
 import { trpc } from 'utils/trpc';

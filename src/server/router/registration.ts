@@ -171,4 +171,130 @@ export const registrationRouter = createRouter()
         });
       }
     },
+  })
+  .mutation('register', {
+    input: z.object({
+      token: z.string(),
+      registrationData: z.object({
+        username: z.string(),
+        password: z.string(),
+        givenName: z.string(),
+        familyName: z.string(),
+        accountParams: z.object({
+          provider: z.string(),
+        }),
+      }),
+    }),
+    async resolve({ ctx, input }) {
+      // Process Input
+      const { token, registrationData } = input;
+      if (!token || !registrationData) {
+        throw new TRPCError({
+          message: 'Missing Token or Registration Data',
+          code: 'BAD_REQUEST',
+        });
+      }
+
+      // Get URL
+      const baseURL = process.env.ECO_BASE_URL;
+      const registerURL = process.env.ECO_REGISTER_URL;
+      if (!baseURL || typeof baseURL !== 'string') {
+        throw new TRPCError({
+          message: 'Missing Base URL',
+          code: 'INTERNAL_SERVER_ERROR',
+        });
+      }
+      if (!registerURL || typeof registerURL !== 'string') {
+        throw new TRPCError({
+          message: 'Missing Register URL',
+          code: 'INTERNAL_SERVER_ERROR',
+        });
+      }
+      const fullURL = `${baseURL}${registerURL}`;
+
+      // Make Request
+      try {
+        await fetch(fullURL, {
+          method: 'POST',
+          cache: 'no-cache',
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(registrationData),
+        });
+
+        return {
+          message: 'Registration Successful',
+        };
+      } catch (error) {
+        console.log({ error });
+        throw new TRPCError({
+          message: 'Error Registering',
+          code: 'INTERNAL_SERVER_ERROR',
+        });
+      }
+    },
+  })
+  .query('isUsernameAvailable', {
+    input: z.object({ username: z.string().min(0).max(400) }),
+    async resolve({ ctx, input }) {
+      // Process Input
+      const { username } = input;
+      if (!username || typeof username !== 'string') {
+        throw new TRPCError({
+          message: 'Missing Username',
+          code: 'BAD_REQUEST',
+        });
+      }
+
+      // Get URL
+      const baseURL = process.env.ECO_BASE_URL;
+      const usernamePrefix = process.env.ECO_USERS;
+      const isAvailableSuffix = process.env.ECO_IS_USERNAME_AVAILABLE;
+
+      if (!baseURL || typeof baseURL !== 'string') {
+        throw new TRPCError({
+          message: 'Missing Base URL',
+          code: 'INTERNAL_SERVER_ERROR',
+        });
+      }
+      if (!usernamePrefix || typeof usernamePrefix !== 'string') {
+        throw new TRPCError({
+          message: 'Missing Username Prefix',
+          code: 'INTERNAL_SERVER_ERROR',
+        });
+      }
+      if (!isAvailableSuffix || typeof isAvailableSuffix !== 'string') {
+        throw new TRPCError({
+          message: 'Missing Is Username Available Suffix',
+          code: 'INTERNAL_SERVER_ERROR',
+        });
+      }
+      const fullURL = `${baseURL}${usernamePrefix}${username}${isAvailableSuffix}`;
+
+      // Make Request
+      try {
+        const response = await fetch(fullURL);
+
+        if (response.status === 200) {
+          return {
+            username,
+            isAvailable: true,
+          };
+        } else {
+          return {
+            username,
+            isAvailable: false,
+          };
+        }
+      } catch (error) {
+        console.error({ error });
+
+        throw new TRPCError({
+          message: 'Error Checking Username',
+          code: 'INTERNAL_SERVER_ERROR',
+        });
+      }
+    },
   });

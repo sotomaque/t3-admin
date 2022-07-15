@@ -1,7 +1,10 @@
 import { CopyableRow, Notification, Spinner } from './atoms';
 import {
+  AccessCodeSection,
+  EmailSection,
   RecentUsersRow,
   RecentUsersTable,
+  RegisteredUserData,
   SearchUsers,
   SelectedUsersTransfersTable,
   SelectedUserTransferRow,
@@ -10,8 +13,6 @@ import {
   UserRegistrationProgress,
 } from './molecules';
 import {
-  AccessCodeSection,
-  EmailSection,
   RecentUsersSection,
   SelectedUserSection,
   SelectedUserTransfersSection,
@@ -31,6 +32,7 @@ export {
   RecentUsersRow,
   RecentUsersSection,
   RecentUsersTable,
+  RegisteredUserData,
   SearchUsers,
   SelectedUserSection,
   SelectedUsersTransfersTable,

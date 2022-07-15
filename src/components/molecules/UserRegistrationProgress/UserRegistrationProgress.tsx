@@ -1,6 +1,6 @@
 import { CheckIcon } from '@heroicons/react/solid';
-import { TaskStatusType } from 'pages/users/new-user';
 import { useUsers } from 'store';
+import { TaskStatusType } from 'types/taskStatus';
 
 export type StepStatusType = 'complete' | 'current' | 'upcoming';
 

@@ -1,44 +1,37 @@
 import {
   AccessCodeSection,
   EmailSection,
-  SingleColumnContentWrapper,
+  RegisteredUserData,
   TwoColumnContentWrapper,
   UserRegistrationProgress,
 } from 'components';
+import { useRegisterUser } from 'hooks';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
-
-export type TaskStatusType =
-  | 'Initial'
-  | 'Sending Verification Email'
-  | 'Verification Email Sent'
-  | 'Verifying OTP'
-  | 'OTP Verified'
-  | 'OTP Verification Failed'
-  | 'Registering User' // with eco server
-  | 'Createing PT Account'
-  | 'Submitting PT Documents'
-  | 'Getting CIP'
-  | 'Verifying CIP'
-  | 'Verifying KYC'
-  | 'Completed'
-  | 'Error';
 
 const NewUser = () => {
   return (
     <TwoColumnContentWrapper
       sidebarContent={<UserRegistrationProgress />}
       mainContent={<NewUserContent />}
-    ></TwoColumnContentWrapper>
+    />
   );
 };
 
 const NewUserContent = () => {
   const router = useRouter();
-  const [email, setEmail] = useState('');
-  const [hasSubmittedEmail, setHasSubmittedEmail] = useState(false);
-  const [taskStatus, setTaskStatus] = useState<TaskStatusType | null>(null);
-  const [bearerToken, setBearerToken] = useState('');
+
+  const {
+    bearerToken,
+    email,
+    hasSubmittedEmail,
+    registeredPassword,
+    registeredUsername,
+    setBearerToken,
+    setEmail,
+    setHasSubmittedEmail,
+    setTaskStatus,
+  } = useRegisterUser();
+
   const handleOnBackClicked = () => {
     router.back();
   };
@@ -92,6 +85,17 @@ const NewUserContent = () => {
                           setTaskStatus={setTaskStatus}
                         />
                       )}
+
+                      {/* Registered User Data */}
+                      {registeredUsername &&
+                        registeredPassword &&
+                        bearerToken && (
+                          <RegisteredUserData
+                            username={registeredUsername}
+                            password={registeredPassword}
+                            bearerToken={bearerToken}
+                          />
+                        )}
                     </div>
                   </div>
                 </div>
