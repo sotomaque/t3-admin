@@ -18,29 +18,37 @@ const useRegisterUser = () => {
   const [hasSubmittedEmail, setHasSubmittedEmail] = useState(false);
   const [hasBeganRegisteringUser, setHasBegainRegisteringUser] =
     useState(false);
+  const [hasBeganSubmittingKycDocs, setHasBeganSubmittingKycDocs] =
+    useState(false);
 
   // Effect(s)
   const { setUserRegistrationStepAsCurrent } = useUsers();
-  const { data: isUsernameAvailable, refetch } = trpc.useQuery(
-    [
-      'registration.isUsernameAvailable',
-      {
-        username: registeredUsername,
-      },
-    ],
-    {
-      refetchOnWindowFocus: false,
-      enabled: registeredUsername.length > 0,
-    }
-  );
+  const {
+    data: isUsernameAvailableData,
+    error: isUsernameAvailableError,
+    mutateAsync: isUsernameAvailableMutation,
+  } = trpc.useMutation(['registration.isUsernameAvailable']);
+  const {
+    data: submitKycDocumentsData,
+    mutateAsync,
+    error: submitKycDocumentsError,
+  } = trpc.useMutation('kyc.submitKycDocuments');
   useEffect(() => {
     if (bearerToken && !hasBeganRegisteringUser) {
       registerUser();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bearerToken, hasBeganRegisteringUser]);
-
-  // Function(s)
+  useEffect(() => {
+    if (bearerToken && !hasBeganSubmittingKycDocs) {
+      submitKycDocuments();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [bearerToken, hasBeganSubmittingKycDocs]);
+  useEffect(() => {
+    console.error({ isUsernameAvailableError });
+  }, [isUsernameAvailableError]);
+  // Function(s) for registering user
   const registerUser = async () => {
     setHasBegainRegisteringUser(true);
     const randomUserData = await generateAndValidateRandomUserData();
@@ -51,12 +59,15 @@ const useRegisterUser = () => {
     const registerTestData = createUserDummyData();
     setTaskStatus('Registering User');
     setUserRegistrationStepAsCurrent(3);
-    await refetch();
+    await isUsernameAvailableMutation({
+      username: registerTestData.username,
+    });
 
-    if (isUsernameAvailable && !isUsernameAvailable.isAvailable) {
+    if (isUsernameAvailableData && !isUsernameAvailableData.isAvailable) {
       console.log('recurring', { username: `${registerTestData.username}` });
       await generateAndValidateRandomUserData();
     }
+    setUserRegistrationStepAsCurrent(4);
 
     return registerTestData;
   };
@@ -97,6 +108,13 @@ const useRegisterUser = () => {
 
     return registerUserData;
   };
+  const submitKycDocuments = async () => {
+    setHasBeganSubmittingKycDocs(true);
+    setUserRegistrationStepAsCurrent(5);
+    await mutateAsync({
+      token: bearerToken,
+    });
+  };
 
   return {
     email,
@@ -109,6 +127,7 @@ const useRegisterUser = () => {
     setHasSubmittedEmail,
     bearerToken,
     setBearerToken,
+    submitKycDocumentsData,
   };
 };
 

@@ -6,6 +6,8 @@ import {
   RecentUsersTable,
   RegisteredUserData,
   SearchUsers,
+  SelectedUserReferralsRow,
+  SelectedUsersReferralsTable,
   SelectedUsersTransfersTable,
   SelectedUserTransferRow,
   UserFlagsCard,
@@ -15,6 +17,7 @@ import {
 import {
   RecentUsersSection,
   SelectedUserSection,
+  SelectedUserReferralsSection,
   SelectedUserTransfersSection,
 } from './organisms';
 import {
@@ -34,7 +37,10 @@ export {
   RecentUsersTable,
   RegisteredUserData,
   SearchUsers,
+  SelectedUserReferralsRow,
+  SelectedUserReferralsSection,
   SelectedUserSection,
+  SelectedUsersReferralsTable,
   SelectedUsersTransfersTable,
   SelectedUserTransferRow,
   SelectedUserTransfersSection,
