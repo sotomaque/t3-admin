@@ -9,7 +9,6 @@ This is an app bootstrapped according to the [init.tips](https://init.tips) stac
 - Typescript
 - TRPC
 - React Query
-- NextAuth
 - TailwindCSS
 
 ## Goals
@@ -25,6 +24,9 @@ This is an app bootstrapped according to the [init.tips](https://init.tips) stac
   - frontend / backend folks alike
 - Increase the number of accounts we test with
   - currently rely heavily on `satishgalt` account that may work fine, while newer accounts may be broken
+- Prepare us for maintaining webapps!
+  - teach the team via trial and error how to deal with a large app (component library, architecture, etc.)
+  - help us identify technologies we want to work with
 
 ## Todo
 
