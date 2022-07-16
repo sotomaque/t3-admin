@@ -1,5 +1,6 @@
 import { useUsers } from 'store';
 import { Referral } from 'types';
+import ReferralsEmptyState from '../ReferralsEmptyState';
 import SelectedUserReferralsRow from '../SelectedUserReferralsRow';
 
 interface SelectedUsersTransfersTableProps {
@@ -12,11 +13,7 @@ const SelectedUsersReferralsTable = ({
   const { selectedUser } = useUsers();
 
   if (referrals.length === 0) {
-    return (
-      <div className="p-4">
-        No Referrals for {selectedUser?.userID ?? 'this user'}
-      </div>
-    );
+    return <ReferralsEmptyState userId={selectedUser?.userID} />;
   }
 
   return (

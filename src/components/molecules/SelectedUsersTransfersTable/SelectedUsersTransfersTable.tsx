@@ -1,6 +1,7 @@
 import { useUsers } from 'store';
 import { Transaction } from 'types';
 import SelectedUserTransferRow from '../SelectedUserTransferRow';
+import TransfersEmptyState from '../TransfersEmptyState';
 
 interface SelectedUsersTransfersTableProps {
   transfers: [] | Transaction[];
@@ -12,11 +13,7 @@ const SelectedUsersTransfersTable = ({
   const { selectedUser } = useUsers();
 
   if (transfers.length === 0) {
-    return (
-      <div className="p-4">
-        No Transfers for {selectedUser?.userID ?? 'this user'}
-      </div>
-    );
+    return <TransfersEmptyState userId={selectedUser?.userID} />;
   }
 
   return (
