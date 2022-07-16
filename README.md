@@ -36,8 +36,8 @@ This is an app bootstrapped according to the [init.tips](https://init.tips) stac
 - [&check;] User Creation Skeleton UI
 - [&check;] User Transfers UI
 - [&check;] User Transfers API
-- [ ] Update ENVs
-- [ ] Deploy to Vercel
+- [&check;] Update ENVs
+- [&check;] Deploy to Vercel
 - [ ] Auth (Google / Github)
 - [ ] Finish User Creation Flow
 - [ ] Services / Repos Section
