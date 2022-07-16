@@ -38,6 +38,14 @@ This is an app bootstrapped according to the [init.tips](https://init.tips) stac
 - [&check;] User Transfers API
 - [&check;] Update ENVs
 - [&check;] Deploy to Vercel
+- [&check;] Referrals
+- [&check;] Pretty Placeholder
+- [ ] Create Referrals (in any valid state)
+- [ ] Create Transfers (depoit / withdraw / giftcard)
+- [ ] LaunchDarkly connection (toggle flags, toggle flags for user)
+- [ ] Pinwheel (see their set up payrolls)
+- [ ] Lithic (see users cards / transactions / apply for card / etc.)
+- [ ] Papaya (read only -> see bill payments)
 - [ ] Auth (Google / Github)
 - [ ] Finish User Creation Flow
 - [ ] Services / Repos Section
