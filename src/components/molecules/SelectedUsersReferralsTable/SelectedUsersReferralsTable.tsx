@@ -3,13 +3,13 @@ import { Referral } from 'types';
 import ReferralsEmptyState from '../ReferralsEmptyState';
 import SelectedUserReferralsRow from '../SelectedUserReferralsRow';
 
-interface SelectedUsersTransfersTableProps {
+interface SelectedUsersReferralsTableProps {
   referrals: [] | Referral[];
 }
 
 const SelectedUsersReferralsTable = ({
   referrals,
-}: SelectedUsersTransfersTableProps) => {
+}: SelectedUsersReferralsTableProps) => {
   const { selectedUser } = useUsers();
 
   if (referrals.length === 0) {
