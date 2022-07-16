@@ -87,7 +87,6 @@ export const userRouter = createRouter()
           message: 'Invalid Response (empty or not an array) in usersByUserId',
           code: 'INTERNAL_SERVER_ERROR',
         });
-        return;
       }
 
       // extract user from the response
@@ -105,12 +104,35 @@ export const userRouter = createRouter()
       // get username from input
       const { username } = input;
 
-      let baseURL = `https://api.staging.app.eco.com`;
-      let usernameEndpoint = `/api/v1/admin/users?username=${username}`;
-      let fullURL = `${baseURL}${usernameEndpoint}`;
+      // validate input
+      if (!username || typeof username !== 'string') {
+        throw new TRPCError({
+          message: 'Invalid Username Provided to usersByUsername',
+          code: 'BAD_REQUEST',
+        });
+      }
+
+      // Build URL
+      const baseURL = process.env.ECO_BASE_URL;
+      const usersURL = process.env.ECO_RECENT_USERS;
+      if (!usersURL || typeof usersURL !== 'string') {
+        throw new TRPCError({
+          message: 'Missing Users URL',
+          code: 'INTERNAL_SERVER_ERROR',
+        });
+      }
+      if (!baseURL || typeof baseURL !== 'string') {
+        throw new TRPCError({
+          message: 'Missing Base URL',
+          code: 'INTERNAL_SERVER_ERROR',
+        });
+      }
+      const usernameQuery = `?username=${username}`;
+      const fullURL = `${baseURL}${usersURL}${usernameQuery}`;
 
       // make fetch request to the server for given username
       const response = await fetch(fullURL);
+
       // parse the response
       const body = await response.json();
       if (!body || !Array.isArray(body) || body.length < 1) {
