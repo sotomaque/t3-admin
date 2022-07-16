@@ -1,5 +1,5 @@
 import { TRPCError } from '@trpc/server';
-import { User } from 'types/index';
+import { Referral, User } from 'types/index';
 import { createRouter } from './context';
 import { z } from 'zod';
 
@@ -148,5 +148,64 @@ export const userRouter = createRouter()
 
       // return user(s)
       return { users };
+    },
+  })
+  .query('referralsByUserId', {
+    input: z.object({
+      userId: z.string(),
+      pageSize: z.string().optional().default('10'),
+    }),
+    async resolve({ input }) {
+      // get userId from input
+      const { userId, pageSize } = input;
+
+      // validate userId
+      if (!userId.startsWith('user:')) {
+        throw new TRPCError({
+          message: 'Invalid UserID Provided to referralsByUserId',
+          code: 'BAD_REQUEST',
+        });
+      }
+
+      // Build URL
+      const baseURL = process.env.ECO_BASE_URL;
+      const referralsURL = process.env.ECO_REFERRALS;
+      if (!baseURL || typeof baseURL !== 'string') {
+        throw new TRPCError({
+          message: 'Missing Base URL',
+          code: 'INTERNAL_SERVER_ERROR',
+        });
+      }
+      if (!referralsURL || typeof referralsURL !== 'string') {
+        throw new TRPCError({
+          message: 'Missing Referrals URL',
+          code: 'INTERNAL_SERVER_ERROR',
+        });
+      }
+      const pageSizeQuery = `?pageSize=${pageSize}`;
+      const userIdQuery = `&referringUserID=${userId}`;
+      const fullURL = `${baseURL}${referralsURL}${pageSizeQuery}${userIdQuery}`;
+
+      // make fetch request to the server for given userId
+      const response = await fetch(fullURL);
+
+      // parse the response
+      const body = await response.json();
+      if (!body || !body?.referrals || !Array.isArray(body.referrals)) {
+        throw new TRPCError({
+          message: 'Invalid Response in referralsByUserId',
+          code: 'INTERNAL_SERVER_ERROR',
+        });
+      }
+
+      if (body.referrals.length < 1) {
+        return { referrals: [] };
+      }
+
+      // extract referrals from the response
+      const referrals: Referral[] = body.referrals;
+
+      // return referrals
+      return { referrals };
     },
   });

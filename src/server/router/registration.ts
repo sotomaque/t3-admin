@@ -236,7 +236,7 @@ export const registrationRouter = createRouter()
       }
     },
   })
-  .query('isUsernameAvailable', {
+  .mutation('isUsernameAvailable', {
     input: z.object({ username: z.string().min(0).max(400) }),
     async resolve({ ctx, input }) {
       // Process Input

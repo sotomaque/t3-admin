@@ -1,6 +1,7 @@
 import {
   UserProfileSummary,
   SelectedUserTransfersSection,
+  SelectedUserReferralsSection,
   UserFlagsCard,
 } from 'components';
 import { User } from 'types';
@@ -26,6 +27,11 @@ const SelectedUserSection = ({ user }: SelectedUserSectionProps) => {
       <div className="h-10" />
       <div className="p-4 bg-white">
         <SelectedUserTransfersSection userId={user.userID} />
+      </div>
+      {/* Third Row */}
+      <div className="h-10" />
+      <div className="p-4 bg-white">
+        <SelectedUserReferralsSection user={user} />
       </div>
     </div>
   );

@@ -1,19 +1,19 @@
 import { useUsers } from 'store';
-import { Transaction } from 'types';
-import SelectedUserTransferRow from '../SelectedUserTransferRow';
-import TransfersEmptyState from '../TransfersEmptyState';
+import { Referral } from 'types';
+import ReferralsEmptyState from '../ReferralsEmptyState';
+import SelectedUserReferralsRow from '../SelectedUserReferralsRow';
 
-interface SelectedUsersTransfersTableProps {
-  transfers: [] | Transaction[];
+interface SelectedUsersReferralsTableProps {
+  referrals: [] | Referral[];
 }
 
-const SelectedUsersTransfersTable = ({
-  transfers,
-}: SelectedUsersTransfersTableProps) => {
+const SelectedUsersReferralsTable = ({
+  referrals,
+}: SelectedUsersReferralsTableProps) => {
   const { selectedUser } = useUsers();
 
-  if (transfers.length === 0) {
-    return <TransfersEmptyState userId={selectedUser?.userID} />;
+  if (referrals.length === 0) {
+    return <ReferralsEmptyState userId={selectedUser?.userID} />;
   }
 
   return (
@@ -25,37 +25,43 @@ const SelectedUsersTransfersTable = ({
             scope="col"
             className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
           >
-            ID
+            Referral ID
           </th>
           <th
             scope="col"
             className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
           >
-            Amount
+            Referred User - Email
           </th>
           <th
             scope="col"
             className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
           >
-            Category
+            Referred User - Total Deposited
           </th>
           <th
             scope="col"
             className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
           >
-            State
+            Referral State
           </th>
-          <th scope="col" className="relative py-3.5 pl-3 pr-4 sm:pr-6">
-            <span className="sr-only">Select</span>
+          <th
+            scope="col"
+            className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+          >
+            Created At
           </th>
         </tr>
       </thead>
 
       {/* Body */}
       <tbody className="divide-y divide-gray-200 bg-white">
-        {transfers.map((transfer) => (
-          <tr key={transfer.transactionID} className="hover:bg-gray-50">
-            <SelectedUserTransferRow transfer={transfer} />
+        {referrals.map((referral, idx) => (
+          <tr
+            key={`${referral.referralID}-${idx}`}
+            className="hover:bg-gray-50"
+          >
+            <SelectedUserReferralsRow referral={referral} />
           </tr>
         ))}
       </tbody>
@@ -63,4 +69,4 @@ const SelectedUsersTransfersTable = ({
   );
 };
 
-export default SelectedUsersTransfersTable;
+export default SelectedUsersReferralsTable;

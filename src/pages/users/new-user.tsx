@@ -33,10 +33,15 @@ const NewUserContent = () => {
     setEmail,
     setHasSubmittedEmail,
     setTaskStatus,
+    submitKycDocumentsData,
   } = useRegisterUser();
+
   useEffect(() => {
     setSelectedRoute('Users');
   }, [setSelectedRoute]);
+  useEffect(() => {
+    console.log({ submitKycDocumentsData });
+  }, [submitKycDocumentsData]);
 
   // Function(s)
   const handleOnBackClicked = () => {
