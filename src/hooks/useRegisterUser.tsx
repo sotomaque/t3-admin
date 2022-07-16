@@ -20,6 +20,7 @@ const useRegisterUser = () => {
     useState(false);
 
   // Effect(s)
+  const { setUserRegistrationStepAsCurrent } = useUsers();
   const { data: isUsernameAvailable, refetch } = trpc.useQuery(
     [
       'registration.isUsernameAvailable',
@@ -38,8 +39,6 @@ const useRegisterUser = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bearerToken, hasBeganRegisteringUser]);
-  const { setUserRegistrationStepAsCurrent, userRegistrationSteps } =
-    useUsers();
 
   // Function(s)
   const registerUser = async () => {

@@ -1,4 +1,4 @@
-import { useUsers } from 'store';
+import { useUsers, useLayout } from 'store';
 
 export const connectZustandStateToReduxDevtools = () => {
   let isUpdateFromDevtools = false;
@@ -17,7 +17,9 @@ export const connectZustandStateToReduxDevtools = () => {
   // connect to redux dev tools
   if (typeof window !== 'undefined') {
     // Client-side-only code'
-    // @ts-ignore
+    // @ts-ignore next-line
+
+    // User State
     const connection = window?.__REDUX_DEVTOOLS_EXTENSION__?.connect({
       name: 'User State',
     });
@@ -32,6 +34,30 @@ export const connectZustandStateToReduxDevtools = () => {
       }
     });
     useUsers.subscribe((newState, prevState) => {
+      if (!isUpdateFromDevtools) {
+        const changedKey = returnKeyOfChangedValue(prevState, newState);
+        if (changedKey) {
+          connection?.send(`${changedKey}`, newState);
+        } else {
+          connection?.send('Initial State', newState);
+        }
+      }
+    });
+    // @ts-ignore next-line
+    const connection2 = window?.__REDUX_DEVTOOLS_EXTENSION__?.connect({
+      name: 'Layout State',
+    });
+    connection2?.init(useLayout.getState());
+    // @ts-ignore
+    connection2?.subscribe((evt) => {
+      if (evt.type === 'DISPATCH') {
+        const newState = JSON.parse(evt.state);
+        isUpdateFromDevtools = true;
+        useLayout.setState(newState);
+        isUpdateFromDevtools = false;
+      }
+    });
+    useLayout.subscribe((newState, prevState) => {
       if (!isUpdateFromDevtools) {
         const changedKey = returnKeyOfChangedValue(prevState, newState);
         if (changedKey) {

@@ -7,6 +7,8 @@ import {
 } from 'components';
 import { useRegisterUser } from 'hooks';
 import { useRouter } from 'next/router';
+import { useEffect } from 'react';
+import { useLayout } from 'store';
 
 const NewUser = () => {
   return (
@@ -18,8 +20,9 @@ const NewUser = () => {
 };
 
 const NewUserContent = () => {
+  // Effect(s)
   const router = useRouter();
-
+  const { setSelectedRoute } = useLayout();
   const {
     bearerToken,
     email,
@@ -31,7 +34,11 @@ const NewUserContent = () => {
     setHasSubmittedEmail,
     setTaskStatus,
   } = useRegisterUser();
+  useEffect(() => {
+    setSelectedRoute('Users');
+  }, [setSelectedRoute]);
 
+  // Function(s)
   const handleOnBackClicked = () => {
     router.back();
   };

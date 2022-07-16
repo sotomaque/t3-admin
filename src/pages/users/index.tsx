@@ -6,38 +6,41 @@ import {
   Spinner,
 } from 'components';
 import { useEffect, useRef } from 'react';
-import { useUsers } from 'store';
+import { useLayout, useUsers } from 'store';
 import { trpc } from 'utils/trpc';
 
 const Users = () => {
+  // Effect(s)
+  const { setSelectedRoute } = useLayout();
   const { setRecentUsers, recentUsers, selectedUser, setLoading } = useUsers();
   const { data: usersData, isLoading: usersLoading } = trpc.useQuery([
     'user.recentUsers',
   ]);
-
+  useEffect(() => {
+    setSelectedRoute('Users');
+  }, [setSelectedRoute]);
   useEffect(() => {
     if (usersData && usersData.users) {
       setRecentUsers(usersData.users);
     }
   }, [setRecentUsers, usersData]);
-
   useEffect(() => {
     setLoading(usersLoading);
   }, [setLoading, usersLoading]);
-
-  const selectedUserRef = useRef(null);
-
-  const scrollToBottom = () => {
-    // @ts-ignore:next-line
-    selectedUserRef?.current?.scrollIntoView({ behavior: 'smooth' });
-  };
-
   useEffect(() => {
     if (selectedUser) {
       scrollToBottom();
     }
   }, [selectedUser]);
+  const selectedUserRef = useRef(null);
 
+  // Function(s)
+  const scrollToBottom = () => {
+    // @ts-ignore:next-line
+    selectedUserRef?.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  // Component
   return (
     <SingleColumnContentWrapper searchComponent={<SearchUsers />}>
       {usersLoading && (
