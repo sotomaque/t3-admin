@@ -1,13 +1,13 @@
 import { Transition } from '@headlessui/react';
 import { CheckCircleIcon, XIcon } from '@heroicons/react/outline';
-import { Dispatch, Fragment, SetStateAction } from 'react';
+import { Fragment } from 'react';
 
 const Notification = ({
   show,
   setShow,
 }: {
   show: boolean;
-  setShow: Dispatch<SetStateAction<boolean>>;
+  setShow: (showNotification: boolean) => void;
 }) => {
   return (
     <div

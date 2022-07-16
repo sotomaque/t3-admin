@@ -3,6 +3,7 @@ import {
   ClipboardCopyIcon,
 } from '@heroicons/react/outline';
 import { useState } from 'react';
+import { useLayout } from 'store';
 import Notification from '../Notification';
 
 const CopyableRow = ({
@@ -21,47 +22,44 @@ const CopyableRow = ({
   chipColor?: string;
 }) => {
   const [hasCopied, setHasCopied] = useState(false);
-  const [show, setShow] = useState(false);
+  const { setShowNotification } = useLayout();
 
   const handleCopy = () => {
     if (disableCopying) return;
     navigator.clipboard.writeText(rowData);
     setHasCopied(true);
-    setShow(true);
+    setShowNotification(true);
     setTimeout(() => {
-      setShow(false);
+      setShowNotification(false);
     }, 3000);
   };
 
   return (
-    <>
-      <div
-        className={`flex justify-between mt-4 ${className != '' && className}`}
-      >
-        <p className="text-left text-xs hidden md:flex">{rowName}</p>
+    <div
+      className={`flex justify-between mt-4 ${className != '' && className}`}
+    >
+      <p className="text-left text-xs hidden md:flex">{rowName}</p>
 
-        <div className="flex items-center">
-          <p
-            className={`text-sm text-center md:text-right ${
-              chip ? `px-2.5 py-0.5 rounded-full ${chipColor}` : 'pr-1'
-            }`}
-          >
-            {rowData}
-          </p>
+      <div className="flex items-center">
+        <p
+          className={`text-sm text-center md:text-right ${
+            chip ? `px-2.5 py-0.5 rounded-full ${chipColor}` : 'pr-1'
+          }`}
+        >
+          {rowData}
+        </p>
 
-          {!disableCopying && (
-            <div onClick={() => handleCopy()} className="cursor-pointer">
-              {hasCopied ? (
-                <ClipboardCheckIcon color="green" height={15} width={15} />
-              ) : (
-                <ClipboardCopyIcon height={15} width={15} />
-              )}
-            </div>
-          )}
-        </div>
+        {!disableCopying && (
+          <div onClick={() => handleCopy()} className="cursor-pointer">
+            {hasCopied ? (
+              <ClipboardCheckIcon color="green" height={15} width={15} />
+            ) : (
+              <ClipboardCopyIcon height={15} width={15} />
+            )}
+          </div>
+        )}
       </div>
-      <Notification show={show} setShow={setShow} />
-    </>
+    </div>
   );
 };
 

@@ -1,5 +1,4 @@
 import RecentUsersRow from 'components/molecules/RecentUsersRow';
-import { useEffect } from 'react';
 import { useUsers } from 'store';
 import { User } from 'types';
 
@@ -9,10 +8,6 @@ interface RecentUsersTableProps {
 
 const RecentUsersTable = ({ users }: RecentUsersTableProps) => {
   const { selectedUser } = useUsers();
-
-  useEffect(() => {
-    console.log({ users });
-  }, [users]);
 
   if (!users) {
     return <div className="p-4">No Results for username</div>;

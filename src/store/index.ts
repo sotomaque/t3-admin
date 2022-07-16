@@ -1,4 +1,5 @@
 import { useUsers } from './useUsers';
+import { useLayout } from './useLayout';
 import { connectZustandStateToReduxDevtools } from './reduxDevToolsConfig';
 
-export { connectZustandStateToReduxDevtools, useUsers };
+export { connectZustandStateToReduxDevtools, useLayout, useUsers };

@@ -1,4 +1,4 @@
-import { TaskStatusType } from 'pages/users/new-user';
+import { TaskStatusType } from 'types/taskStatus';
 import { Dispatch, SetStateAction, useEffect } from 'react';
 import { useUsers } from 'store';
 import { trpc } from 'utils/trpc';
@@ -96,19 +96,11 @@ const EmailSection = ({
             items-center 
             text-xs`}
             >
-              {isLoading ? (
-                <>
-                  <svg
-                    className="animate-spin h-5 w-5 mr-3"
-                    viewBox="0 0 24 24"
-                  ></svg>
-                  Processing...
-                </>
-              ) : hasSubmittedEmail ? (
-                'Success'
-              ) : (
-                'Send Verificaiton Email'
-              )}
+              {isLoading
+                ? 'Processing...'
+                : hasSubmittedEmail
+                ? 'Success'
+                : 'Send'}
             </button>
           </div>
         </div>

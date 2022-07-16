@@ -42,7 +42,7 @@ const initialUserRegistrationStepsState: UserRegistrationProgressType[] = [
     id: 4,
     name: 'Create PT User',
     description: 'Create a PT Account for the user',
-    transferState: ['Createing PT Account'],
+    transferState: ['Creating PT Account'],
     status: 'upcoming',
   },
   {
