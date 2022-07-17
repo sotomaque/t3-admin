@@ -5,7 +5,8 @@ export type RouteName =
   | 'Users'
   | 'Documentation'
   | 'Repos'
-  | 'Services';
+  | 'Services'
+  | 'Feature Flags';
 
 export type RouteType = {
   name: RouteName;

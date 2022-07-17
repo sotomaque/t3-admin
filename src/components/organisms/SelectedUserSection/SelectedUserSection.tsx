@@ -1,5 +1,4 @@
 import {
-  FeatureFlagsSection,
   UserProfileSummary,
   SelectedUserTransfersSection,
   SelectedUserReferralsSection,
@@ -33,11 +32,6 @@ const SelectedUserSection = ({ user }: SelectedUserSectionProps) => {
       <div className="h-10" />
       <div className="p-4 bg-white">
         <SelectedUserReferralsSection user={user} />
-      </div>
-      {/* Feature Flags */}
-      <div className="h-10" />
-      <div className="p-4 bg-white">
-        <FeatureFlagsSection />
       </div>
     </div>
   );

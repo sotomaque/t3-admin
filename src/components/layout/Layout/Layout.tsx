@@ -17,6 +17,7 @@ const navigation: NavigationRoute[] = [
   { name: 'Services', href: '/services' },
   { name: 'Repos', href: '/repos' },
   { name: 'Dashboard', href: '/dashboards' },
+  { name: 'Feature Flags', href: '/featureFlags' },
 ];
 
 export default function Layout({
