@@ -14,6 +14,11 @@ export interface FeatureFlag {
   name: string;
   tags?: null[] | null;
   variationJsonSchema?: null;
+  environments: {
+    staging: {
+      on: boolean;
+    };
+  };
 }
 export interface Links {
   parent: LinksEntity;

@@ -17,9 +17,10 @@ import {
   UserRegistrationProgress,
 } from './molecules';
 import {
+  FeatureFlagsSection,
   RecentUsersSection,
-  SelectedUserSection,
   SelectedUserReferralsSection,
+  SelectedUserSection,
   SelectedUserTransfersSection,
 } from './organisms';
 import {
@@ -32,6 +33,7 @@ export {
   AccessCodeSection,
   CopyableRow,
   EmailSection,
+  FeatureFlagsSection,
   Layout,
   Notification,
   RecentUsersRow,

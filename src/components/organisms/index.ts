@@ -1,11 +1,13 @@
+import FeatureFlagsSection from './FeatureFlagsSection';
 import RecentUsersSection from './RecentUsersSection';
-import SelectedUserSection from './SelectedUserSection';
 import SelectedUserReferralsSection from './SelectedUserReferralsSection';
+import SelectedUserSection from './SelectedUserSection';
 import SelectedUserTransfersSection from './SelectedUserTransfersSection';
 
 export {
+  FeatureFlagsSection,
   RecentUsersSection,
-  SelectedUserSection,
   SelectedUserReferralsSection,
+  SelectedUserSection,
   SelectedUserTransfersSection,
 };
