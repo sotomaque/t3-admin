@@ -1,7 +1,13 @@
 import create from 'zustand';
 
 // Move to Types
-export type RoutePath = 'Home' | 'Users' | 'Services' | 'Repos' | 'Dashboard';
+export type RoutePath =
+  | 'Home'
+  | 'Users'
+  | 'Services'
+  | 'Repos'
+  | 'Dashboard'
+  | 'Feature Flags';
 
 // STATE TYPE
 type LayoutState = {

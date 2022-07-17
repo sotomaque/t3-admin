@@ -4,11 +4,11 @@ import { Referral, User } from 'types';
 import { trpc } from 'utils/trpc';
 
 const SelectedUserReferralsSection = ({ user }: { user: User }) => {
+  const [referrals, setReferrals] = useState<Referral[] | []>([]);
   const { data, isLoading, error } = trpc.useQuery([
     'user.referralsByUserId',
     { userId: user.userID },
   ]);
-  const [referrals, setReferrals] = useState<Referral[] | []>([]);
 
   useEffect(() => {
     if (data && data.referrals) {

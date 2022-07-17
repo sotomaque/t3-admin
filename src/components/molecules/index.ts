@@ -1,5 +1,8 @@
 import AccessCodeSection from './AccessCodeSection';
 import EmailSection from './EmailSection';
+import FeatureFlagGridList from './FeatureFlagGridList';
+import FeatureFlagsEmptyState from './FeatureFlagsEmptyState';
+import FeatureFlagToggleList from './FeatureFlagToggleList';
 import RecentUsersRow from './RecentUsersRow';
 import RecentUsersTable from './RecentUsersTable';
 import ReferralsEmptyState from './ReferralsEmptyState';
@@ -17,6 +20,9 @@ import UserRegistrationProgress from './UserRegistrationProgress';
 export {
   AccessCodeSection,
   EmailSection,
+  FeatureFlagGridList,
+  FeatureFlagsEmptyState,
+  FeatureFlagToggleList,
   RecentUsersRow,
   RecentUsersTable,
   ReferralsEmptyState,

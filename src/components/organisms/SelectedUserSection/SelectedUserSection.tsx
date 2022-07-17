@@ -13,7 +13,7 @@ interface SelectedUserSectionProps {
 const SelectedUserSection = ({ user }: SelectedUserSectionProps) => {
   return (
     <div>
-      {/* First Row */}
+      {/* Profile / User Flags */}
       <div className="h-10" />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="col-span-1 md:bg-white">
@@ -23,12 +23,12 @@ const SelectedUserSection = ({ user }: SelectedUserSectionProps) => {
           <UserFlagsCard user={user} />
         </div>
       </div>
-      {/* Second Row */}
+      {/* Transfers */}
       <div className="h-10" />
       <div className="p-4 bg-white">
         <SelectedUserTransfersSection userId={user.userID} />
       </div>
-      {/* Third Row */}
+      {/* Referrals */}
       <div className="h-10" />
       <div className="p-4 bg-white">
         <SelectedUserReferralsSection user={user} />

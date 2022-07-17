@@ -2,6 +2,9 @@ import { CopyableRow, Notification, Spinner } from './atoms';
 import {
   AccessCodeSection,
   EmailSection,
+  FeatureFlagGridList,
+  FeatureFlagsEmptyState,
+  FeatureFlagToggleList,
   RecentUsersRow,
   RecentUsersTable,
   ReferralsEmptyState,
@@ -18,8 +21,8 @@ import {
 } from './molecules';
 import {
   RecentUsersSection,
-  SelectedUserSection,
   SelectedUserReferralsSection,
+  SelectedUserSection,
   SelectedUserTransfersSection,
 } from './organisms';
 import {
@@ -32,6 +35,9 @@ export {
   AccessCodeSection,
   CopyableRow,
   EmailSection,
+  FeatureFlagGridList,
+  FeatureFlagsEmptyState,
+  FeatureFlagToggleList,
   Layout,
   Notification,
   RecentUsersRow,
