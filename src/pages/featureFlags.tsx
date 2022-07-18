@@ -1,13 +1,24 @@
-import {
-  FeatureFlagGridList,
-  SingleColumnContentWrapper,
-  Spinner,
-} from 'components';
 import type { NextPage } from 'next';
+import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
 import { useLayout } from 'store';
 import { FeatureFlag } from 'types/featureFlags';
 import { trpc } from 'utils/trpc';
+
+const SingleColumnContentWrapper = dynamic(
+  () =>
+    import(
+      'components/layout/LayoutContentWrappers/SingleColumnContentWrapper'
+    ),
+  { ssr: false }
+);
+const Spinner = dynamic(() => import('components/atoms/Spinner'), {
+  ssr: false,
+});
+const FeatureFlagGridList = dynamic(
+  () => import('components/molecules/FeatureFlagGridList'),
+  { ssr: false }
+);
 
 const FeatureFlagsPage: NextPage = () => {
   const { setSelectedRoute } = useLayout();

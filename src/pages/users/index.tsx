@@ -1,13 +1,29 @@
-import {
-  RecentUsersSection,
-  SearchUsers,
-  SelectedUserSection,
-  SingleColumnContentWrapper,
-  Spinner,
-} from 'components';
+import dynamic from 'next/dynamic';
 import { useEffect, useRef } from 'react';
 import { useLayout, useUsers } from 'store';
 import { trpc } from 'utils/trpc';
+
+const SingleColumnContentWrapper = dynamic(
+  () =>
+    import(
+      'components/layout/LayoutContentWrappers/SingleColumnContentWrapper'
+    ),
+  { ssr: false }
+);
+const RecentUsersSection = dynamic(
+  () => import('components/organisms/RecentUsersSection'),
+  { ssr: false }
+);
+const SearchUsers = dynamic(() => import('components/molecules/SearchUsers'), {
+  ssr: false,
+});
+const SelectedUserSection = dynamic(
+  () => import('components/organisms/SelectedUserSection'),
+  { ssr: false }
+);
+const Spinner = dynamic(() => import('components/atoms/Spinner'), {
+  ssr: false,
+});
 
 const RecentUsersPage = () => {
   // Effect(s)
