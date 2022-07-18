@@ -8,7 +8,7 @@ const FeatureFlagsGrid = ({ flags }: { flags: FeatureFlag[] | [] }) => {
   }
 
   return (
-    <div>
+    <>
       {flags.map((flag) => {
         return (
           <FeatureFlagToggleList
@@ -19,7 +19,7 @@ const FeatureFlagsGrid = ({ flags }: { flags: FeatureFlag[] | [] }) => {
           />
         );
       })}
-    </div>
+    </>
   );
 };
 

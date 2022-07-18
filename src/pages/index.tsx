@@ -1,10 +1,10 @@
 import type { NextPage } from 'next';
 import { useEffect } from 'react';
 import { useLayout } from 'store';
-import Users from './users';
+import RecentUsersPage from './users';
 
 // TODO: add custom homepage
-const Home: NextPage = () => {
+const HomePage: NextPage = () => {
   const { setSelectedRoute } = useLayout();
 
   useEffect(() => {
@@ -12,7 +12,7 @@ const Home: NextPage = () => {
   }, [setSelectedRoute]);
 
   // TODO: add home page content
-  return <Users />;
+  return <RecentUsersPage />;
 };
 
-export default Home;
+export default HomePage;

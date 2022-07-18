@@ -10,7 +10,7 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useLayout } from 'store';
 
-const NewUser = () => {
+const NewUserPage = () => {
   return (
     <TwoColumnContentWrapper
       sidebarContent={<UserRegistrationProgress />}
@@ -120,4 +120,4 @@ const NewUserContent = () => {
   );
 };
 
-export default NewUser;
+export default NewUserPage;

@@ -6,6 +6,7 @@ This is an app bootstrapped according to the [init.tips](https://init.tips) stac
 
 ## Stack includes:
 
+- Next.js
 - Typescript
 - TRPC
 - React Query
@@ -21,6 +22,10 @@ This is an app bootstrapped according to the [init.tips](https://init.tips) stac
 
   - React has made UI development accessible in ways we never imagined before. It also can lead developers down some rough paths. Next.js offers a lightly opinionated, heavily optimized approach to creating a website using React. From routing to API definitions to image rendering, we trust Next.js to lead developers towards good decisions.
 
+- Why TailwindCSS?
+
+  - CSS is hard. Why add more rules?
+
 - Why ReactQuery ?
 
   - ReactQuery makes making requests easy and consistet; No need to have your component hold some local state such as `loading` / `error` / `retry`, and even more importantly, no need to develop your own caching / cache invalidation logic. Get it right out of the box with minimal overhead.
@@ -30,7 +35,7 @@ This is an app bootstrapped according to the [init.tips](https://init.tips) stac
 
 ## Goals
 
-- Ability to do ANYTHING you want to do to effectively and efficiently test in lower environments
+- Ability to easily test complex scenarios with fresh users in lower env's
   - Anything you often find yourself doing on Postman / DB Queries that take more then 1 step, should be automated and accessible to all via a simple UI that wraps that logic
 - Become the 'home page for engineers' (alternatively the 'unbank for engineers')
   - Show relevant dashboards

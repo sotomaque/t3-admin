@@ -2,7 +2,7 @@ import { Fragment } from 'react';
 import { Popover, Transition } from '@headlessui/react';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
 import Image from 'next/image';
-import { Notification } from 'components/atoms';
+import { CommandPalette, Notification } from 'components/atoms';
 import { useLayout } from 'store';
 import { RoutePath } from 'store/useLayout';
 
@@ -27,7 +27,13 @@ export default function Layout({
   searchComponent?: React.ReactNode;
   children: React.ReactNode;
 }) {
-  const { showNotification, setShowNotification, selectedRoute } = useLayout();
+  const {
+    showNotification,
+    setShowNotification,
+    selectedRoute,
+    showPopup,
+    setShowPopup,
+  } = useLayout();
 
   return (
     <>
@@ -57,6 +63,7 @@ export default function Layout({
               show={showNotification}
               setShow={setShowNotification}
             />
+            <CommandPalette show={showPopup} setShow={setShowPopup} />
           </>
         </main>
         <Footer />

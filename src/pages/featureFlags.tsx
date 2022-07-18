@@ -9,7 +9,7 @@ import { useLayout } from 'store';
 import { FeatureFlag } from 'types/featureFlags';
 import { trpc } from 'utils/trpc';
 
-const FeatureFlags: NextPage = () => {
+const FeatureFlagsPage: NextPage = () => {
   const { setSelectedRoute } = useLayout();
   const [featureFlags, setFeatureFlags] = useState<FeatureFlag[] | []>([]);
   const { data, isLoading, error } = trpc.useQuery([
@@ -58,4 +58,4 @@ const FeatureFlags: NextPage = () => {
   );
 };
 
-export default FeatureFlags;
+export default FeatureFlagsPage;

@@ -1,4 +1,10 @@
-import { CopyableRow, Notification, Spinner } from './atoms';
+import {
+  CommandPalette,
+  CopyableRow,
+  Notification,
+  Popup,
+  Spinner,
+} from './atoms';
 import {
   AccessCodeSection,
   EmailSection,
@@ -33,6 +39,7 @@ import {
 
 export {
   AccessCodeSection,
+  CommandPalette,
   CopyableRow,
   EmailSection,
   FeatureFlagGridList,
@@ -40,6 +47,7 @@ export {
   FeatureFlagToggleList,
   Layout,
   Notification,
+  Popup,
   RecentUsersRow,
   RecentUsersSection,
   RecentUsersTable,
