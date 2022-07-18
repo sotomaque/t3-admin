@@ -9,7 +9,7 @@ import { useEffect, useRef } from 'react';
 import { useLayout, useUsers } from 'store';
 import { trpc } from 'utils/trpc';
 
-const Users = () => {
+const RecentUsersPage = () => {
   // Effect(s)
   const { setSelectedRoute } = useLayout();
   const { setRecentUsers, recentUsers, selectedUser, setLoading } = useUsers();
@@ -69,4 +69,4 @@ const Users = () => {
   );
 };
 
-export default Users;
+export default RecentUsersPage;
