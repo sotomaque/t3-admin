@@ -143,10 +143,6 @@ export const userRouter = createRouter()
         });
       }
 
-      if (!body.length) {
-        return [];
-      }
-
       // extract user(s) from the response
       const users: User[] = body;
 
