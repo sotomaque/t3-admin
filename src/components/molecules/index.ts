@@ -16,6 +16,7 @@ import TransfersEmptyState from './TransfersEmptyState';
 import UserFlagsCard from './UserFlagsCard';
 import UserProfileSummary from './UserProfileSummary';
 import UserRegistrationProgress from './UserRegistrationProgress';
+import UserSearchResultsEmptyState from './UserSearchResultsEmptyState';
 
 export {
   AccessCodeSection,
@@ -36,4 +37,5 @@ export {
   UserFlagsCard,
   UserProfileSummary,
   UserRegistrationProgress,
+  UserSearchResultsEmptyState,
 };

@@ -24,6 +24,7 @@ import {
   UserFlagsCard,
   UserProfileSummary,
   UserRegistrationProgress,
+  UserSearchResultsEmptyState,
 } from './molecules';
 import {
   RecentUsersSection,
@@ -68,4 +69,5 @@ export {
   UserFlagsCard,
   UserProfileSummary,
   UserRegistrationProgress,
+  UserSearchResultsEmptyState,
 };
