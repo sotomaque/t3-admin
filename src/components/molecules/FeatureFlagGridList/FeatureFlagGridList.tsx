@@ -7,8 +7,6 @@ const FeatureFlagsGrid = ({ flags }: { flags: FeatureFlag[] | [] }) => {
     return <FeatureFlagsEmptyState />;
   }
 
-  console.log({ flags });
-
   return (
     <>
       {flags.map((flag) => {
