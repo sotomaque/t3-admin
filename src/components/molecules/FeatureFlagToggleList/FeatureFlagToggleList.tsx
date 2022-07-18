@@ -12,7 +12,7 @@ const FeatureFlagToggleList = ({
 }) => {
   const { setShowPopup } = useLayout();
   const handleOnToggle = () => {
-    setShowPopup(true);
+    // setShowPopup(true);
   };
 
   return (
