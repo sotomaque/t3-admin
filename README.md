@@ -1,5 +1,9 @@
 # Eco Admin App
 
+## General
+
+This is an app bootstrapped according to the [init.tips](https://init.tips) stack, also known as the T3-Stack.
+
 ## Stack includes:
 
 - Next.js
@@ -31,7 +35,7 @@
 
 ## Goals
 
-- Ability to do ANYTHING you want to do to effectively and efficiently test in lower environments (staging / local)
+- Ability to easily test complex scenarios with fresh users in lower env's
   - Anything you often find yourself doing on Postman / DB Queries that take more then 1 step, should be automated and accessible to all via a simple UI that wraps that logic
 - Become the 'home page for engineers' (alternatively the 'unbank for engineers')
   - Show relevant dashboards
