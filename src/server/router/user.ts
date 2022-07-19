@@ -147,7 +147,7 @@ export const userRouter = createRouter()
 
       // parse the response
       const body = await response.json();
-      if (!body || !Array.isArray(body) || body.length < 1) {
+      if (!body || !Array.isArray(body)) {
         throw new TRPCError({
           message:
             'Invalid Response (empty or not an array) in usersByUsername',

@@ -1,18 +1,14 @@
 import { Spinner } from 'components/atoms';
-import RecentUsersRow from 'components/molecules/RecentUsersRow';
 import { useUsers } from 'store';
 import { User } from 'types';
+import RecentUsersRow from '../RecentUsersRow';
 
 interface RecentUsersTableProps {
-  users: User[] | null;
+  users: User[];
 }
 
 const RecentUsersTable = ({ users }: RecentUsersTableProps) => {
   const { selectedUser, loading } = useUsers();
-
-  if (!users) {
-    return <div className="p-4">No Results for username</div>;
-  }
 
   return (
     <>

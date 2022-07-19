@@ -12,19 +12,19 @@ import { trpc } from 'utils/trpc';
 const FeatureFlagsPage: NextPage = () => {
   const { setSelectedRoute } = useLayout();
   const [featureFlags, setFeatureFlags] = useState<FeatureFlag[] | []>([]);
-  const { data, isLoading, error } = trpc.useQuery([
-    'featureFlags.getAllFeatureFlags',
-  ]);
+  const { data, isLoading, error } = trpc.useQuery(
+    ['featureFlags.getAllFeatureFlags'],
+    {
+      retry: false,
+    }
+  );
 
   useEffect(() => {
     setSelectedRoute('Feature Flags');
   }, [setSelectedRoute]);
 
   useEffect(() => {
-    // if the query gives us flags
-    if (data && data.flags) {
-      setFeatureFlags(data.flags);
-    }
+    setFeatureFlags(data?.flags ?? []);
   }, [data]);
 
   return (

@@ -3,6 +3,7 @@ import EmailSection from './EmailSection';
 import FeatureFlagGridList from './FeatureFlagGridList';
 import FeatureFlagsEmptyState from './FeatureFlagsEmptyState';
 import FeatureFlagToggleList from './FeatureFlagToggleList';
+import RecentUsersEmptyState from './RecentUsersEmptyState';
 import RecentUsersRow from './RecentUsersRow';
 import RecentUsersTable from './RecentUsersTable';
 import ReferralsEmptyState from './ReferralsEmptyState';
@@ -16,6 +17,7 @@ import TransfersEmptyState from './TransfersEmptyState';
 import UserFlagsCard from './UserFlagsCard';
 import UserProfileSummary from './UserProfileSummary';
 import UserRegistrationProgress from './UserRegistrationProgress';
+import UserSearchResultsEmptyState from './UserSearchResultsEmptyState';
 
 export {
   AccessCodeSection,
@@ -23,6 +25,7 @@ export {
   FeatureFlagGridList,
   FeatureFlagsEmptyState,
   FeatureFlagToggleList,
+  RecentUsersEmptyState,
   RecentUsersRow,
   RecentUsersTable,
   ReferralsEmptyState,
@@ -36,4 +39,5 @@ export {
   UserFlagsCard,
   UserProfileSummary,
   UserRegistrationProgress,
+  UserSearchResultsEmptyState,
 };

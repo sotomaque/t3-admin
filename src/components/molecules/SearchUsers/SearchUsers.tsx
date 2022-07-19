@@ -6,9 +6,21 @@ import { trpc } from 'utils/trpc';
 
 const SearchUsers = () => {
   const [filter, setFilter] = useState('');
-  const { setSearchResults, setSearchFilter: setFilterInState } = useUsers();
+  const {
+    setSearchResults,
+    setSearchFilter: setFilterInState,
+    setLoading,
+    clearSelectedUser,
+    setSearchError,
+    clearSearchError,
+    searchError,
+  } = useUsers();
   const debounedSearchValue = useDebounce(filter, 1000);
-  const { data: userResults } = trpc.useQuery(
+  const {
+    data: userResults,
+    isLoading: isSearchResultsLoading,
+    error: usersByUsernameError,
+  } = trpc.useQuery(
     [
       'user.usersByUsername',
       {
@@ -18,12 +30,32 @@ const SearchUsers = () => {
     {
       refetchOnWindowFocus: false,
       enabled: debounedSearchValue.length > 0,
+      retry: false,
     }
   );
 
   useEffect(() => {
-    setSearchResults(userResults?.users ?? null);
-  }, [setSearchResults, userResults]);
+    if (usersByUsernameError) {
+      setSearchError(usersByUsernameError.message);
+    } else {
+      searchError && clearSearchError();
+    }
+  }, [usersByUsernameError, setSearchError, searchError, clearSearchError]);
+
+  useEffect(() => {
+    setLoading(isSearchResultsLoading);
+  }, [setLoading, isSearchResultsLoading]);
+
+  useEffect(() => {
+    // clear selected user
+    clearSelectedUser();
+    // update search results in state
+    if (userResults?.users) {
+      setSearchResults(userResults.users);
+    } else {
+      setSearchResults(null);
+    }
+  }, [setSearchResults, userResults, clearSelectedUser]);
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFilter(e.target.value);

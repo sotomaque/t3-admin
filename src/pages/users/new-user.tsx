@@ -6,11 +6,12 @@ import {
   UserRegistrationProgress,
 } from 'components';
 import { useRegisterUser } from 'hooks';
+import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useLayout } from 'store';
 
-const NewUserPage = () => {
+const NewUserPage: NextPage = () => {
   return (
     <TwoColumnContentWrapper
       sidebarContent={<UserRegistrationProgress />}
@@ -34,14 +35,20 @@ const NewUserContent = () => {
     setHasSubmittedEmail,
     setTaskStatus,
     submitKycDocumentsData,
+    submitKycDocumentsError,
   } = useRegisterUser();
 
   useEffect(() => {
     setSelectedRoute('Users');
   }, [setSelectedRoute]);
+
+  // ??
   useEffect(() => {
-    console.log({ submitKycDocumentsData });
+    submitKycDocumentsData && console.log({ submitKycDocumentsData });
   }, [submitKycDocumentsData]);
+  useEffect(() => {
+    submitKycDocumentsError && console.error({ submitKycDocumentsError });
+  }, [submitKycDocumentsError]);
 
   // Function(s)
   const handleOnBackClicked = () => {
@@ -79,7 +86,7 @@ const NewUserContent = () => {
               <div className="mt-8 flex flex-col">
                 <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
                   <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
-                    <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
+                    <div className="overflow-hidden flex flex-col justify-start">
                       {/* Email Section */}
                       <EmailSection
                         email={email}

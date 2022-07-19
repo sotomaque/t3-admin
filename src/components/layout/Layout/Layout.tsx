@@ -4,12 +4,7 @@ import { MenuIcon, XIcon } from '@heroicons/react/outline';
 import Image from 'next/image';
 import { CommandPalette, Notification } from 'components/atoms';
 import { useLayout } from 'store';
-import { RoutePath } from 'store/useLayout';
-
-type NavigationRoute = {
-  name: RoutePath;
-  href: string;
-};
+import { NavigationRoute, RoutePath } from 'types/routes';
 
 const navigation: NavigationRoute[] = [
   { name: 'Home', href: '/' },
@@ -20,19 +15,14 @@ const navigation: NavigationRoute[] = [
   { name: 'Feature Flags', href: '/featureFlags' },
 ];
 
-export default function Layout({
-  searchComponent,
-  children,
-}: {
-  searchComponent?: React.ReactNode;
-  children: React.ReactNode;
-}) {
+export default function Layout({ children }: { children: React.ReactNode }) {
   const {
     showNotification,
     setShowNotification,
     selectedRoute,
     showPopup,
     setShowPopup,
+    searchComponent,
   } = useLayout();
 
   return (

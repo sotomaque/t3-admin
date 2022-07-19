@@ -77,7 +77,7 @@ const AccessCodeSection = ({
   }, [isLoading, isSuccess, error]);
 
   return (
-    <div className="my-6 p-4 sm:my-5 space-y-6 sm:space-y-5">
+    <div className="my-6 sm:my-5 space-y-6 sm:space-y-5">
       <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
         <label className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
           Enter Access Code

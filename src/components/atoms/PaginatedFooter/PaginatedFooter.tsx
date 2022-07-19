@@ -14,6 +14,9 @@ const PaginatedFooter = ({
   handleOnPrev,
   handleOnNext,
 }: PaginatedFooterProps) => {
+  const firstValueOnPage = (currentPage = 0 ? 1 : currentPage * 10 + 1);
+  const lastValueOnPage = firstValueOnPage + 9;
+
   return (
     <div className="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
       <div className="flex-1 flex justify-between sm:hidden">
@@ -33,9 +36,8 @@ const PaginatedFooter = ({
       <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
         <div>
           <p className="text-sm text-gray-700">
-            Showing <span className="font-medium">1</span> to{' '}
-            <span className="font-medium">10</span> of{' '}
-            <span className="font-medium">100</span> results
+            Showing <span className="font-medium">{firstValueOnPage}</span> to{' '}
+            <span className="font-medium">{lastValueOnPage}</span>
           </p>
         </div>
         <div>

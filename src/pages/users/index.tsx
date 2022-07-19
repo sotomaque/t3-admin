@@ -5,13 +5,15 @@ import {
   SingleColumnContentWrapper,
   Spinner,
 } from 'components';
-import { useEffect, useRef } from 'react';
+import { NextPage } from 'next';
+import React, { useEffect, useRef } from 'react';
 import { useLayout, useUsers } from 'store';
 import { trpc } from 'utils/trpc';
 
-const RecentUsersPage = () => {
+const RecentUsersPage: NextPage = () => {
   // Effect(s)
-  const { setSelectedRoute } = useLayout();
+  const { setSelectedRoute, setSearchComponent, clearSearchComponent } =
+    useLayout();
   const { setRecentUsers, recentUsers, selectedUser, setLoading } = useUsers();
   const { data: usersData, isLoading: usersLoading } = trpc.useQuery([
     'user.recentUsers',
@@ -25,14 +27,15 @@ const RecentUsersPage = () => {
   useEffect(() => {
     setSelectedRoute('Users');
   }, [setSelectedRoute]);
+
   useEffect(() => {
-    if (usersData && usersData.users) {
-      setRecentUsers(usersData.users);
-    }
+    setRecentUsers(usersData?.users ?? []);
   }, [setRecentUsers, usersData]);
+
   useEffect(() => {
     setLoading(usersLoading);
   }, [setLoading, usersLoading]);
+
   useEffect(() => {
     if (selectedUser) {
       scrollToBottom();
@@ -46,9 +49,18 @@ const RecentUsersPage = () => {
     selectedUserRef?.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  // Search Component
+  useEffect(() => {
+    setSearchComponent(<SearchUsers />);
+
+    return () => {
+      clearSearchComponent();
+    };
+  }, [setSearchComponent, clearSearchComponent]);
+
   // Component
   return (
-    <SingleColumnContentWrapper searchComponent={<SearchUsers />}>
+    <SingleColumnContentWrapper>
       {usersLoading && (
         <div className="flex items-center justify-center h-screen">
           <Spinner />
