@@ -1,14 +1,7 @@
+import { SingleColumnContentWrapper } from 'components';
 import type { NextPage } from 'next';
-import dynamic from 'next/dynamic';
 import { useEffect } from 'react';
 import { useLayout } from 'store';
-const SingleColumnContentWrapper = dynamic(
-  () =>
-    import(
-      'components/layout/LayoutContentWrappers/SingleColumnContentWrapper'
-    ),
-  { ssr: false }
-);
 
 const repos = [
   {

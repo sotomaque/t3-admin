@@ -38,14 +38,13 @@ const EmailSection = ({
   }, [isSuccess, setTaskStatus, setUserRegistrationStepAsCurrent]);
 
   return (
-    <div className="mb-6 p-4 sm:mb-5 space-y-6 sm:space-y-5">
+    <div className="mb-6 sm:mb-5 space-y-6 sm:space-y-5 ">
       <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:pt-5">
         <label
           htmlFor="email"
           className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
         >
-          Unique email <br />
-          <pre className="text-xs "> i.e. albert+10001@eco.com</pre>
+          Unique email
         </label>
         <div className="mt-1 sm:mt-0 sm:col-span-2">
           <div className="max-w-lg flex rounded-md ">

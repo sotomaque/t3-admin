@@ -1,16 +1,8 @@
-import type { NextPage } from 'next';
-import dynamic from 'next/dynamic';
+import { SingleColumnContentWrapper } from 'components';
+import { NextPage } from 'next';
 import { useEffect } from 'react';
 import { useLayout } from 'store';
 import { ServiceType } from 'types';
-
-const SingleColumnContentWrapper = dynamic(
-  () =>
-    import(
-      'components/layout/LayoutContentWrappers/SingleColumnContentWrapper'
-    ),
-  { ssr: false }
-);
 
 const services: ServiceType[] = [
   {

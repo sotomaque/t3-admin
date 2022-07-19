@@ -1,48 +1,38 @@
-import dynamic from 'next/dynamic';
-import { useEffect, useRef } from 'react';
+import {
+  RecentUsersSection,
+  SearchUsers,
+  SelectedUserSection,
+  SingleColumnContentWrapper,
+  Spinner,
+} from 'components';
+import { NextPage } from 'next';
+import React, { useEffect, useRef } from 'react';
 import { useLayout, useUsers } from 'store';
 import { trpc } from 'utils/trpc';
 
-const SingleColumnContentWrapper = dynamic(
-  () =>
-    import(
-      'components/layout/LayoutContentWrappers/SingleColumnContentWrapper'
-    ),
-  { ssr: false }
-);
-const RecentUsersSection = dynamic(
-  () => import('components/organisms/RecentUsersSection'),
-  { ssr: false }
-);
-const SearchUsers = dynamic(() => import('components/molecules/SearchUsers'), {
-  ssr: false,
-});
-const SelectedUserSection = dynamic(
-  () => import('components/organisms/SelectedUserSection'),
-  { ssr: false }
-);
-const Spinner = dynamic(() => import('components/atoms/Spinner'), {
-  ssr: false,
-});
-
-const RecentUsersPage = () => {
+const RecentUsersPage: NextPage = () => {
   // Effect(s)
-  const { setSelectedRoute } = useLayout();
+  const { setSelectedRoute, setSearchComponent, clearSearchComponent } =
+    useLayout();
   const { setRecentUsers, recentUsers, selectedUser, setLoading } = useUsers();
   const { data: usersData, isLoading: usersLoading } = trpc.useQuery([
     'user.recentUsers',
   ]);
+
   useEffect(() => {
     setSelectedRoute('Users');
   }, [setSelectedRoute]);
+
   useEffect(() => {
     if (usersData && usersData.users) {
       setRecentUsers(usersData.users);
     }
   }, [setRecentUsers, usersData]);
+
   useEffect(() => {
     setLoading(usersLoading);
   }, [setLoading, usersLoading]);
+
   useEffect(() => {
     if (selectedUser) {
       scrollToBottom();
@@ -56,9 +46,18 @@ const RecentUsersPage = () => {
     selectedUserRef?.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  // Search Component
+  useEffect(() => {
+    setSearchComponent(<SearchUsers />);
+
+    return () => {
+      clearSearchComponent();
+    };
+  }, [setSearchComponent, clearSearchComponent]);
+
   // Component
   return (
-    <SingleColumnContentWrapper searchComponent={<SearchUsers />}>
+    <SingleColumnContentWrapper>
       {usersLoading && (
         <div className="flex items-center justify-center h-screen">
           <Spinner />

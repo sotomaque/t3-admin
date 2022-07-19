@@ -1,13 +1,6 @@
+import React from 'react';
+import { RoutePath } from 'types/routes';
 import create from 'zustand';
-
-// Move to Types
-export type RoutePath =
-  | 'Home'
-  | 'Users'
-  | 'Services'
-  | 'Repos'
-  | 'Dashboard'
-  | 'Feature Flags';
 
 // STATE TYPE
 type LayoutState = {
@@ -19,8 +12,14 @@ type LayoutState = {
   showNotification: boolean;
   setShowNotification: (showNotification: boolean) => void;
 
+  // Popup
   showPopup: boolean;
   setShowPopup: (showPopup: boolean) => void;
+
+  // Search
+  searchComponent: React.ReactNode | null;
+  setSearchComponent: (searchComponent: React.ReactNode) => void;
+  clearSearchComponent: () => void;
 };
 
 // INITIAL STATE
@@ -38,4 +37,15 @@ export const useLayout = create<LayoutState>((set) => ({
   // Popup
   showPopup: false,
   setShowPopup: (showPopup: boolean) => set(() => ({ showPopup })),
+
+  // Search
+  searchComponent: null,
+  setSearchComponent: (searchComponent: React.ReactNode) =>
+    set(() => ({
+      searchComponent,
+    })),
+  clearSearchComponent: () =>
+    set(() => ({
+      searchComponent: null,
+    })),
 }));

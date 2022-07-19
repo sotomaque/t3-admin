@@ -2,14 +2,6 @@ import type { NextPage } from 'next';
 import { useEffect } from 'react';
 import { useLayout } from 'store';
 
-const SingleColumnContentWrapper = dynamic(
-  () =>
-    import(
-      'components/layout/LayoutContentWrappers/SingleColumnContentWrapper'
-    ),
-  { ssr: false }
-);
-
 const DashboardPage: NextPage = () => {
   const { setSelectedRoute } = useLayout();
 
@@ -44,7 +36,7 @@ export default DashboardPage;
 //
 /* This example requires Tailwind CSS v2.0+ */
 import { ArrowSmDownIcon, ArrowSmUpIcon } from '@heroicons/react/solid';
-import dynamic from 'next/dynamic';
+import { SingleColumnContentWrapper } from 'components';
 
 const stats = [
   {
