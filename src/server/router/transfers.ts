@@ -6,10 +6,10 @@ import { TRPCError } from '@trpc/server';
 export const transferRouter = createRouter().query('transfersByUserId', {
   input: z.object({
     userId: z.string(),
-    pageNumber: z.string().nullable().default('0'),
-    pageSize: z.string().nullable().default('10'),
-    startDate: z.string().nullable().default('1'),
-    sortOrder: z.string().nullable().default('desc'),
+    pageNumber: z.string().default('0').nullable(),
+    pageSize: z.string().default('10').nullable(),
+    startDate: z.string().default('1').nullable(),
+    sortOrder: z.string().default('desc').nullable(),
   }),
   async resolve({ input }) {
     // get userId from input
