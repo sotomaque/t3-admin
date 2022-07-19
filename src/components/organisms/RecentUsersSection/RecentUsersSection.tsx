@@ -1,3 +1,5 @@
+import { Spinner } from 'components/atoms';
+import { UserSearchResultsEmptyState } from 'components/molecules';
 import RecentUsersTable from 'components/molecules/RecentUsersTable';
 import { useRouter } from 'next/router';
 import { useMemo } from 'react';
@@ -11,8 +13,14 @@ interface RecentUsersSectionProps {
 const RecentUsersSection = ({ users }: RecentUsersSectionProps) => {
   const router = useRouter();
 
-  const { searchResults, setSearchResults, filter, clearSearchFilter } =
-    useUsers();
+  const {
+    searchResults,
+    setSearchResults,
+    filter,
+    clearSearchFilter,
+    loading,
+    searchError,
+  } = useUsers();
 
   const onAddUserClicked = () => {
     router.push('/users/new-user');
@@ -23,29 +31,19 @@ const RecentUsersSection = ({ users }: RecentUsersSectionProps) => {
     clearSearchFilter();
   };
 
-  const showNoResults = useMemo(() => {
-    if (filter && !searchResults) {
-      return true;
-    } else {
-      return false;
-    }
-  }, [filter, searchResults]);
+  const showSearchResultsEmptyState = useMemo(() => {
+    return searchError || (searchResults && searchResults.length === 0);
+  }, [searchError, searchResults]);
 
   const showSearchResults = useMemo(() => {
-    if (searchResults) {
-      return true;
-    } else {
-      return false;
-    }
-  }, [searchResults]);
+    return (
+      searchResults && searchResults.length > 0 && !loading && !searchError
+    );
+  }, [searchResults, loading, searchError]);
 
   const showRecentUsers = useMemo(() => {
-    if (showNoResults || showSearchResults) {
-      return false;
-    } else {
-      return true;
-    }
-  }, [showNoResults, showSearchResults]);
+    return !showSearchResults && !loading && !searchError && !searchResults;
+  }, [showSearchResults, loading, searchError, searchResults]);
 
   return (
     <div className="p-4 sm:px-6 lg:px-8">
@@ -83,8 +81,23 @@ const RecentUsersSection = ({ users }: RecentUsersSectionProps) => {
         <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
             <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
-              {showNoResults && <p className="p-4">No Results for {filter}</p>}
-              {showSearchResults && <RecentUsersTable users={searchResults} />}
+              {/* Loading */}
+              {loading && (
+                <div className="flex items-center justify-center h-screen">
+                  <Spinner />
+                </div>
+              )}
+              {/* No Results / Generic Error */}
+              {showSearchResultsEmptyState && (
+                <UserSearchResultsEmptyState searchFilter={filter} />
+              )}
+              {/* Valid Search */}
+              {showSearchResults &&
+                searchResults &&
+                searchResults?.length > 0 && (
+                  <RecentUsersTable users={searchResults} />
+                )}
+              {/* Default Recent Users */}
               {showRecentUsers && <RecentUsersTable users={users} />}
             </div>
           </div>

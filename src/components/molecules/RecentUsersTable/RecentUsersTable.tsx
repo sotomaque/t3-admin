@@ -1,17 +1,13 @@
-import RecentUsersRow from 'components/molecules/RecentUsersRow';
 import { useUsers } from 'store';
 import { User } from 'types';
+import RecentUsersRow from '../RecentUsersRow';
 
 interface RecentUsersTableProps {
-  users: User[] | null;
+  users: User[];
 }
 
 const RecentUsersTable = ({ users }: RecentUsersTableProps) => {
   const { selectedUser } = useUsers();
-
-  if (!users) {
-    return <div className="p-4">No Results for username</div>;
-  }
 
   return (
     <table className="min-w-full divide-y divide-gray-300">

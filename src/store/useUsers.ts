@@ -105,6 +105,10 @@ type UserState = {
   setSearchFilter: (filter: string) => void;
   clearSearchFilter: () => void;
 
+  searchError: string;
+  setSearchError: (error: string) => void;
+  clearSearchError: () => void;
+
   clearSelectedUser: () => void;
 
   // user registration
@@ -114,30 +118,17 @@ type UserState = {
 
 // INITIAL STATE
 export const useUsers = create<UserState>((set) => ({
+  // LOADING
   loading: false,
   setLoading: (loading: boolean) => set(() => ({ loading })),
 
+  // RECENT USERS
   recentUsers: [],
   setRecentUsers: (recentUsers: User[]) => set(() => ({ recentUsers })),
 
+  // SELECTED USER
   selectedUser: null,
   setSelectedUser: (selectedUser: User) => set(() => ({ selectedUser })),
-
-  selectedUserTransactions: [],
-  setSelectedUserTransactions: (selectedUserTransactions: Transaction[]) =>
-    set(() => ({ selectedUserTransactions })),
-
-  selectedUserReferrals: [],
-  setSelectedUserReferrals: (selectedUserReferrals: Referral[]) =>
-    set(() => ({ selectedUserReferrals })),
-
-  filter: '',
-  searchResults: null,
-  setSearchResults: (searchResults: User[] | null) =>
-    set(() => ({ searchResults })),
-  setSearchFilter: (filter: string) => set(() => ({ filter })),
-  clearSearchFilter: () => set(() => ({ filter: '' })),
-
   clearSelectedUser: () =>
     set(() => ({
       selectedUser: null,
@@ -145,7 +136,36 @@ export const useUsers = create<UserState>((set) => ({
       selectedUserReferrals: [],
     })),
 
-  // user registration
+  // SELECTED USERS TRANSACTIONS
+  selectedUserTransactions: [],
+  setSelectedUserTransactions: (selectedUserTransactions: Transaction[]) =>
+    set(() => ({ selectedUserTransactions })),
+
+  // SELECTED USERS REFERRALS
+  selectedUserReferrals: [],
+  setSelectedUserReferrals: (selectedUserReferrals: Referral[]) =>
+    set(() => ({ selectedUserReferrals })),
+
+  // SEARCH FILTER
+  filter: '',
+  searchResults: null,
+  setSearchResults: (searchResults: User[] | null) =>
+    set(() => ({ searchResults })),
+  setSearchFilter: (filter: string) => set(() => ({ filter })),
+  clearSearchFilter: () => set(() => ({ filter: '' })),
+
+  // Serach Error
+  searchError: '',
+  setSearchError: (searchError: string) =>
+    set(() => ({
+      searchError,
+    })),
+  clearSearchError: () =>
+    set(() => ({
+      searchError: '',
+    })),
+
+  // USER REGISTRATION
   userRegistrationSteps: initialUserRegistrationStepsState,
   setUserRegistrationStepAsCurrent: (idOfStepToMarkAsCurrent: number) =>
     set(() => ({

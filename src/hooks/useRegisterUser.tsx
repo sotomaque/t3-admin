@@ -46,7 +46,7 @@ const useRegisterUser = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bearerToken, hasBeganSubmittingKycDocs]);
   useEffect(() => {
-    console.error({ isUsernameAvailableError });
+    isUsernameAvailableError && console.error({ isUsernameAvailableError });
   }, [isUsernameAvailableError]);
   // Function(s) for registering user
   const registerUser = async () => {
@@ -128,6 +128,7 @@ const useRegisterUser = () => {
     bearerToken,
     setBearerToken,
     submitKycDocumentsData,
+    submitKycDocumentsError,
   };
 };
 
