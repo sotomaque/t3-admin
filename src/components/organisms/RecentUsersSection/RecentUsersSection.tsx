@@ -12,13 +12,8 @@ interface RecentUsersSectionProps {
 const RecentUsersSection = ({ users }: RecentUsersSectionProps) => {
   const router = useRouter();
 
-  const {
-    searchResults,
-    setSearchResults,
-    filter,
-    clearSearchFilter,
-    loading,
-  } = useUsers();
+  const { searchResults, setSearchResults, filter, clearSearchFilter } =
+    useUsers();
 
   const onAddUserClicked = () => {
     router.push('/users/new-user');
@@ -89,21 +84,9 @@ const RecentUsersSection = ({ users }: RecentUsersSectionProps) => {
         <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="inline-block min-w-full py-2 align-middle lg:px-8">
             <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
-              {loading ? (
-                <div className="flex items-center justify-center h-screen">
-                  <Spinner />
-                </div>
-              ) : (
-                <>
-                  {showNoResults && (
-                    <p className="p-4">No Results for {filter}</p>
-                  )}
-                  {showSearchResults && (
-                    <RecentUsersTable users={searchResults} />
-                  )}
-                  {showRecentUsers && <RecentUsersTable users={users} />}
-                </>
-              )}
+              {showNoResults && <p className="p-4">No Results for {filter}</p>}
+              {showSearchResults && <RecentUsersTable users={searchResults} />}
+              {showRecentUsers && <RecentUsersTable users={users} />}
             </div>
             <div className="pt-2">
               <PaginatedFooter />

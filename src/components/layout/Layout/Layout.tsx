@@ -41,7 +41,7 @@ export default function Layout({
         <Popover as="header" className="pb-24 bg-indigo-600">
           {({ open }) => (
             <>
-              <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+              <div className="max-w-3xl mx-auto p-4 sm:pt-6 sm:px-6 lg:max-w-7xl lg:px-8">
                 <div className="relative py-5 flex items-center justify-center lg:justify-between">
                   <Logo />
                   <MenuButton open={open} />
@@ -56,7 +56,7 @@ export default function Layout({
             </>
           )}
         </Popover>
-        <main className="-mt-24 pb-8">
+        <main className="-mt-20 pb-8">
           <>
             {children}
             <Notification
@@ -129,7 +129,7 @@ const Logo = () => {
         <span className="sr-only">Workflow</span>
         <Image
           height="30"
-          width="85"
+          width="90"
           src="https://eco.github.io/assets/images/eco-logo-color-140.png"
           alt="Eco Admin"
         />

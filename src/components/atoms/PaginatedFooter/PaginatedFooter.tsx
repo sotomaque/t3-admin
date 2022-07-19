@@ -30,10 +30,25 @@ const PaginatedFooter = () => {
   );
 
   // Function(s)
+  const handleOnClick = async (page: number) => {
+    if (page > currentPage) {
+      if (currentPage > 9) return;
+      setCurrentPage(page - 1);
+      setLoading(true);
+      await refetch();
+      setLoading(false);
+    } else {
+      if (currentPage < 0) return;
+      setCurrentPage(page - 1);
+      setLoading(true);
+      await refetch();
+      setLoading(false);
+    }
+  };
 
   const handleOnPrev = async () => {
     // validate
-    if (currentPage < 0) return;
+    if (currentPage < 1) return;
 
     // update state
     setCurrentPage((prev) => prev - 1);
@@ -45,7 +60,7 @@ const PaginatedFooter = () => {
   };
   const handleOnNext = async () => {
     // validate
-    if (currentPage > 10) return;
+    if (currentPage > 9) return;
 
     // update state
     setCurrentPage((prev) => prev + 1);
@@ -62,7 +77,9 @@ const PaginatedFooter = () => {
     }
   }, [setRecentUsers, usersData]);
 
-  console.log({ currentPage });
+  // TODO:
+  // once you hit the max, change limits
+  // abstract it so we can use it for transfers, etc.
 
   return (
     <div className="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
@@ -100,23 +117,20 @@ const PaginatedFooter = () => {
               <span className="sr-only">Previous</span>
               <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
             </div>
-            {[...Array.from({ length: 10 }, (_, i) => i + 1)].map((page) => (
+            {[...Array(10).keys()].map((page) => (
               <div
-                onClick={() => {
-                  page < currentPage + 1 ? handleOnPrev() : handleOnNext();
-                }}
-                key={`${page}-paginated-footer`}
+                onClick={() => handleOnClick(page + 1)}
+                key={`${page + 1}-paginated-footer`}
                 aria-current="page"
                 className={`z-10 ${
-                  page === currentPage + 1
+                  page + 1 === currentPage + 1
                     ? 'bg-indigo-50 border-indigo-500 text-indigo-600'
                     : 'bg-white border-gray-300 text-gray-500 hover:bg-gray-50'
                 } relative inline-flex items-center px-4 py-2 border text-sm font-medium`}
               >
-                {page}
+                {page + 1}
               </div>
             ))}
-
             <div
               onClick={() => handleOnNext()}
               className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"

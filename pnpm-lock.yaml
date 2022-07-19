@@ -4,7 +4,6 @@ specifiers:
   '@faker-js/faker': ^7.3.0
   '@headlessui/react': ^1.6.6
   '@heroicons/react': ^1.0.6
-  '@tanstack/react-table': ^8.1.4
   '@trpc/client': ^9.25.3
   '@trpc/next': ^9.25.3
   '@trpc/react': ^9.25.3
@@ -32,7 +31,6 @@ dependencies:
   '@faker-js/faker': 7.3.0
   '@headlessui/react': 1.6.6_biqbaboplfbrettd7655fr4n2y
   '@heroicons/react': 1.0.6_react@18.2.0
-  '@tanstack/react-table': 8.1.4_biqbaboplfbrettd7655fr4n2y
   '@trpc/client': 9.25.3_@trpc+server@9.25.3
   '@trpc/next': 9.25.3_gjz2vgkn3qadfgugkh65jdpnzq
   '@trpc/react': 9.25.3_ms3at4dqhndwrpx5xroirjehyy
@@ -286,23 +284,6 @@ packages:
     resolution: {integrity: sha512-556Az0VX7WR6UdoTn4htt/l3zPQ7bsQWK+HqdG4swV7beUCxo/BqmvbOpUkTIm/9ih86LIf1qsUnywNL3obGHw==}
     dependencies:
       tslib: 2.4.0
-    dev: false
-
-  /@tanstack/react-table/8.1.4_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-WpPrZVbwrom2+8wZaM94OkVPfhMyzYvxyxPk2xfyFexjGorKl5erI/EnMme1EXTltsND5Jhsq/wnU6medaOQ9w==}
-    engines: {node: '>=12'}
-    peerDependencies:
-      react: '>=16'
-      react-dom: '>=16'
-    dependencies:
-      '@tanstack/table-core': 8.1.4
-      react: 18.2.0
-      react-dom: 18.2.0_react@18.2.0
-    dev: false
-
-  /@tanstack/table-core/8.1.4:
-    resolution: {integrity: sha512-iSlAT2BpkBFayJBgVxqQNXOgnF2S1r8b3aS1QlRGIusc4iZP0lRr0ie0CJ7Jhp0BZ62UH10RBIoBYHVYkg8Ejw==}
-    engines: {node: '>=12'}
     dev: false
 
   /@trpc/client/9.25.3_@trpc+server@9.25.3:
