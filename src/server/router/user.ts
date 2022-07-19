@@ -5,7 +5,16 @@ import { z } from 'zod';
 
 export const userRouter = createRouter()
   .query('recentUsers', {
-    async resolve() {
+    input: z.object({
+      pageNumber: z.string().default('0').nullable(),
+      pageSize: z.string().default('10').nullable(),
+      startDate: z.string().default('1').nullable(),
+      sortOrder: z.string().default('desc').nullable(),
+    }),
+    async resolve({ input }) {
+      // Get query params from input
+      const { pageNumber, pageSize, startDate, sortOrder } = input;
+
       // Build URL
       const baseURL = process.env.ECO_BASE_URL;
       const recenentUsersURL = process.env.ECO_RECENT_USERS;
@@ -21,8 +30,11 @@ export const userRouter = createRouter()
           code: 'INTERNAL_SERVER_ERROR',
         });
       }
-      const fullURL = `${baseURL}${recenentUsersURL}`;
-
+      const pageNumberQuery = `?pageNumber=${pageNumber}`;
+      const pageSizeQuery = `&pageSize=${pageSize}`;
+      const startDateQuery = `&startDate=${startDate}`;
+      const sortOrderQuery = `&sortOrder=${sortOrder}`;
+      const fullURL = `${baseURL}${recenentUsersURL}${pageNumberQuery}${pageSizeQuery}${startDateQuery}${sortOrderQuery}`;
       // make fetch request to the server for given userId
       const response = await fetch(fullURL);
 

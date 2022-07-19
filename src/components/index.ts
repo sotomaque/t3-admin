@@ -2,6 +2,7 @@ import {
   CommandPalette,
   CopyableRow,
   Notification,
+  PaginatedFooter,
   Popup,
   Spinner,
 } from './atoms';
@@ -47,6 +48,7 @@ export {
   FeatureFlagToggleList,
   Layout,
   Notification,
+  PaginatedFooter,
   Popup,
   RecentUsersRow,
   RecentUsersSection,

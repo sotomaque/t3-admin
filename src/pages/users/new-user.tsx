@@ -50,7 +50,7 @@ const NewUserContent = () => {
 
   return (
     <div className="h-full w-full py-10">
-      <div className="max-w-10xl mx-auto px-4 sm:px-2 lg:px-4">
+      <div className="max-w-10xl mx-auto lg:px-4">
         <div className="max-w-7xl mx-auto">
           <div className="p-4 sm:p-2 bg-white">
             <div className="p-4 sm:px-2 lg:px-8">

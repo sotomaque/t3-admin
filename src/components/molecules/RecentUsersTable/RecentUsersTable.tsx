@@ -32,7 +32,7 @@ const RecentUsersTable = ({ users }: RecentUsersTableProps) => {
           </th>
           <th
             scope="col"
-            className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+            className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 hidden lg:table-cell"
           >
             Email
           </th>
@@ -44,13 +44,13 @@ const RecentUsersTable = ({ users }: RecentUsersTableProps) => {
           </th>
           <th
             scope="col"
-            className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+            className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 hidden lg:table-cell"
           >
             ECO Balance
           </th>
           <th
             scope="col"
-            className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+            className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 hidden lg:table-cell"
           >
             APY
           </th>
