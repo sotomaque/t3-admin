@@ -50,7 +50,11 @@ const SearchUsers = () => {
     // clear selected user
     clearSelectedUser();
     // update search results in state
-    setSearchResults(userResults?.users ?? null);
+    if (userResults?.users) {
+      setSearchResults(userResults.users);
+    } else {
+      setSearchResults(null);
+    }
   }, [setSearchResults, userResults, clearSelectedUser]);
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -31,21 +31,19 @@ const RecentUsersSection = ({ users }: RecentUsersSectionProps) => {
     clearSearchFilter();
   };
 
+  const showSearchResultsEmptyState = useMemo(() => {
+    return searchError || (searchResults && searchResults.length === 0);
+  }, [searchError, searchResults]);
+
   const showSearchResults = useMemo(() => {
-    if (searchResults && !loading && !searchError) {
-      return true;
-    } else {
-      return false;
-    }
+    return (
+      searchResults && searchResults.length > 0 && !loading && !searchError
+    );
   }, [searchResults, loading, searchError]);
 
   const showRecentUsers = useMemo(() => {
-    if (!showSearchResults && !loading && !searchError) {
-      return true;
-    } else {
-      return false;
-    }
-  }, [showSearchResults, loading, searchError]);
+    return !showSearchResults && !loading && !searchError && !searchResults;
+  }, [showSearchResults, loading, searchError, searchResults]);
 
   return (
     <div className="p-4 sm:px-6 lg:px-8">
@@ -90,11 +88,15 @@ const RecentUsersSection = ({ users }: RecentUsersSectionProps) => {
                 </div>
               )}
               {/* No Results / Generic Error */}
-              {searchError && (
+              {showSearchResultsEmptyState && (
                 <UserSearchResultsEmptyState searchFilter={filter} />
               )}
               {/* Valid Search */}
-              {showSearchResults && <RecentUsersTable users={searchResults} />}
+              {showSearchResults &&
+                searchResults &&
+                searchResults?.length > 0 && (
+                  <RecentUsersTable users={searchResults} />
+                )}
               {/* Default Recent Users */}
               {showRecentUsers && <RecentUsersTable users={users} />}
             </div>

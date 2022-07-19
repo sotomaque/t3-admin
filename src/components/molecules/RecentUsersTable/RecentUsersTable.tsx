@@ -1,18 +1,13 @@
 import { useUsers } from 'store';
 import { User } from 'types';
-import RecentUsersEmptyState from '../RecentUsersEmptyState';
 import RecentUsersRow from '../RecentUsersRow';
 
 interface RecentUsersTableProps {
-  users: User[] | null;
+  users: User[];
 }
 
 const RecentUsersTable = ({ users }: RecentUsersTableProps) => {
   const { selectedUser } = useUsers();
-
-  if (!users || users.length === 0) {
-    return <RecentUsersEmptyState />;
-  }
 
   return (
     <table className="min-w-full divide-y divide-gray-300">
