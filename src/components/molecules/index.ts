@@ -4,6 +4,7 @@ import FeatureFlagGridList from './FeatureFlagGridList';
 import FeatureFlagsEmptyState from './FeatureFlagsEmptyState';
 import FeatureFlagToggleList from './FeatureFlagToggleList';
 import RecentUsersEmptyState from './RecentUsersEmptyState';
+import RecentUsersPagination from './RecentUsersPagination';
 import RecentUsersRow from './RecentUsersRow';
 import RecentUsersTable from './RecentUsersTable';
 import ReferralsEmptyState from './ReferralsEmptyState';
@@ -13,6 +14,7 @@ import SelectedUserReferralsRow from './SelectedUserReferralsRow';
 import SelectedUsersReferralsTable from './SelectedUsersReferralsTable';
 import SelectedUsersTransfersTable from './SelectedUsersTransfersTable';
 import SelectedUserTransferRow from './SelectedUserTransferRow';
+import TransactionsPagination from './TransactionPagination';
 import TransfersEmptyState from './TransfersEmptyState';
 import UserFlagsCard from './UserFlagsCard';
 import UserProfileSummary from './UserProfileSummary';
@@ -26,6 +28,7 @@ export {
   FeatureFlagsEmptyState,
   FeatureFlagToggleList,
   RecentUsersEmptyState,
+  RecentUsersPagination,
   RecentUsersRow,
   RecentUsersTable,
   ReferralsEmptyState,
@@ -35,6 +38,7 @@ export {
   SelectedUsersReferralsTable,
   SelectedUsersTransfersTable,
   SelectedUserTransferRow,
+  TransactionsPagination,
   TransfersEmptyState,
   UserFlagsCard,
   UserProfileSummary,

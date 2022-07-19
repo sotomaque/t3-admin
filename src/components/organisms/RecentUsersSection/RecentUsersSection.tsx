@@ -1,11 +1,13 @@
-import { PaginatedFooter, Spinner } from 'components/atoms';
-import { UserSearchResultsEmptyState } from 'components/molecules';
+import { Spinner } from 'components/atoms';
+import {
+  RecentUsersPagination,
+  UserSearchResultsEmptyState,
+} from 'components/molecules';
 import RecentUsersTable from 'components/molecules/RecentUsersTable';
 import { useRouter } from 'next/router';
-import { useMemo, useEffect, useState } from 'react';
+import { useMemo } from 'react';
 import { useUsers } from 'store';
 import { User } from 'types';
-import { trpc } from 'utils/trpc';
 
 interface RecentUsersSectionProps {
   users: User[];
@@ -112,80 +114,3 @@ const RecentUsersSection = ({ users }: RecentUsersSectionProps) => {
 };
 
 export default RecentUsersSection;
-
-const RecentUsersPagination = () => {
-  // State
-  const [currentPage, setCurrentPage] = useState(0);
-
-  // Effect(s)
-  const { setLoading, setRecentUsers } = useUsers();
-  const { data, refetch } = trpc.useQuery(
-    [
-      'user.recentUsers',
-      {
-        pageNumber: `${currentPage}`,
-        pageSize: '10',
-        sortOrder: 'desc',
-        startDate: '0',
-      },
-    ],
-    {
-      refetchOnWindowFocus: false,
-    }
-  );
-  useEffect(() => {
-    if (data && data.users) {
-      setRecentUsers(data.users);
-    }
-  }, [setRecentUsers, data]);
-
-  // Function(s)
-  const handleOnClick = async (page: number) => {
-    if (page > currentPage) {
-      if (currentPage > 9) return;
-      setCurrentPage(page - 1);
-      setLoading(true);
-      await refetch();
-      setLoading(false);
-    } else {
-      if (currentPage < 0) return;
-      setCurrentPage(page - 1);
-      setLoading(true);
-      await refetch();
-      setLoading(false);
-    }
-  };
-  const handleOnPrev = async () => {
-    // validate
-    if (currentPage < 1) return;
-
-    // update state
-    setCurrentPage((prev) => prev - 1);
-
-    // make users.recentUsers request
-    setLoading(true);
-    await refetch();
-    setLoading(false);
-  };
-  const handleOnNext = async () => {
-    // validate
-    if (currentPage > 9) return;
-
-    // update state
-    setCurrentPage((prev) => prev + 1);
-
-    // make users.recentUsers request
-    setLoading(true);
-    await refetch();
-    setLoading(false);
-  };
-
-  return (
-    <PaginatedFooter
-      currentPage={currentPage}
-      handleOnNext={handleOnNext}
-      handleOnPrev={handleOnPrev}
-      handleOnClick={handleOnClick}
-    />
-  );
-};

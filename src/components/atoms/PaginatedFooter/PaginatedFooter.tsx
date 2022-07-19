@@ -1,4 +1,3 @@
-/* This example requires Tailwind CSS v2.0+ */
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid';
 
 type PaginatedFooterProps = {
@@ -16,6 +15,8 @@ const PaginatedFooter = ({
 }: PaginatedFooterProps) => {
   const firstValueOnPage = (currentPage = 0 ? 1 : currentPage * 10 + 1);
   const lastValueOnPage = firstValueOnPage + 9;
+
+  console.log('current page in PaginatedFooter component', currentPage);
 
   return (
     <div className="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
@@ -62,7 +63,7 @@ const PaginatedFooter = ({
                 key={`${page + 1}-paginated-footer`}
                 aria-current="page"
                 className={`z-10 ${
-                  page + 1 === currentPage + 1
+                  page === currentPage + 1
                     ? 'bg-indigo-50 border-indigo-500 text-indigo-600'
                     : 'bg-white border-gray-300 text-gray-500 hover:bg-gray-50'
                 } relative inline-flex items-center px-4 py-2 border text-sm font-medium`}
