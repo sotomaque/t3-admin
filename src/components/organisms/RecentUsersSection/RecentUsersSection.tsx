@@ -103,7 +103,7 @@ const RecentUsersSection = ({ users }: RecentUsersSectionProps) => {
               {/* Default Recent Users */}
               {showRecentUsers && <RecentUsersTable users={users} />}
             </div>
-            {showRecentUsers && users.length > 10 && (
+            {showRecentUsers && users.length >= 10 && (
               <div className="pt-2">
                 <RecentUsersPagination />
               </div>
