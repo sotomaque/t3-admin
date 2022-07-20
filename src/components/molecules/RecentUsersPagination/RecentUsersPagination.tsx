@@ -9,20 +9,7 @@ const RecentUsersPagination = () => {
 
   // Effect(s)
   const { setLoading, setRecentUsers } = useUsers();
-  const { data, refetch } = trpc.useQuery(
-    [
-      'user.recentUsers',
-      {
-        pageNumber: `${currentPage}`,
-        pageSize: '10',
-        sortOrder: 'desc',
-        startDate: '0',
-      },
-    ],
-    {
-      refetchOnWindowFocus: false,
-    }
-  );
+  const { data, mutate } = trpc.useMutation(['user.recentUsers']);
   useEffect(() => {
     if (data && data.users) {
       setRecentUsers(data.users);
@@ -31,19 +18,16 @@ const RecentUsersPagination = () => {
 
   // Function(s)
   const handleOnClick = async (newPage: number) => {
-    if (newPage > currentPage) {
-      if (currentPage > 9) return;
-      setCurrentPage(newPage - 1);
-      setLoading(true);
-      await refetch();
-      setLoading(false);
-    } else {
-      if (currentPage < 0) return;
-      setCurrentPage(newPage - 1);
-      setLoading(true);
-      await refetch();
-      setLoading(false);
+    const newPageOffset = newPage - 1;
+    if (newPageOffset < 0 || newPageOffset > 9) {
+      return;
     }
+    setCurrentPage(newPageOffset);
+    setLoading(true);
+    mutate({
+      pageNumber: `${newPageOffset}`,
+    });
+    setLoading(false);
   };
   const handleOnPrev = async () => {
     // validate
@@ -54,7 +38,9 @@ const RecentUsersPagination = () => {
 
     // make users.recentUsers request
     setLoading(true);
-    await refetch();
+    mutate({
+      pageNumber: `${currentPage - 1}`,
+    });
     setLoading(false);
   };
   const handleOnNext = async () => {
@@ -66,16 +52,18 @@ const RecentUsersPagination = () => {
 
     // make users.recentUsers request
     setLoading(true);
-    await refetch();
+    mutate({
+      pageNumber: `${currentPage + 1}`,
+    });
     setLoading(false);
   };
 
   return (
     <PaginatedFooter
       currentPage={currentPage}
-      handleOnNext={() => handleOnNext}
-      handleOnPrev={() => handleOnPrev}
-      handleOnClick={(newPage) => handleOnClick(newPage)}
+      handleOnNext={handleOnNext}
+      handleOnPrev={handleOnPrev}
+      handleOnClick={handleOnClick}
     />
   );
 };

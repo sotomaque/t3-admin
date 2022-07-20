@@ -44,7 +44,7 @@ const SelectedUserTransfersSection = ({ userId }: { userId: string }) => {
                   <SelectedUsersTransfersTable
                     transfers={selectedUserTransactions}
                   />
-                  {selectedUserTransactions.length > 10 && (
+                  {selectedUserTransactions.length >= 10 && (
                     <div className="pt-2">
                       <TransactionsPagination userId={userId} />
                     </div>
