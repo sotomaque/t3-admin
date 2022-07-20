@@ -1,4 +1,8 @@
-import { Spinner, SelectedUsersTransfersTable } from 'components';
+import {
+  Spinner,
+  SelectedUsersTransfersTable,
+  TransactionsPagination,
+} from 'components';
 import { useEffect } from 'react';
 import { useUsers } from 'store';
 import { trpc } from 'utils/trpc';
@@ -36,9 +40,16 @@ const SelectedUserTransfersSection = ({ userId }: { userId: string }) => {
                 </div>
               )}
               {selectedUserTransactions && !transfersLoading && (
-                <SelectedUsersTransfersTable
-                  transfers={selectedUserTransactions}
-                />
+                <>
+                  <SelectedUsersTransfersTable
+                    transfers={selectedUserTransactions}
+                  />
+                  {selectedUserTransactions.length > 10 && (
+                    <div className="pt-2">
+                      <TransactionsPagination userId={userId} />
+                    </div>
+                  )}
+                </>
               )}
             </div>
           </div>

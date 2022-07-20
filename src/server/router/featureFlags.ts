@@ -26,7 +26,6 @@ export const featureFlagRouter = createRouter()
         });
       }
       const fullURL = `${baseURL}${allFeatureFlagsURL}`;
-      console.log({ fullURL });
 
       // make api call
       try {

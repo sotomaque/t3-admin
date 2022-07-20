@@ -17,10 +17,10 @@ export const transferRouter = createRouter()
   .query('transfersByUserId', {
     input: z.object({
       userId: z.string(),
-      pageNumber: z.string().nullable().default('0'),
-      pageSize: z.string().nullable().default('10'),
-      startDate: z.string().nullable().default('1'),
-      sortOrder: z.string().nullable().default('desc'),
+      pageNumber: z.string().default('0').nullable(),
+      pageSize: z.string().default('10').nullable(),
+      startDate: z.string().default('1').nullable(),
+      sortOrder: z.string().default('desc').nullable(),
     }),
     async resolve({ input }) {
       // get userId from input
@@ -101,7 +101,7 @@ export const transferRouter = createRouter()
   })
   .mutation('processTransfer', {
     input: z.object({ transferId: z.string() }),
-    async resolve({ ctx, input }) {
+    async resolve({ input }) {
       // Process Input
       const { transferId } = input;
 
@@ -285,46 +285,5 @@ export const transferRouter = createRouter()
           code: 'BAD_REQUEST',
         });
       }
-    },
-  })
-  .mutation('clearTransfer', {
-    input: z.object({ providerTransferId: z.string() }),
-    async resolve({ ctx, input }) {
-      // Process Input
-      const { providerTransferId } = input;
-
-      // Validate Input
-      if (!providerTransferId || typeof providerTransferId !== 'string') {
-        throw new TRPCError({
-          message:
-            'Invalid ProviderTransferID provided to clearTransfer mutation',
-          code: 'BAD_REQUEST',
-        });
-      }
-
-      // Setup API
-      let api = await setupAPI();
-      if (!api || typeof api === 'undefined') {
-        throw new TRPCError({
-          message:
-            'Failed to instanciate Prime Trust API Instance in clearTransfer mutation',
-          code: 'INTERNAL_SERVER_ERROR',
-        });
-      }
-
-      const { errors: clearTransferErrors } = await clearTransfer(
-        api,
-        providerTransferId
-      );
-      if (clearTransferErrors) {
-        throw new TRPCError({
-          message: 'Failed to clear transfer in clearTransfer mutation',
-          code: 'INTERNAL_SERVER_ERROR',
-        });
-      }
-
-      return {
-        clearedTransfer: true,
-      };
     },
   });

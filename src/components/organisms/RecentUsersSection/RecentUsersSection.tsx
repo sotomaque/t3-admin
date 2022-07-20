@@ -1,5 +1,8 @@
 import { Spinner } from 'components/atoms';
-import { UserSearchResultsEmptyState } from 'components/molecules';
+import {
+  RecentUsersPagination,
+  UserSearchResultsEmptyState,
+} from 'components/molecules';
 import RecentUsersTable from 'components/molecules/RecentUsersTable';
 import { useRouter } from 'next/router';
 import { useMemo } from 'react';
@@ -46,7 +49,7 @@ const RecentUsersSection = ({ users }: RecentUsersSectionProps) => {
   }, [showSearchResults, loading, searchError, searchResults]);
 
   return (
-    <div className="p-4 sm:px-6 lg:px-8">
+    <div className="lg:px-8">
       {/* Add User Button */}
       <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto">
@@ -79,7 +82,7 @@ const RecentUsersSection = ({ users }: RecentUsersSectionProps) => {
       {/* Table */}
       <div className="mt-8 flex flex-col">
         <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
-          <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+          <div className="inline-block min-w-full py-2 align-middle lg:px-8">
             <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
               {/* Loading */}
               {loading && (
@@ -100,6 +103,11 @@ const RecentUsersSection = ({ users }: RecentUsersSectionProps) => {
               {/* Default Recent Users */}
               {showRecentUsers && <RecentUsersTable users={users} />}
             </div>
+            {showRecentUsers && users.length > 10 && (
+              <div className="pt-2">
+                <RecentUsersPagination />
+              </div>
+            )}
           </div>
         </div>
       </div>

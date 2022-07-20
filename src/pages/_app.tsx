@@ -7,7 +7,6 @@ import '../styles/globals.css';
 import { connectZustandStateToReduxDevtools } from 'store/reduxDevToolsConfig';
 import Head from 'next/head';
 import { Layout } from 'components';
-import { ReactQueryDevtools } from 'react-query/devtools';
 
 connectZustandStateToReduxDevtools();
 
@@ -21,7 +20,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
       </Head>
       <Layout>
         <Component {...pageProps} />
-        <ReactQueryDevtools initialIsOpen={false} />
+        {/* <ReactQueryDevtools initialIsOpen={false} /> */}
       </Layout>
     </>
   );

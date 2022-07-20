@@ -15,13 +15,15 @@ const RecentUsersPage: NextPage = () => {
   const { setSelectedRoute, setSearchComponent, clearSearchComponent } =
     useLayout();
   const { setRecentUsers, recentUsers, selectedUser, setLoading } = useUsers();
-  const { data: usersData, isLoading: usersLoading } = trpc.useQuery(
-    ['user.recentUsers'],
+  const { data: usersData, isLoading: usersLoading } = trpc.useQuery([
+    'user.recentUsers',
     {
-      retry: false,
-    }
-  );
-
+      pageNumber: '0',
+      pageSize: '10',
+      sortOrder: 'desc',
+      startDate: '0',
+    },
+  ]);
   useEffect(() => {
     setSelectedRoute('Users');
   }, [setSelectedRoute]);
@@ -66,9 +68,9 @@ const RecentUsersPage: NextPage = () => {
       )}
       {!!recentUsers && !usersLoading && (
         <div className="h-full w-full py-10">
-          <div className="max-w-10xl mx-auto px-4 sm:px-6 lg:px-4">
+          <div className="max-w-10xl mx-auto lg:px-4">
             <div className="max-w-7xl mx-auto">
-              <div className="p-4 bg-white">
+              <div className="md:p-4 bg-white">
                 <RecentUsersSection users={recentUsers} />
               </div>
 
