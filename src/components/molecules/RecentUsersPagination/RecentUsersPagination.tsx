@@ -30,25 +30,22 @@ const RecentUsersPagination = () => {
   }, [setRecentUsers, data]);
 
   // Function(s)
-  const handleOnClick = async (page: number) => {
-    console.log('in handleOnClick', page);
-    if (page > currentPage) {
+  const handleOnClick = async (newPage: number) => {
+    if (newPage > currentPage) {
       if (currentPage > 9) return;
-      setCurrentPage(page - 1);
+      setCurrentPage(newPage - 1);
       setLoading(true);
       await refetch();
       setLoading(false);
     } else {
       if (currentPage < 0) return;
-      setCurrentPage(page - 1);
+      setCurrentPage(newPage - 1);
       setLoading(true);
       await refetch();
       setLoading(false);
     }
   };
   const handleOnPrev = async () => {
-    console.log('in handleOnPrev');
-
     // validate
     if (currentPage < 1) return;
 
@@ -61,8 +58,6 @@ const RecentUsersPagination = () => {
     setLoading(false);
   };
   const handleOnNext = async () => {
-    console.log('in handleOnNext');
-
     // validate
     if (currentPage > 9) return;
 
@@ -80,9 +75,9 @@ const RecentUsersPagination = () => {
   return (
     <PaginatedFooter
       currentPage={currentPage}
-      handleOnNext={handleOnNext}
-      handleOnPrev={handleOnPrev}
-      handleOnClick={handleOnClick}
+      handleOnNext={() => handleOnNext}
+      handleOnPrev={() => handleOnPrev}
+      handleOnClick={(newPage) => handleOnClick(newPage)}
     />
   );
 };
