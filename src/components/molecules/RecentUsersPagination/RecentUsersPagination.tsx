@@ -70,8 +70,6 @@ const RecentUsersPagination = () => {
     setLoading(false);
   };
 
-  console.log('current page in recent users component', currentPage);
-
   return (
     <PaginatedFooter
       currentPage={currentPage}
