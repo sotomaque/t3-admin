@@ -103,9 +103,11 @@ const RecentUsersSection = ({ users }: RecentUsersSectionProps) => {
               {/* Default Recent Users */}
               {showRecentUsers && <RecentUsersTable users={users} />}
             </div>
-            <div className="pt-2">
-              <RecentUsersPagination />
-            </div>
+            {showRecentUsers && users.length > 10 && (
+              <div className="pt-2">
+                <RecentUsersPagination />
+              </div>
+            )}
           </div>
         </div>
       </div>
