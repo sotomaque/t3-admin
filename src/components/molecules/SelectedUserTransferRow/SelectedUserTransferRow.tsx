@@ -76,13 +76,47 @@ const SelectedUserTransferRow = ({
     }
   }, [transfer.category]);
 
+  const isTransferPending = useMemo(() => {
+    return transfer.state === 'TRANSFER_PENDING';
+  }, [transfer.state]);
+
+  const isTransferError = useMemo(() => {
+    return transfer.state === 'TRANSFER_INITIATION_FAILED';
+  }, [transfer.state]);
+
+  const isTransferCompleted = useMemo(() => {
+    return transfer.state === 'TRANSFER_COMPLETED';
+  }, [transfer.state]);
+
+  const transferStateColor = useMemo(() => {
+    if (isTransferPending) {
+      return 'text-gray-500';
+    } else if (isTransferError) {
+      return 'text-red-500';
+    } else if (isTransferCompleted) {
+      return 'text-green-500';
+    }
+    return 'text-gray-500';
+  }, [isTransferPending, isTransferError, isTransferCompleted]);
+
+  const transferStateBackgroundColor = useMemo(() => {
+    if (isTransferPending) {
+      return 'bg-gray-100';
+    } else if (isTransferError) {
+      return 'bg-red-100';
+    } else if (isTransferCompleted) {
+      return 'bg-green-100';
+    }
+    return 'bg-gray-100';
+  }, [isTransferPending, isTransferError, isTransferCompleted]);
+
   return (
     <>
       <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 hidden xl:table-cell">
         {transfer.transactionID}
       </td>
       <td
-        className={`whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-right ${
+        className={`whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-left pl-5 ${
           isAmountNegative && 'text-red-400'
         }`}
       >
@@ -91,12 +125,18 @@ const SelectedUserTransferRow = ({
       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
         {formattedTransferCategory}
       </td>
-      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-        {formattedTransferState}
+      <td
+        className={`whitespace-nowrap px-3 py-4 text-sm text-gray-500 ${transferStateColor}`}
+      >
+        <span
+          className={`text-center px-2.5 py-1 rounded-full text-xs font-medium ${transferStateBackgroundColor}`}
+        >
+          {formattedTransferState}
+        </span>
       </td>
 
-      <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-        {canProcessTransfer ? (
+      <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-left text-sm font-medium sm:pr-6">
+        {canProcessTransfer && (
           <button
             role="button"
             className="text-indigo-600 hover:text-indigo-900"
@@ -109,9 +149,11 @@ const SelectedUserTransferRow = ({
               'Process Transfer'
             )}
           </button>
-        ) : (
-          <div className="text-sm text-right">Unable To Process Transfer</div>
         )}
+      </td>
+
+      <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 text-indigo-600 hover:text-indigo-900 cursor-pointer">
+        Select
       </td>
     </>
   );
