@@ -18,6 +18,8 @@ import TransactionsPagination from './TransactionPagination';
 import TransfersEmptyState from './TransfersEmptyState';
 import TransferSummary from './TransferSummary';
 import UserFlagsCard from './UserFlagsCard';
+import UserFlagsContent from './UserFlagsContent';
+import UserFlagsEmptyState from './UserFlagsEmptyState';
 import UserProfileSummary from './UserProfileSummary';
 import UserRegistrationProgress from './UserRegistrationProgress';
 import UserSearchResultsEmptyState from './UserSearchResultsEmptyState';
@@ -43,6 +45,8 @@ export {
   TransfersEmptyState,
   TransferSummary,
   UserFlagsCard,
+  UserFlagsContent,
+  UserFlagsEmptyState,
   UserProfileSummary,
   UserRegistrationProgress,
   UserSearchResultsEmptyState,
