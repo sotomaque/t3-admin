@@ -15,15 +15,16 @@ const RecentUsersPage: NextPage = () => {
   const { setSelectedRoute, setSearchComponent, clearSearchComponent } =
     useLayout();
   const { setRecentUsers, recentUsers, selectedUser, setLoading } = useUsers();
-  const { data: usersData, isLoading: usersLoading } = trpc.useQuery([
-    'user.recentUsers',
-    {
-      pageNumber: '0',
-      pageSize: '10',
-      sortOrder: 'desc',
-      startDate: '0',
-    },
-  ]);
+  const {
+    data: usersData,
+    isLoading: usersLoading,
+    mutate,
+  } = trpc.useMutation(['user.recentUsers']);
+
+  useEffect(() => {
+    mutate({ pageNumber: '0' });
+  }, [mutate]);
+
   useEffect(() => {
     setSelectedRoute('Users');
   }, [setSelectedRoute]);

@@ -31,7 +31,7 @@ const RecentUsersRow = ({ user }: RecentUsersRowProps) => {
       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
         {user.username}
       </td>
-      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 hidden lg:table-cell">
+      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 hidden xl:table-cell">
         {user.email}
       </td>
       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">

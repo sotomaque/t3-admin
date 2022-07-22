@@ -4,7 +4,7 @@ import { createRouter } from './context';
 import { z } from 'zod';
 
 export const userRouter = createRouter()
-  .query('recentUsers', {
+  .mutation('recentUsers', {
     input: z.object({
       pageNumber: z.string().default('0').nullable(),
       pageSize: z.string().default('10').nullable(),

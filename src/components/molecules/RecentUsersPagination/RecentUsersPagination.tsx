@@ -1,5 +1,5 @@
 import { PaginatedFooter } from 'components/atoms';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useUsers } from 'store';
 import { trpc } from 'utils/trpc';
 
@@ -8,42 +8,31 @@ const RecentUsersPagination = () => {
   const [currentPage, setCurrentPage] = useState(0);
 
   // Effect(s)
-  const { setLoading, setRecentUsers } = useUsers();
-  const { data, refetch } = trpc.useQuery(
-    [
-      'user.recentUsers',
-      {
-        pageNumber: `${currentPage}`,
-        pageSize: '10',
-        sortOrder: 'desc',
-        startDate: '0',
-      },
-    ],
-    {
-      refetchOnWindowFocus: false,
-    }
-  );
-  useEffect(() => {
-    if (data && data.users) {
-      setRecentUsers(data.users);
-    }
-  }, [setRecentUsers, data]);
+  const { setRecentUsers, setLoading } = useUsers();
+  const { mutateAsync } = trpc.useMutation(['user.recentUsers'], {
+    onMutate: () => {
+      setLoading(true);
+    },
+    onSuccess: (data) => {
+      if (data && data.users) {
+        setRecentUsers(data.users);
+      }
+    },
+    onSettled: () => {
+      setLoading(false);
+    },
+  });
 
   // Function(s)
   const handleOnClick = async (newPage: number) => {
-    if (newPage > currentPage) {
-      if (currentPage > 9) return;
-      setCurrentPage(newPage - 1);
-      setLoading(true);
-      await refetch();
-      setLoading(false);
-    } else {
-      if (currentPage < 0) return;
-      setCurrentPage(newPage - 1);
-      setLoading(true);
-      await refetch();
-      setLoading(false);
+    const newPageOffset = newPage - 1;
+    if (newPageOffset < 0 || newPageOffset > 9) {
+      return;
     }
+    setCurrentPage(newPageOffset);
+    await mutateAsync({
+      pageNumber: `${newPageOffset}`,
+    });
   };
   const handleOnPrev = async () => {
     // validate
@@ -53,9 +42,9 @@ const RecentUsersPagination = () => {
     setCurrentPage((prev) => prev - 1);
 
     // make users.recentUsers request
-    setLoading(true);
-    await refetch();
-    setLoading(false);
+    await mutateAsync({
+      pageNumber: `${currentPage - 1}`,
+    });
   };
   const handleOnNext = async () => {
     // validate
@@ -65,17 +54,17 @@ const RecentUsersPagination = () => {
     setCurrentPage((prev) => prev + 1);
 
     // make users.recentUsers request
-    setLoading(true);
-    await refetch();
-    setLoading(false);
+    await mutateAsync({
+      pageNumber: `${currentPage + 1}`,
+    });
   };
 
   return (
     <PaginatedFooter
       currentPage={currentPage}
-      handleOnNext={() => handleOnNext}
-      handleOnPrev={() => handleOnPrev}
-      handleOnClick={(newPage) => handleOnClick(newPage)}
+      handleOnNext={handleOnNext}
+      handleOnPrev={handleOnPrev}
+      handleOnClick={handleOnClick}
     />
   );
 };

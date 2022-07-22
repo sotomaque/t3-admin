@@ -45,8 +45,8 @@ const RecentUsersSection = ({ users }: RecentUsersSectionProps) => {
   }, [searchResults, loading, searchError]);
 
   const showRecentUsers = useMemo(() => {
-    return !showSearchResults && !loading && !searchError && !searchResults;
-  }, [showSearchResults, loading, searchError, searchResults]);
+    return !showSearchResults && !searchError && !searchResults;
+  }, [showSearchResults, searchError, searchResults]);
 
   return (
     <div className="lg:px-8">
@@ -85,7 +85,7 @@ const RecentUsersSection = ({ users }: RecentUsersSectionProps) => {
           <div className="inline-block min-w-full py-2 align-middle lg:px-8">
             <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
               {/* Loading */}
-              {loading && (
+              {loading && !users && (
                 <div className="flex items-center justify-center h-screen">
                   <Spinner />
                 </div>
@@ -102,12 +102,12 @@ const RecentUsersSection = ({ users }: RecentUsersSectionProps) => {
                 )}
               {/* Default Recent Users */}
               {showRecentUsers && <RecentUsersTable users={users} />}
+              {showRecentUsers && users.length >= 10 && (
+                <div className="pt-2">
+                  <RecentUsersPagination />
+                </div>
+              )}
             </div>
-            {showRecentUsers && users.length >= 10 && (
-              <div className="pt-2">
-                <RecentUsersPagination />
-              </div>
-            )}
           </div>
         </div>
       </div>
