@@ -1,7 +1,6 @@
 import { XIcon } from '@heroicons/react/outline';
 import CopyableRow from 'components/atoms/CopyableRow';
 import { useUserAccounts, useUserKYC } from 'hooks';
-import { useUsers } from 'store';
 import { User } from 'types';
 
 interface UserProfileSummaryProps {
@@ -9,16 +8,22 @@ interface UserProfileSummaryProps {
 }
 
 const UserProfileSummary = ({ user }: UserProfileSummaryProps) => {
-  const { clearSelectedUser } = useUsers();
   const {
     balances: { ecoBalances, usdcBalances },
     apy,
   } = useUserAccounts({ user });
-  const { cognito, primeTrust } = useUserKYC({ user });
-
-  const handleUnselecteClicked = () => {
-    clearSelectedUser();
-  };
+  const {
+    cognito: {
+      stateBackgroundColor: cognitoStateBackgroundColor,
+      stateColor: cognitoStateColor,
+      stateLabel: cognitoStateLabel,
+    },
+    primeTrust: {
+      stateBackgroundColor: ptStateBackgroundColor,
+      stateColor: ptStateColor,
+      stateLabel: ptStateLabel,
+    },
+  } = useUserKYC({ user });
 
   return (
     <div className="mx-auto container bg-white shadow rounded overflow-x-scroll">
@@ -31,11 +36,6 @@ const UserProfileSummary = ({ user }: UserProfileSummaryProps) => {
           </h3>
           <h4 className="px-2"> - User Details</h4>
         </div>
-        <XIcon
-          className="h-5 w-5"
-          aria-hidden="true"
-          onClick={() => handleUnselecteClicked()}
-        />
       </div>
       {/* Content  */}
       <div className="px-4">
@@ -76,14 +76,11 @@ const UserProfileSummary = ({ user }: UserProfileSummaryProps) => {
         <div className="flex justify-between mt-4">
           <p className="text-xs text-left">Cognito KYC Status</p>
           <span
-            className={`flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium 
-            ${cognito === 'KYC_REQUIRED' && 'bg-gray-100 text-gray-800'}
-            ${cognito === 'KYC_FAILED' && 'bg-red-100 text-red-800'}
-            ${cognito === 'KYC_PENDING' && 'bg-yellow-100 text-yellow-800'}
-            ${cognito === 'KYC_PASSED' && 'bg-green-100 text-green-800'}
-            `}
+            className={`flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${cognitoStateBackgroundColor}`}
           >
-            <p className="pr-1 text-sm text-right">{cognito}</p>
+            <p className={`pr-1 text-sm text-right ${cognitoStateColor}`}>
+              {cognitoStateLabel}
+            </p>
           </span>
         </div>
 
@@ -92,14 +89,11 @@ const UserProfileSummary = ({ user }: UserProfileSummaryProps) => {
         <div className="flex justify-between mt-4">
           <p className="text-xs text-left">PT KYC Status</p>
           <span
-            className={`flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
-            ${primeTrust === 'KYC_REQUIRED' && 'bg-gray-100 text-gray-800'}
-            ${primeTrust === 'KYC_FAILED' && 'bg-red-100 text-red-800'}
-            ${primeTrust === 'KYC_PENDING' && 'bg-yellow-100 text-yellow-800'}
-            ${primeTrust === 'KYC_PASSED' && 'bg-green-100 text-green-800'}
-            `}
+            className={`flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${ptStateBackgroundColor}`}
           >
-            <p className="pr-1 text-sm text-right">{primeTrust}</p>
+            <p className={`pr-1 text-sm text-right ${ptStateColor}`}>
+              {ptStateLabel}
+            </p>
           </span>
         </div>
 

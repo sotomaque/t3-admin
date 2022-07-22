@@ -262,7 +262,8 @@ export type Properties = {
   transferLeg?: number;
 };
 export type Source = {
-  ptPlaidAccount: PtPlaidAccount;
+  ptPlaidAccount?: PtPlaidAccount;
+  primeTrustAccount?: PrimeTrustAccount;
 };
 export type PtPlaidAccount = {
   accountID: string;
@@ -272,6 +273,7 @@ export type PtPlaidAccount = {
 export type Destination = {
   wyreAccount?: WyreAccount;
   primeTrustAccount?: PtPlaidAccount;
+  ptPlaidAccount?: PtPlaidAccount;
 };
 export type WyreAccount = {
   accountID: string;

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { User } from 'types';
 
 // TODO: rename to toUserKYCSelector
@@ -57,10 +57,104 @@ const useUserKYC = ({ user }: { user: User }) => {
     }
   }, [filteredCognitoYCAccount]);
 
+  const ptStateLabel = useMemo(() => {
+    if (primeTrust === 'KYC_REQUIRED') {
+      return 'Required';
+    } else if (primeTrust === 'KYC_PENDING') {
+      return 'Pending';
+    } else if (primeTrust === 'KYC_FAILED') {
+      return 'Failed';
+    } else if (primeTrust === 'KYC_PASSED') {
+      return 'Passed';
+    }
+
+    return primeTrust;
+  }, [primeTrust]);
+
+  const cognitoStateLabel = useMemo(() => {
+    if (cognito === 'KYC_REQUIRED') {
+      return 'Required';
+    } else if (cognito === 'KYC_PENDING') {
+      return 'Pending';
+    } else if (cognito === 'KYC_FAILED') {
+      return 'Failed';
+    } else if (cognito === 'KYC_PASSED') {
+      return 'Passed';
+    }
+
+    return cognito;
+  }, [cognito]);
+
+  const ptStateColor = useMemo(() => {
+    if (primeTrust === 'KYC_REQUIRED') {
+      return 'text-gray-500';
+    } else if (primeTrust === 'KYC_PENDING') {
+      return 'text-orange-500';
+    } else if (primeTrust === 'KYC_FAILED') {
+      return 'text-red-500';
+    } else if (primeTrust === 'KYC_PASSED') {
+      return 'text-green-500';
+    }
+
+    return 'text-gray-500';
+  }, [primeTrust]);
+
+  const cognitoStateColor = useMemo(() => {
+    if (cognito === 'KYC_REQUIRED') {
+      return 'text-gray-500';
+    } else if (cognito === 'KYC_PENDING') {
+      return 'text-orange-500';
+    } else if (cognito === 'KYC_FAILED') {
+      return 'text-red-500';
+    } else if (cognito === 'KYC_PASSED') {
+      return 'text-green-500';
+    }
+
+    return 'text-gray-500';
+  }, [cognito]);
+
+  const cognitoStateBackgroundColor = useMemo(() => {
+    if (cognitoStateLabel === 'Required') {
+      return 'bg-gray-100';
+    } else if (cognitoStateLabel === 'Pending') {
+      return 'bg-orange-100';
+    } else if (cognitoStateLabel === 'Failed') {
+      return 'bg-red-100';
+    } else if (cognitoStateLabel === 'Passed') {
+      return 'bg-green-100';
+    }
+
+    return 'bg-gray-100';
+  }, [cognitoStateLabel]);
+
+  const ptStateBackgroundColor = useMemo(() => {
+    if (ptStateLabel === 'Required') {
+      return 'bg-gray-100';
+    } else if (ptStateLabel === 'Pending') {
+      return 'bg-orange-100';
+    } else if (ptStateLabel === 'Failed') {
+      return 'bg-red-100';
+    } else if (ptStateLabel === 'Passed') {
+      return 'bg-green-100';
+    }
+
+    return 'bg-gray-100';
+  }, [ptStateLabel]);
+
   return {
     wyre,
-    primeTrust,
-    cognito,
+    primeTrust: {
+      serverState: primeTrust,
+      stateLabel: ptStateLabel,
+      stateColor: ptStateColor,
+      stateBackgroundColor: ptStateBackgroundColor,
+    },
+    cognito: {
+      serverState: cognito,
+      stateLabel: cognitoStateLabel,
+      stateColor: cognitoStateColor,
+      stateBackgroundColor: cognitoStateBackgroundColor,
+    },
   };
 };
 

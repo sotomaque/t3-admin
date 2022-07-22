@@ -23,15 +23,9 @@ const SelectedUsersTransfersTable = ({
         <tr>
           <th
             scope="col"
-            className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 hidden lg:table-cell"
+            className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 hidden xl:table-cell"
           >
             ID
-          </th>
-          <th
-            scope="col"
-            className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-          >
-            Amount
           </th>
           <th
             scope="col"
@@ -43,10 +37,25 @@ const SelectedUsersTransfersTable = ({
             scope="col"
             className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
           >
+            Amount
+          </th>
+          <th
+            scope="col"
+            className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+          >
             State
           </th>
-          <th scope="col" className="relative py-3.5 pl-3 pr-4 sm:pr-6">
-            <span className="sr-only">Select</span>
+          <th
+            scope="col"
+            className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+          >
+            Process
+          </th>
+          <th
+            scope="col"
+            className="px-3 py-3.5 text-right pr-6 text-sm font-semibold text-gray-900"
+          >
+            Select
           </th>
         </tr>
       </thead>

@@ -25,7 +25,7 @@ const RecentUsersTable = ({ users }: RecentUsersTableProps) => {
         <tr>
           <th
             scope="col"
-            className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
+            className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6 hidden md:table-cell"
           >
             Name
           </th>
@@ -61,7 +61,7 @@ const RecentUsersTable = ({ users }: RecentUsersTableProps) => {
           </th>
           <th
             scope="col"
-            className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+            className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 hidden md:table-cell"
           >
             Cognito
           </th>

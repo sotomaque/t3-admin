@@ -4,7 +4,6 @@ import {
 } from '@heroicons/react/outline';
 import { useState } from 'react';
 import { useLayout } from 'store';
-import Notification from '../Notification';
 
 const CopyableRow = ({
   rowName,
@@ -13,6 +12,7 @@ const CopyableRow = ({
   className = '',
   chip = false,
   chipColor = 'bg-green-100 text-green-800',
+  onClick,
 }: {
   rowName: string;
   rowData: string;
@@ -20,6 +20,7 @@ const CopyableRow = ({
   className?: string;
   chip?: boolean;
   chipColor?: string;
+  onClick?: () => void;
 }) => {
   const [hasCopied, setHasCopied] = useState(false);
   const { setShowNotification } = useLayout();
@@ -31,6 +32,7 @@ const CopyableRow = ({
     setShowNotification(true);
     setTimeout(() => {
       setShowNotification(false);
+      setHasCopied(false);
     }, 3000);
   };
 
@@ -41,13 +43,24 @@ const CopyableRow = ({
       <p className="text-left text-xs hidden md:flex">{rowName}</p>
 
       <div className="flex items-center">
-        <p
-          className={`text-sm text-center md:text-right ${
-            chip ? `px-2.5 py-0.5 rounded-full ${chipColor}` : 'pr-1'
-          }`}
-        >
-          {rowData}
-        </p>
+        {onClick ? (
+          <button
+            onClick={onClick}
+            className={`text-sm text-center md:text-right text-blue-500 ${
+              chip ? `px-2.5 py-0.5 rounded-full ${chipColor}` : 'pr-1'
+            }`}
+          >
+            {rowData}
+          </button>
+        ) : (
+          <p
+            className={`text-sm text-center md:text-right ${
+              chip ? `px-2.5 py-0.5 rounded-full ${chipColor}` : 'pr-1'
+            }`}
+          >
+            {rowData}
+          </p>
+        )}
 
         {!disableCopying && (
           <div onClick={() => handleCopy()} className="cursor-pointer">

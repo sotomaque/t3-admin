@@ -8,12 +8,55 @@ import {
   clearTransfer,
   getPrimeTrustTransferIdForWithdraw,
 } from 'utils/transferUtils';
-import { Transaction } from 'types/index';
+import { Transaction, Transfer } from 'types/index';
 import { createRouter } from './context';
 import { z } from 'zod';
 import { TRPCError } from '@trpc/server';
 
 export const transferRouter = createRouter()
+  .query('transferDetailsByTransferId', {
+    input: z.object({
+      transferId: z.string(),
+    }),
+    async resolve({ input }) {
+      const { transferId } = input;
+
+      // Build URL
+      const baseURL = process.env.ECO_BASE_URL;
+      const transfersURL = process.env.ECO_TRANSFERS;
+
+      if (!baseURL || !transfersURL) {
+        throw new TRPCError({
+          message:
+            'Missing BaseURL / TransfersURL in transferDetailsByTransferId',
+          code: 'INTERNAL_SERVER_ERROR',
+        });
+      }
+
+      const startDateQueryParam = '?startDate=0';
+      const transferIdQueryParam = `&transferID=${transferId}`;
+      const fullURL = `${baseURL}${transfersURL}${startDateQueryParam}${transferIdQueryParam}`;
+
+      // Make Request
+      const response = await fetch(fullURL);
+
+      // parse the response
+      const body = await response.json();
+
+      if (!body || !Array.isArray(body)) {
+        throw new TRPCError({
+          message: 'Invalid Response in transferDetailsByTransferId',
+          code: 'INTERNAL_SERVER_ERROR',
+        });
+      }
+
+      // // extract transfer from the response
+      const transfer: Transfer = body[0];
+
+      // return transfer
+      return { transfer };
+    },
+  })
   .query('transfersByUserId', {
     input: z.object({
       userId: z.string(),
