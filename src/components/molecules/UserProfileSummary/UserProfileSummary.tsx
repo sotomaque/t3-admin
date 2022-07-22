@@ -12,7 +12,18 @@ const UserProfileSummary = ({ user }: UserProfileSummaryProps) => {
     balances: { ecoBalances, usdcBalances },
     apy,
   } = useUserAccounts({ user });
-  const { cognito, primeTrust } = useUserKYC({ user });
+  const {
+    cognito: {
+      stateBackgroundColor: cognitoStateBackgroundColor,
+      stateColor: cognitoStateColor,
+      stateLabel: cognitoStateLabel,
+    },
+    primeTrust: {
+      stateBackgroundColor: ptStateBackgroundColor,
+      stateColor: ptStateColor,
+      stateLabel: ptStateLabel,
+    },
+  } = useUserKYC({ user });
 
   return (
     <div className="mx-auto container bg-white shadow rounded overflow-x-scroll">
@@ -65,14 +76,11 @@ const UserProfileSummary = ({ user }: UserProfileSummaryProps) => {
         <div className="flex justify-between mt-4">
           <p className="text-xs text-left">Cognito KYC Status</p>
           <span
-            className={`flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium 
-            ${cognito === 'KYC_REQUIRED' && 'bg-gray-100 text-gray-800'}
-            ${cognito === 'KYC_FAILED' && 'bg-red-100 text-red-800'}
-            ${cognito === 'KYC_PENDING' && 'bg-yellow-100 text-yellow-800'}
-            ${cognito === 'KYC_PASSED' && 'bg-green-100 text-green-800'}
-            `}
+            className={`flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${cognitoStateBackgroundColor}`}
           >
-            <p className="pr-1 text-sm text-right">{cognito}</p>
+            <p className={`pr-1 text-sm text-right ${cognitoStateColor}`}>
+              {cognitoStateLabel}
+            </p>
           </span>
         </div>
 
@@ -81,14 +89,11 @@ const UserProfileSummary = ({ user }: UserProfileSummaryProps) => {
         <div className="flex justify-between mt-4">
           <p className="text-xs text-left">PT KYC Status</p>
           <span
-            className={`flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
-            ${primeTrust === 'KYC_REQUIRED' && 'bg-gray-100 text-gray-800'}
-            ${primeTrust === 'KYC_FAILED' && 'bg-red-100 text-red-800'}
-            ${primeTrust === 'KYC_PENDING' && 'bg-yellow-100 text-yellow-800'}
-            ${primeTrust === 'KYC_PASSED' && 'bg-green-100 text-green-800'}
-            `}
+            className={`flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${ptStateBackgroundColor}`}
           >
-            <p className="pr-1 text-sm text-right">{primeTrust}</p>
+            <p className={`pr-1 text-sm text-right ${ptStateColor}`}>
+              {ptStateLabel}
+            </p>
           </span>
         </div>
 
