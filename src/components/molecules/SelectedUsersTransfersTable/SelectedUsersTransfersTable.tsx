@@ -64,7 +64,7 @@ const SelectedUsersTransfersTable = ({
       <tbody className="divide-y divide-gray-200 bg-white">
         {transfers.map((transfer) => (
           <tr key={transfer.transactionID} className="hover:bg-gray-50">
-            <SelectedUserTransferRow transfer={transfer} />
+            <SelectedUserTransferRow transaction={transfer} />
           </tr>
         ))}
       </tbody>
