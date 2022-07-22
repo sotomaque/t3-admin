@@ -18,10 +18,10 @@ const UserFlagsCard = ({ user }: { user: User }) => {
         {/* Collapse Button */}
         {hasUserFlags && user!.userFlags!.length > 1 && (
           <button
-            className="bg-blue-400 p-2 rounded-lg focus:outline-none focus:text-gray-500 transition duration-150 ease-in-out text-white text-sm"
+            className="bg-blue-400 p-2 rounded-lg text-white text-sm"
             onClick={() => setCollapsed(!collapsed)}
           >
-            Collapse
+            {collapsed ? 'Show' : 'Collapse'}
           </button>
         )}
       </div>
@@ -36,7 +36,7 @@ const UserFlagsCard = ({ user }: { user: User }) => {
                   key={`userFlag-${userFlag}-${idx}`}
                   userFlag={userFlag}
                   idx={idx}
-                  totalFlags={user.userFlags!.length}
+                  totalFlags={collapsed ? 1 : user.userFlags!.length}
                 />
               ))}
           </div>
