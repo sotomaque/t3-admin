@@ -1,6 +1,6 @@
 import {
   Spinner,
-  SelectedUsersTransfersTable,
+  SelectedUsersTransactionsTable,
   TransactionsPagination,
 } from 'components';
 import { useEffect, useState } from 'react';
@@ -27,7 +27,7 @@ const SelectedUserTransfersSection = ({ userId }: { userId: string }) => {
     <div className="p-4 sm:px-6 lg:px-8">
       <div className="flex w-full ">
         <div className="sm:flex-auto">
-          <h1 className="text-xl font-semibold text-gray-900">Transfers</h1>
+          <h1 className="text-xl font-semibold text-gray-900">Transactions</h1>
           <p className="mt-2 text-sm text-gray-700">{userId}</p>
         </div>
         {/* Collapse Button */}
@@ -51,8 +51,8 @@ const SelectedUserTransfersSection = ({ userId }: { userId: string }) => {
               )}
               {selectedUserTransactions && !transfersLoading && (
                 <>
-                  <SelectedUsersTransfersTable
-                    transfers={
+                  <SelectedUsersTransactionsTable
+                    transaction={
                       collapsed
                         ? selectedUserTransactions.slice(0, 1)
                         : selectedUserTransactions

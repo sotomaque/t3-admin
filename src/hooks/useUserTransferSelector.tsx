@@ -1,13 +1,9 @@
 import { useMemo } from 'react';
-import { Transaction } from 'types';
+import { Transfer } from 'types';
 
-const useUserTransferSelector = ({
-  transaction,
-}: {
-  transaction: Transaction;
-}) => {
-  const formattedTransactionAmount = useMemo(() => {
-    let originalAmount = `${parseFloat(transaction.amount).toFixed(2)}`;
+const useUserTransferSelector = ({ transfer }: { transfer: Transfer }) => {
+  const formattedTransferAmount = useMemo(() => {
+    let originalAmount = `${parseFloat(transfer.amount.value).toFixed(2)}`;
     if (originalAmount.startsWith('-')) {
       originalAmount = originalAmount.substring(1);
     }
@@ -16,27 +12,48 @@ const useUserTransferSelector = ({
       { minimumFractionDigits: 2 }
     );
     return `$${originalAmountAsNumber}`;
-  }, [transaction.amount]);
+  }, [transfer.amount]);
 
-  const isAmountNegative = useMemo(() => {
-    return transaction.amount.startsWith('-');
-  }, [transaction.amount]);
-
-  const formattedTransactionState = useMemo(() => {
-    switch (transaction.state) {
-      case 'TRANSFER_PENDING':
-        return 'Pending';
-      case 'TRANSFER_COMPLETED':
-        return 'Completed';
-      case 'TRANSFER_INITIATION_FAILED':
-        return 'Initiation Failed';
-      default:
-        return transaction.state;
+  const formattedSourceTransferFundsAccountID = useMemo(() => {
+    if (transfer.source.ptPlaidAccount) {
+      return transfer.source.ptPlaidAccount.accountID;
+    } else if (transfer.source.primeTrustAccount) {
+      return transfer.source.primeTrustAccount.accountID;
     }
-  }, [transaction.state]);
+    return '';
+  }, [transfer]);
 
-  const formattedTransactionCategory = useMemo(() => {
-    switch (transaction.category) {
+  const formattedDestinationTransferFundsAccountName = useMemo(() => {
+    if (transfer.destination.wyreAccount) {
+      return `${transfer.destination.wyreAccount.label}`;
+    } else if (transfer.destination.primeTrustAccount) {
+      return `${transfer.destination.primeTrustAccount.label} ${transfer.destination.primeTrustAccount.mask}`;
+    } else if (transfer.destination.ptPlaidAccount) {
+      return `${transfer.destination.ptPlaidAccount.label} ${transfer.destination.ptPlaidAccount.mask}`;
+    }
+    return '';
+  }, [transfer]);
+
+  const formattedDestinationTransferFundsAccountID = useMemo(() => {
+    if (transfer.source.ptPlaidAccount) {
+      return transfer.source.ptPlaidAccount.accountID;
+    } else if (transfer.source.primeTrustAccount) {
+      return transfer.source.primeTrustAccount.accountID;
+    }
+    return '';
+  }, [transfer]);
+
+  const formattedSourceTransferFundsAccountName = useMemo(() => {
+    if (transfer.source.ptPlaidAccount) {
+      return `${transfer.source.ptPlaidAccount.label} ${transfer.source.ptPlaidAccount.mask}`;
+    } else if (transfer.source.primeTrustAccount) {
+      return `${transfer.source.primeTrustAccount.label} ${transfer.source.primeTrustAccount.mask}`;
+    }
+    return '';
+  }, [transfer]);
+
+  const formattedTransferCategory = useMemo(() => {
+    switch (transfer.trackingData.transferCategory) {
       case 'AD_HOC_DEPOSIT':
         return 'Deposit';
       case 'AD_HOC_WITHDRAWAL':
@@ -50,66 +67,70 @@ const useUserTransferSelector = ({
       case 'EXTERNAL_TRANSFER':
         return 'External Transfer';
       default:
-        return transaction.category;
+        return transfer.trackingData.transferCategory;
     }
-  }, [transaction.category]);
+  }, [transfer.trackingData.transferCategory]);
 
-  const isTransactionPending = useMemo(() => {
-    return transaction.state === 'TRANSFER_PENDING';
-  }, [transaction.state]);
+  const formattedTransferState = useMemo(() => {
+    switch (transfer.state) {
+      case 'TRANSFER_PENDING':
+        return 'Pending';
+      case 'TRANSFER_COMPLETED':
+        return 'Completed';
+      case 'TRANSFER_INITIATION_FAILED':
+        return 'Initiation Failed';
+      default:
+        return transfer.state;
+    }
+  }, [transfer.state]);
 
-  const isTransactionError = useMemo(() => {
-    return transaction.state === 'TRANSFER_INITIATION_FAILED';
-  }, [transaction.state]);
+  const isTransferPending = useMemo(() => {
+    return transfer.state === 'TRANSFER_PENDING';
+  }, [transfer.state]);
 
-  const isTransactionCompleted = useMemo(() => {
-    return transaction.state === 'TRANSFER_COMPLETED';
-  }, [transaction.state]);
+  const isTransferError = useMemo(() => {
+    return transfer.state === 'TRANSFER_INITIATION_FAILED';
+  }, [transfer.state]);
 
-  const transactionStateColor = useMemo(() => {
-    if (isTransactionPending) {
+  const isTransferCompleted = useMemo(() => {
+    return transfer.state === 'TRANSFER_COMPLETED';
+  }, [transfer.state]);
+
+  const transferStateColor = useMemo(() => {
+    if (isTransferPending) {
       return 'text-gray-500';
-    } else if (isTransactionError) {
+    } else if (isTransferError) {
       return 'text-red-500';
-    } else if (isTransactionCompleted) {
+    } else if (isTransferCompleted) {
       return 'text-green-500';
     }
     return 'text-gray-500';
-  }, [isTransactionPending, isTransactionError, isTransactionCompleted]);
+  }, [isTransferPending, isTransferError, isTransferCompleted]);
 
-  const transactionStateBackgroundColor = useMemo(() => {
-    if (isTransactionPending) {
+  const transferStateBackgroundColor = useMemo(() => {
+    if (isTransferPending) {
       return 'bg-gray-100';
-    } else if (isTransactionError) {
+    } else if (isTransferError) {
       return 'bg-red-100';
-    } else if (isTransactionCompleted) {
+    } else if (isTransferCompleted) {
       return 'bg-green-100';
     }
     return 'bg-gray-100';
-  }, [isTransactionPending, isTransactionError, isTransactionCompleted]);
-
-  const canSelectTransaction = useMemo(() => {
-    return transaction.category != 'EXTERNAL_TRANSFER';
-  }, [transaction.category]);
-
-  const canProcessTransaction = useMemo(() => {
-    const isInValidState = transaction.state === 'TRANSFER_PENDING';
-
-    const isValidTransferCategory =
-      transaction.category === 'AD_HOC_DEPOSIT' || 'AD_HOC_WITHDRAWAL';
-
-    return isInValidState && isValidTransferCategory;
-  }, [transaction.state, transaction.category]);
+  }, [isTransferPending, isTransferError, isTransferCompleted]);
 
   return {
-    canProcessTransaction,
-    canSelectTransaction,
-    formattedTransactionAmount,
-    formattedTransactionCategory,
-    formattedTransactionState,
-    isAmountNegative,
-    transactionStateBackgroundColor,
-    transactionStateColor,
+    formattedDestinationTransferFundsAccountID,
+    formattedDestinationTransferFundsAccountName,
+    formattedSourceTransferFundsAccountID,
+    formattedSourceTransferFundsAccountName,
+    formattedTransferAmount,
+    formattedTransferCategory,
+    formattedTransferState,
+    isTransferCompleted,
+    isTransferError,
+    isTransferPending,
+    transferStateBackgroundColor,
+    transferStateColor,
   };
 };
 

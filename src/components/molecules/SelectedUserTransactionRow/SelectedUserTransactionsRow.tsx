@@ -2,13 +2,13 @@ import { Spinner } from 'components/atoms';
 import { Transaction } from 'types';
 import { trpc } from 'utils/trpc';
 import { useRouter } from 'next/router';
-import { useUserTransferSelector } from 'hooks';
+import { useUserTransactionSelector } from 'hooks';
 
 interface SelectedUserTransferRowProps {
   transaction: Transaction;
 }
 
-const SelectedUserTransferRow = ({
+const SelectedUserTransactionRow = ({
   transaction,
 }: SelectedUserTransferRowProps) => {
   // Effects
@@ -22,7 +22,7 @@ const SelectedUserTransferRow = ({
     isAmountNegative,
     transactionStateBackgroundColor,
     transactionStateColor,
-  } = useUserTransferSelector({
+  } = useUserTransactionSelector({
     transaction,
   });
   const { isLoading, mutateAsync, error } = trpc.useMutation([
@@ -97,4 +97,4 @@ const SelectedUserTransferRow = ({
   );
 };
 
-export default SelectedUserTransferRow;
+export default SelectedUserTransactionRow;

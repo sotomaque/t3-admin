@@ -1,19 +1,19 @@
 import { useUsers } from 'store';
 import { Transaction } from 'types';
-import SelectedUserTransferRow from '../SelectedUserTransferRow';
-import TransfersEmptyState from '../TransfersEmptyState';
+import SelectedUserTransactionRow from '../SelectedUserTransactionRow';
+import TransactionsEmptyState from '../TransfersEmptyState';
 
-interface SelectedUsersTransfersTableProps {
-  transfers: [] | Transaction[];
+interface SelectedUsersTransactionsTableProps {
+  transaction: [] | Transaction[];
 }
 
-const SelectedUsersTransfersTable = ({
-  transfers,
-}: SelectedUsersTransfersTableProps) => {
+const SelectedUsersTransactionsTable = ({
+  transaction,
+}: SelectedUsersTransactionsTableProps) => {
   const { selectedUser } = useUsers();
 
-  if (transfers.length === 0) {
-    return <TransfersEmptyState userId={selectedUser?.userID} />;
+  if (transaction.length === 0) {
+    return <TransactionsEmptyState userId={selectedUser?.userID} />;
   }
 
   return (
@@ -62,9 +62,9 @@ const SelectedUsersTransfersTable = ({
 
       {/* Body */}
       <tbody className="divide-y divide-gray-200 bg-white">
-        {transfers.map((transfer) => (
-          <tr key={transfer.transactionID} className="hover:bg-gray-50">
-            <SelectedUserTransferRow transaction={transfer} />
+        {transaction.map((transaction) => (
+          <tr key={transaction.transactionID} className="hover:bg-gray-50">
+            <SelectedUserTransactionRow transaction={transaction} />
           </tr>
         ))}
       </tbody>
@@ -72,4 +72,4 @@ const SelectedUsersTransfersTable = ({
   );
 };
 
-export default SelectedUsersTransfersTable;
+export default SelectedUsersTransactionsTable;
