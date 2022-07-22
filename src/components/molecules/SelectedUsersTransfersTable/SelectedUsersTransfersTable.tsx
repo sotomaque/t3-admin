@@ -31,13 +31,13 @@ const SelectedUsersTransfersTable = ({
             scope="col"
             className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
           >
-            Amount
+            Category
           </th>
           <th
             scope="col"
             className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
           >
-            Category
+            Amount
           </th>
           <th
             scope="col"
@@ -53,7 +53,7 @@ const SelectedUsersTransfersTable = ({
           </th>
           <th
             scope="col"
-            className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+            className="px-3 py-3.5 text-right pr-6 text-sm font-semibold text-gray-900"
           >
             Select
           </th>

@@ -16,6 +16,7 @@ import SelectedUsersTransfersTable from './SelectedUsersTransfersTable';
 import SelectedUserTransferRow from './SelectedUserTransferRow';
 import TransactionsPagination from './TransactionPagination';
 import TransfersEmptyState from './TransfersEmptyState';
+import TransferSummary from './TransferSummary';
 import UserFlagsCard from './UserFlagsCard';
 import UserProfileSummary from './UserProfileSummary';
 import UserRegistrationProgress from './UserRegistrationProgress';
@@ -40,6 +41,7 @@ export {
   SelectedUserTransferRow,
   TransactionsPagination,
   TransfersEmptyState,
+  TransferSummary,
   UserFlagsCard,
   UserProfileSummary,
   UserRegistrationProgress,

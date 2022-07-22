@@ -1,4 +1,5 @@
 import { Spinner } from 'components/atoms';
+import { useRouter } from 'next/router';
 import { useMemo } from 'react';
 import { Transaction } from 'types';
 import { trpc } from 'utils/trpc';
@@ -13,7 +14,7 @@ const SelectedUserTransferRow = ({
   const { isLoading, mutateAsync, error } = trpc.useMutation([
     'transfer.processTransfer',
   ]);
-
+  const router = useRouter();
   const canProcessTransfer = useMemo(() => {
     const isInValidState = transfer.state === 'TRANSFER_PENDING';
 
@@ -23,7 +24,7 @@ const SelectedUserTransferRow = ({
     return isInValidState && isValidTransferCategory;
   }, [transfer.state, transfer.category]);
 
-  const handleOnClick = async () => {
+  const handleOnProcess = async () => {
     if (!canProcessTransfer) return;
     // Make API Call to process transfer
     await mutateAsync({
@@ -35,9 +36,12 @@ const SelectedUserTransferRow = ({
     let originalAmount = `${parseFloat(transfer.amount).toFixed(2)}`;
     if (originalAmount.startsWith('-')) {
       originalAmount = originalAmount.substring(1);
-      return `- $${originalAmount}`;
     }
-    return `$${originalAmount}`;
+    let originalAmountAsNumber = parseFloat(originalAmount).toLocaleString(
+      'en-US',
+      { minimumFractionDigits: 2 }
+    );
+    return `$${originalAmountAsNumber}`;
   }, [transfer.amount]);
 
   const isAmountNegative = useMemo(() => {
@@ -110,10 +114,21 @@ const SelectedUserTransferRow = ({
     return 'bg-gray-100';
   }, [isTransferPending, isTransferError, isTransferCompleted]);
 
+  const canSelectTransfer = useMemo(() => {
+    return transfer.category != 'EXTERNAL_TRANSFER';
+  }, [transfer.category]);
+
+  const handleOnSelect = () => {
+    router.push(`/transfers/${transfer.transactionID}`);
+  };
+
   return (
     <>
       <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 hidden xl:table-cell">
         {transfer.transactionID}
+      </td>
+      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+        {formattedTransferCategory}
       </td>
       <td
         className={`whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-left pl-5 ${
@@ -122,14 +137,11 @@ const SelectedUserTransferRow = ({
       >
         {formattedTransferAmount}
       </td>
-      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-        {formattedTransferCategory}
-      </td>
       <td
         className={`whitespace-nowrap px-3 py-4 text-sm text-gray-500 ${transferStateColor}`}
       >
         <span
-          className={`text-center px-2.5 py-1 rounded-full text-xs font-medium ${transferStateBackgroundColor}`}
+          className={`px-3 py-1 rounded-full text-xs font-medium ${transferStateBackgroundColor}`}
         >
           {formattedTransferState}
         </span>
@@ -140,7 +152,7 @@ const SelectedUserTransferRow = ({
           <button
             role="button"
             className="text-indigo-600 hover:text-indigo-900"
-            onClick={() => handleOnClick()}
+            onClick={() => handleOnProcess()}
             disabled={isLoading || Boolean(error)}
           >
             {isLoading ? (
@@ -153,7 +165,9 @@ const SelectedUserTransferRow = ({
       </td>
 
       <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 text-indigo-600 hover:text-indigo-900 cursor-pointer">
-        Select
+        {canSelectTransfer && (
+          <button onClick={() => handleOnSelect()}>Select</button>
+        )}
       </td>
     </>
   );

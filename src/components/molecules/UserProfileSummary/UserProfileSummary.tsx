@@ -1,7 +1,6 @@
 import { XIcon } from '@heroicons/react/outline';
 import CopyableRow from 'components/atoms/CopyableRow';
 import { useUserAccounts, useUserKYC } from 'hooks';
-import { useUsers } from 'store';
 import { User } from 'types';
 
 interface UserProfileSummaryProps {
@@ -9,16 +8,11 @@ interface UserProfileSummaryProps {
 }
 
 const UserProfileSummary = ({ user }: UserProfileSummaryProps) => {
-  const { clearSelectedUser } = useUsers();
   const {
     balances: { ecoBalances, usdcBalances },
     apy,
   } = useUserAccounts({ user });
   const { cognito, primeTrust } = useUserKYC({ user });
-
-  const handleUnselecteClicked = () => {
-    clearSelectedUser();
-  };
 
   return (
     <div className="mx-auto container bg-white shadow rounded overflow-x-scroll">
@@ -31,11 +25,6 @@ const UserProfileSummary = ({ user }: UserProfileSummaryProps) => {
           </h3>
           <h4 className="px-2"> - User Details</h4>
         </div>
-        <XIcon
-          className="h-5 w-5"
-          aria-hidden="true"
-          onClick={() => handleUnselecteClicked()}
-        />
       </div>
       {/* Content  */}
       <div className="px-4">
