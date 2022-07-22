@@ -1,5 +1,5 @@
 import { PaginatedFooter } from 'components/atoms';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useUsers } from 'store';
 import { trpc } from 'utils/trpc';
 
@@ -8,13 +8,20 @@ const RecentUsersPagination = () => {
   const [currentPage, setCurrentPage] = useState(0);
 
   // Effect(s)
-  const { setLoading, setRecentUsers } = useUsers();
-  const { data, mutate } = trpc.useMutation(['user.recentUsers']);
-  useEffect(() => {
-    if (data && data.users) {
-      setRecentUsers(data.users);
-    }
-  }, [setRecentUsers, data]);
+  const { setRecentUsers, setLoading } = useUsers();
+  const { mutateAsync } = trpc.useMutation(['user.recentUsers'], {
+    onMutate: () => {
+      setLoading(true);
+    },
+    onSuccess: (data) => {
+      if (data && data.users) {
+        setRecentUsers(data.users);
+      }
+    },
+    onSettled: () => {
+      setLoading(false);
+    },
+  });
 
   // Function(s)
   const handleOnClick = async (newPage: number) => {
@@ -23,11 +30,9 @@ const RecentUsersPagination = () => {
       return;
     }
     setCurrentPage(newPageOffset);
-    setLoading(true);
-    mutate({
+    await mutateAsync({
       pageNumber: `${newPageOffset}`,
     });
-    setLoading(false);
   };
   const handleOnPrev = async () => {
     // validate
@@ -37,11 +42,9 @@ const RecentUsersPagination = () => {
     setCurrentPage((prev) => prev - 1);
 
     // make users.recentUsers request
-    setLoading(true);
-    mutate({
+    await mutateAsync({
       pageNumber: `${currentPage - 1}`,
     });
-    setLoading(false);
   };
   const handleOnNext = async () => {
     // validate
@@ -51,11 +54,9 @@ const RecentUsersPagination = () => {
     setCurrentPage((prev) => prev + 1);
 
     // make users.recentUsers request
-    setLoading(true);
-    mutate({
+    await mutateAsync({
       pageNumber: `${currentPage + 1}`,
     });
-    setLoading(false);
   };
 
   return (
