@@ -4,7 +4,6 @@ import { trpc } from 'utils/trpc';
 import { useRouter } from 'next/router';
 import { useUserTransactionSelector } from 'hooks';
 import { useLayout } from 'store';
-import { useQueryClient } from 'react-query';
 
 interface SelectedUserTransferRowProps {
   transaction: Transaction;
@@ -14,7 +13,6 @@ const SelectedUserTransactionRow = ({
   transaction,
 }: SelectedUserTransferRowProps) => {
   // Effects
-  const queryClient = useQueryClient();
   const router = useRouter();
   const { setShowNotification, setNotificationMessage } = useLayout();
   const {
@@ -46,7 +44,6 @@ const SelectedUserTransactionRow = ({
           setNotificationMessage('Transfer processed successfully');
           setShowNotification(true);
           setTimeout(async () => {
-            await queryClient.invalidateQueries(['transfer.transfersByUserId']);
             setNotificationMessage('');
             setShowNotification(false);
           }, 3000);
