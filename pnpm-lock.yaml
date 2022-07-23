@@ -34,15 +34,15 @@ dependencies:
   '@headlessui/react': 1.6.6_biqbaboplfbrettd7655fr4n2y
   '@heroicons/react': 1.0.6_react@18.2.0
   '@trpc/client': 9.25.3_@trpc+server@9.25.3
-  '@trpc/next': 9.25.3_gjz2vgkn3qadfgugkh65jdpnzq
-  '@trpc/react': 9.25.3_ms3at4dqhndwrpx5xroirjehyy
+  '@trpc/next': 9.25.3_hsvt6etpogplafd633f5dhs35a
+  '@trpc/react': 9.25.3_rdoc4j2rzus2whurst62ljkdoq
   '@trpc/server': 9.25.3
   axios: 0.27.2
   form-data: 4.0.0
   next: 12.2.0_biqbaboplfbrettd7655fr4n2y
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
-  react-query: 3.39.1_biqbaboplfbrettd7655fr4n2y
+  react-query: 3.39.2_biqbaboplfbrettd7655fr4n2y
   superjson: 1.9.1
   zod: 3.17.3
   zustand: 4.0.0-rc.1_react@18.2.0
@@ -309,7 +309,7 @@ packages:
       '@trpc/server': 9.25.3
     dev: false
 
-  /@trpc/next/9.25.3_gjz2vgkn3qadfgugkh65jdpnzq:
+  /@trpc/next/9.25.3_hsvt6etpogplafd633f5dhs35a:
     resolution: {integrity: sha512-eAhPIinDTUiEgiPjChNIcqaPgwn+rJ8HX374fwff/tZXg5OVr3dA7rur2nYyQUWO8LvdiLfUAbTxgtoEB8SPKw==}
     peerDependencies:
       '@trpc/client': 9.25.3
@@ -322,16 +322,16 @@ packages:
     dependencies:
       '@babel/runtime': 7.18.6
       '@trpc/client': 9.25.3_@trpc+server@9.25.3
-      '@trpc/react': 9.25.3_ms3at4dqhndwrpx5xroirjehyy
+      '@trpc/react': 9.25.3_rdoc4j2rzus2whurst62ljkdoq
       '@trpc/server': 9.25.3
       next: 12.2.0_biqbaboplfbrettd7655fr4n2y
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
-      react-query: 3.39.1_biqbaboplfbrettd7655fr4n2y
+      react-query: 3.39.2_biqbaboplfbrettd7655fr4n2y
       react-ssr-prepass: 1.5.0_react@18.2.0
     dev: false
 
-  /@trpc/react/9.25.3_ms3at4dqhndwrpx5xroirjehyy:
+  /@trpc/react/9.25.3_rdoc4j2rzus2whurst62ljkdoq:
     resolution: {integrity: sha512-/StrJS7hKPPn88YaXX+qRU50MeLZxBmPC5BLVyhRtwmbzK25Q0MTzBgQLrjoCpJ/HgXYZEbB5ddiw8f+/WnqIA==}
     peerDependencies:
       '@trpc/client': 9.25.3
@@ -345,7 +345,7 @@ packages:
       '@trpc/server': 9.25.3
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
-      react-query: 3.39.1_biqbaboplfbrettd7655fr4n2y
+      react-query: 3.39.2_biqbaboplfbrettd7655fr4n2y
     dev: false
 
   /@trpc/server/9.25.3:
@@ -2152,8 +2152,8 @@ packages:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
     dev: true
 
-  /react-query/3.39.1_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-qYKT1bavdDiQZbngWZyPotlBVzcBjDYEJg5RQLBa++5Ix5jjfbEYJmHSZRZD+USVHUSvl/ey9Hu+QfF1QAK80A==}
+  /react-query/3.39.2_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-F6hYDKyNgDQfQOuR1Rsp3VRzJnWHx6aRnnIZHMNGGgbL3SBgpZTDg8MQwmxOgpCAoqZJA+JSNCydF1xGJqKOCA==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
       react-dom: '*'

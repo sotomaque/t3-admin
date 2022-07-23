@@ -77,7 +77,7 @@ const RecentUsersRow = ({ user }: RecentUsersRowProps) => {
       <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
         <button
           role="button"
-          className="text-indigo-600 hover:text-indigo-900"
+          className="text-indigo-600 dark:text-purple-400 hover:text-indigo-900 dark:hover:text-purple-200"
           onClick={() => handleOnClick(user)}
         >
           {user === selectedUser ? 'Unselect' : 'Select'}

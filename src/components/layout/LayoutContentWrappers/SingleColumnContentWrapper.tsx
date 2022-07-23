@@ -7,7 +7,6 @@ const SingleColumnContentWrapper = ({
     <>
       {
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:max-w-7xl lg:px-8">
-          <h1 className="sr-only">Create a User</h1>
           <div className="lg:col-span-2">
             <section aria-labelledby="section-1-title">
               <h2 className="sr-only" id="section-1-title">

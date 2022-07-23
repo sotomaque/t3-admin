@@ -28,7 +28,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   return (
     <>
-      <div className={`min-h-full dark:bg-slate-800`}>
+      <div className={`min-h-screen dark:bg-slate-800`}>
         <Popover as="header" className="pb-24 bg-indigo-600 dark:bg-indigo-900">
           {({ open }) => (
             <>

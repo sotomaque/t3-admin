@@ -12,14 +12,14 @@ interface SelectedUserSectionProps {
 
 const SelectedUserSection = ({ user }: SelectedUserSectionProps) => {
   return (
-    <div>
+    <div className="">
       {/* Profile / User Flags */}
       <div className="h-10" />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="col-span-1 md:bg-white">
+        <div className="col-span-1">
           <UserProfileSummary user={user} />
         </div>
-        <div className="col-span-1 md:bg-white">
+        <div className="col-span-1">
           <UserFlagsCard user={user} />
         </div>
       </div>

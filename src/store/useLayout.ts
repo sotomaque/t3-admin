@@ -15,6 +15,8 @@ type LayoutState = {
   // Notifications
   showNotification: boolean;
   setShowNotification: (showNotification: boolean) => void;
+  notificationMessage: string;
+  setNotificationMessage: (notificationMessage: string) => void;
 
   // Popup
   showPopup: boolean;
@@ -41,6 +43,9 @@ export const useLayout = create<LayoutState>((set) => ({
   showNotification: false,
   setShowNotification: (showNotification: boolean) =>
     set(() => ({ showNotification })),
+  notificationMessage: '',
+  setNotificationMessage: (notificationMessage: string) =>
+    set(() => ({ notificationMessage })),
 
   // Popup
   showPopup: false,

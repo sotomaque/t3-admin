@@ -10,12 +10,19 @@ import { trpc } from 'utils/trpc';
 const SelectedUserTransfersSection = ({ userId }: { userId: string }) => {
   const [collapsed, setCollapsed] = useState(false);
   const { selectedUserTransactions, setSelectedUserTransactions } = useUsers();
-  const { data: transfersData, isLoading: transfersLoading } = trpc.useQuery([
-    'transfer.transfersByUserId',
+  const { data: transfersData, isLoading: transfersLoading } = trpc.useQuery(
+    [
+      'transfer.transfersByUserId',
+      {
+        userId,
+      },
+    ],
     {
-      userId,
-    },
-  ]);
+      refetchOnWindowFocus: true,
+      cacheTime: 0,
+      enabled: true,
+    }
+  );
 
   useEffect(() => {
     if (transfersData) {
