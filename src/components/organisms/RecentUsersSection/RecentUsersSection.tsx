@@ -53,8 +53,10 @@ const RecentUsersSection = ({ users }: RecentUsersSectionProps) => {
       {/* Add User Button */}
       <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto">
-          <h1 className="text-xl font-semibold text-gray-900">Users</h1>
-          <p className="mt-2 text-sm text-gray-700">
+          <h1 className="text-xl font-semibold text-gray-900 dark:text-slate-200">
+            Users
+          </h1>
+          <p className="mt-2 text-sm text-gray-700 dark:text-slate-400">
             A list of all the recently created users in staging
           </p>
         </div>

@@ -4,6 +4,10 @@ import create from 'zustand';
 
 // STATE TYPE
 type LayoutState = {
+  // Dark Mode
+  isDark: boolean;
+  toggleIsDark: () => void;
+
   // Routes
   selectedRoute: RoutePath;
   setSelectedRoute: (selectedRoute: RoutePath) => void;
@@ -24,6 +28,10 @@ type LayoutState = {
 
 // INITIAL STATE
 export const useLayout = create<LayoutState>((set) => ({
+  // Dark Mode
+  isDark: false,
+  toggleIsDark: () => set((state) => ({ isDark: !state.isDark })),
+
   // Routes
   selectedRoute: 'Home',
   setSelectedRoute: (selectedRoute: RoutePath) =>

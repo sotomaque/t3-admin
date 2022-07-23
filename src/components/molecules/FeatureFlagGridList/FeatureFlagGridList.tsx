@@ -8,7 +8,7 @@ const FeatureFlagsGrid = ({ flags }: { flags: FeatureFlag[] | [] }) => {
       <div className="h-full w-full">
         <div className="max-w-10xl mx-auto px-4 sm:px-6 lg:px-4">
           <div className="max-w-7xl mx-auto">
-            <div className="p-4 bg-white">
+            <div className="p-4 bg-white dark:bg-slate-800">
               <div className="flex flex-col">
                 <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
                   <div className="inline-block min-w-full align-middle md:px-6 lg:px-8">

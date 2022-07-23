@@ -36,26 +36,28 @@ const RecentUsersRow = ({ user }: RecentUsersRowProps) => {
 
   return (
     <>
-      <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 hidden md:table-cell">
+      <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 dark:text-slate-200 sm:pl-6 hidden md:table-cell">
         {user.givenName} {user.familyName}
       </td>
-      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-slate-200">
         {user.username}
       </td>
-      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 hidden xl:table-cell">
+      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-slate-200 hidden xl:table-cell">
         {user.email}
       </td>
-      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-slate-200">
         ${usdcBalances.settled?.toFixed(2)}
       </td>
-      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 hidden lg:table-cell">
-        {ecoBalances.totalBalance.toFixed(3)}
+      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-slate-200 hidden lg:table-cell">
+        {ecoBalances.totalBalance === 0
+          ? 0
+          : ecoBalances.totalBalance.toFixed(3)}
       </td>
-      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 hidden lg:table-cell">
+      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-slate-200 hidden lg:table-cell">
         {apy}%
       </td>
       <td
-        className={`whitespace-nowrap px-3 py-4 text-sm text-gray-500 hidden md:table-cell ${cognitoStateColor}`}
+        className={`whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-slate-200 hidden md:table-cell ${cognitoStateColor}`}
       >
         <span
           className={`px-3 py-1 rounded-full text-xs font-medium ${cognitoStateBackgroundColor}`}
@@ -64,7 +66,7 @@ const RecentUsersRow = ({ user }: RecentUsersRowProps) => {
         </span>
       </td>
       <td
-        className={`whitespace-nowrap px-3 py-4 text-sm text-gray-500 ${ptStateColor}`}
+        className={`whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-slate-200 ${ptStateColor}`}
       >
         <span
           className={`px-3 py-1 rounded-full text-xs font-medium ${ptStateBackgroundColor}`}

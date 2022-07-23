@@ -13,7 +13,7 @@ const SingleColumnContentWrapper = ({
               <h2 className="sr-only" id="section-1-title">
                 Section title
               </h2>
-              <div className="rounded-lg bg-white overflow-hidden shadow">
+              <div className="rounded-lg bg-white dark:bg-slate-800 overflow-hidden shadow dark:shadow-slate-600">
                 <div className="p-6">{children}</div>
               </div>
             </section>

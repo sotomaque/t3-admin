@@ -16,7 +16,7 @@ const TwoColumnContentWrapper = ({
             <h2 className="sr-only" id="section-1-title">
               Section title
             </h2>
-            <div className="rounded-lg bg-white overflow-hidden shadow">
+            <div className="rounded-lg bg-white dark:bg-slate-800 overflow-hidden shadow">
               <div className="p-6">{mainContent}</div>
             </div>
           </section>
@@ -28,7 +28,7 @@ const TwoColumnContentWrapper = ({
             <h2 className="sr-only" id="section-2-title">
               Section title
             </h2>
-            <div className="rounded-lg bg-white overflow-hidden shadow">
+            <div className="rounded-lg bg-white dark:bg-slate-800 overflow-hidden shadow">
               <div className="p-6">{sidebarContent}</div>
             </div>
           </section>
