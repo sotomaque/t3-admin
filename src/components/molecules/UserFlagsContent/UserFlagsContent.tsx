@@ -12,7 +12,7 @@ const UserFlagsContent = ({
 
   return (
     <div className={`py-2 ${isFirst && 'mt-2'}`}>
-      <p className={`dark:text-slate-200 ${!isLast && 'pb-4'}`}>{userFlag}</p>
+      <p className={`dark:text-slate-200 pb-4`}>{userFlag}</p>
       {!isLast && <hr />}
     </div>
   );

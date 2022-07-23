@@ -70,24 +70,24 @@ const useUserTransactionSelector = ({
 
   const transactionStateColor = useMemo(() => {
     if (isTransactionPending) {
-      return 'text-gray-500';
+      return 'text-gray-500 dark:text-slate-100';
     } else if (isTransactionError) {
-      return 'text-red-500';
+      return 'text-red-500 dark:text-red-100';
     } else if (isTransactionCompleted) {
-      return 'text-green-500';
+      return 'text-green-500 dark:text-green-100';
     }
-    return 'text-gray-500';
+    return 'text-gray-500 dark:text-slate-100';
   }, [isTransactionPending, isTransactionError, isTransactionCompleted]);
 
   const transactionStateBackgroundColor = useMemo(() => {
     if (isTransactionPending) {
-      return 'bg-gray-100';
+      return 'bg-gray-100 dark:bg-slate-600';
     } else if (isTransactionError) {
-      return 'bg-red-100';
+      return 'bg-red-100 dark:bg-red-600';
     } else if (isTransactionCompleted) {
-      return 'bg-green-100';
+      return 'bg-green-100 dark:bg-green-600';
     }
-    return 'bg-gray-100';
+    return 'bg-gray-100 dark:bg-slate-600';
   }, [isTransactionPending, isTransactionError, isTransactionCompleted]);
 
   const canSelectTransaction = useMemo(() => {

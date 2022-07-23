@@ -57,15 +57,15 @@ const SelectedUserTransactionRow = ({
 
   return (
     <>
-      <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 hidden xl:table-cell">
+      <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 dark:text-slate-200  hidden xl:table-cell">
         {transaction.transactionID}
       </td>
-      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-slate-200 ">
         {formattedTransactionCategory}
       </td>
       <td
-        className={`whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-left pl-5 ${
-          isAmountNegative && 'text-red-400'
+        className={`whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-slate-200 text-left pl-5 ${
+          isAmountNegative && 'text-red-400 dark:text-red-500'
         }`}
       >
         {formattedTransactionAmount}
@@ -84,7 +84,7 @@ const SelectedUserTransactionRow = ({
         {canProcessTransaction && (
           <button
             role="button"
-            className="text-indigo-600 hover:text-indigo-900"
+            className="text-indigo-600 dark:text-purple-400 hover:text-indigo-900 dark:hover:text-purple-200"
             onClick={() => handleOnProcess()}
             disabled={isLoading || Boolean(error)}
           >
@@ -99,7 +99,12 @@ const SelectedUserTransactionRow = ({
 
       <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 text-indigo-600 hover:text-indigo-900 cursor-pointer">
         {canSelectTransaction && (
-          <button onClick={() => handleOnSelect()}>Select</button>
+          <button
+            className="text-indigo-600 dark:text-purple-400 hover:text-indigo-900 dark:hover:text-purple-200"
+            onClick={() => handleOnSelect()}
+          >
+            Select
+          </button>
         )}
       </td>
     </>

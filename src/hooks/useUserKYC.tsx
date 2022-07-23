@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useState } from 'react';
-import { useLayout } from 'store';
 import { User } from 'types';
 
 // TODO: rename to toUserKYCSelector
@@ -7,7 +6,6 @@ const useUserKYC = ({ user }: { user: User }) => {
   const [primeTrust, setPrimeTrust] = useState('KYC_REQUIRED');
   const [wyre, setWyre] = useState('KYC_REQUIRED');
   const [cognito, setCognito] = useState('KYC_REQUIRED');
-  const { isDark } = useLayout();
 
   const filteredPrimeTrustKYCAccount = user.kycData?.kycStatuses?.filter(
     (kycAccount) => kycAccount.provider === 'PRIME_TRUST'
@@ -91,7 +89,7 @@ const useUserKYC = ({ user }: { user: User }) => {
     if (primeTrust === 'KYC_REQUIRED') {
       return 'text-gray-500 dark:text-slate-100';
     } else if (primeTrust === 'KYC_PENDING') {
-      return 'text-orange-500 dark:text-orange-100';
+      return 'text-orange-500 dark:text-orange-50';
     } else if (primeTrust === 'KYC_FAILED') {
       return 'text-red-500 dark:text-red-100';
     } else if (primeTrust === 'KYC_PASSED') {
@@ -105,7 +103,7 @@ const useUserKYC = ({ user }: { user: User }) => {
     if (cognito === 'KYC_REQUIRED') {
       return 'text-gray-500 dark:text-slate-100';
     } else if (cognito === 'KYC_PENDING') {
-      return 'text-orange-500 dark:text-orange-100';
+      return 'text-orange-500 dark:text-orange-50';
     } else if (cognito === 'KYC_FAILED') {
       return 'text-red-500  dark:text-red-100';
     } else if (cognito === 'KYC_PASSED') {

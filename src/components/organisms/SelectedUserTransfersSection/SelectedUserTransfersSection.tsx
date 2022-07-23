@@ -31,16 +31,20 @@ const SelectedUserTransfersSection = ({ userId }: { userId: string }) => {
   }, [setSelectedUserTransactions, transfersData]);
 
   return (
-    <div className="p-4 sm:px-6 lg:px-8">
-      <div className="flex w-full ">
+    <div className="p-4 sm:px-6 lg:px-8 dark:bg-slate-700 rounded-xl">
+      <div className="flex w-full py-2">
         <div className="sm:flex-auto">
-          <h1 className="text-xl font-semibold text-gray-900">Transactions</h1>
-          <p className="mt-2 text-sm text-gray-700">{userId}</p>
+          <h1 className="text-xl font-semibold text-gray-900 dark:text-slate-100">
+            Transactions
+          </h1>
+          <p className="mt-2 text-sm text-gray-700 dark:text-slate-200">
+            {userId}
+          </p>
         </div>
         {/* Collapse Button */}
         {selectedUserTransactions && selectedUserTransactions.length > 1 && (
           <button
-            className="bg-blue-400 px-2 my-2 rounded-lg text-white text-sm"
+            className="bg-blue-400 hover:bg-blue-600 px-2 my-2 rounded-lg text-white text-sm dark:bg-blue-200 dark:hover:bg-blue-100 dark:text-slate-600 dark:hover:text-slate-800 "
             onClick={() => setCollapsed(!collapsed)}
           >
             {collapsed ? 'Show' : 'Collapse'}
