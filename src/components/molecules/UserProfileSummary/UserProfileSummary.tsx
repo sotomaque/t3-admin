@@ -29,7 +29,7 @@ const UserProfileSummary = ({ user }: UserProfileSummaryProps) => {
   return (
     <div className="mx-auto container bg-white dark:bg-slate-700 shadow overflow-x-scroll rounded-xl">
       {/* Title */}
-      <div className="flex w-full pl-3 sm:pl-6 pr-3 py-5 items-center justify-between bg-orange-200 dark:bg-opacity-0 dark:border-b-2 dark:border-b-slate-500  rounded-t">
+      <div className="flex w-full pl-3 sm:pl-6 pr-3 py-5 items-center justify-between bg-orange-200 dark:bg-opacity-0 dark:border-b-2 dark:border-b-slate-500 rounded-t">
         <div className="flex">
           {/* Full Name */}
           <h3 className="text-lg leading-6 font-medium text-gray-900 dark:text-slate-100">
