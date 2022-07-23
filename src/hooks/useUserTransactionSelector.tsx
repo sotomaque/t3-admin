@@ -30,6 +30,8 @@ const useUserTransactionSelector = ({
         return 'Completed';
       case 'TRANSFER_INITIATION_FAILED':
         return 'Initiation Failed';
+      case 'TRANSFER_QUEUED':
+        return 'Queued';
       case 'OPENING_BONUS':
         return 'Opening Bonus';
       default:
