@@ -2,6 +2,10 @@ import { useMemo } from 'react';
 import { Transfer } from 'types';
 
 const useUserTransferSelector = ({ transfer }: { transfer: Transfer }) => {
+  const isAmountNegative = useMemo(() => {
+    return transfer.amount.value.startsWith('-');
+  }, [transfer.amount.value]);
+
   const formattedTransferAmount = useMemo(() => {
     let originalAmount = `${parseFloat(transfer.amount.value).toFixed(2)}`;
     if (originalAmount.startsWith('-')) {
@@ -146,6 +150,7 @@ const useUserTransferSelector = ({ transfer }: { transfer: Transfer }) => {
     formattedTransferAmount,
     formattedTransferCategory,
     formattedTransferState,
+    isAmountNegative,
     isTransferCompleted,
     isTransferError,
     isTransferPending,

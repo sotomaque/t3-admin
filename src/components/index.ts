@@ -13,6 +13,8 @@ import {
   FeatureFlagGridList,
   FeatureFlagsEmptyState,
   FeatureFlagToggleList,
+  RecentTransfersRow,
+  RecentTransfersTable,
   RecentUsersEmptyState,
   RecentUsersPagination,
   RecentUsersRow,
@@ -35,6 +37,7 @@ import {
   UserSearchResultsEmptyState,
 } from './molecules';
 import {
+  RecentTransfersSection,
   RecentUsersSection,
   SelectedUserReferralsSection,
   SelectedUserSection,
@@ -59,6 +62,9 @@ export {
   Notification,
   PaginatedFooter,
   Popup,
+  RecentTransfersRow,
+  RecentTransfersSection,
+  RecentTransfersTable,
   RecentUsersEmptyState,
   RecentUsersPagination,
   RecentUsersRow,

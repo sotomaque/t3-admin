@@ -3,6 +3,8 @@ import EmailSection from './EmailSection';
 import FeatureFlagGridList from './FeatureFlagGridList';
 import FeatureFlagsEmptyState from './FeatureFlagsEmptyState';
 import FeatureFlagToggleList from './FeatureFlagToggleList';
+import RecentTransfersRow from './RecentTransfersRow';
+import RecentTransfersTable from './RecentTransfersTable';
 import RecentUsersEmptyState from './RecentUsersEmptyState';
 import RecentUsersPagination from './RecentUsersPagination';
 import RecentUsersRow from './RecentUsersRow';
@@ -30,6 +32,8 @@ export {
   FeatureFlagGridList,
   FeatureFlagsEmptyState,
   FeatureFlagToggleList,
+  RecentTransfersRow,
+  RecentTransfersTable,
   RecentUsersEmptyState,
   RecentUsersPagination,
   RecentUsersRow,
