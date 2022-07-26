@@ -12,8 +12,8 @@ import RegisteredUserData from './RegisteredUserData';
 import SearchUsers from './SearchUsers';
 import SelectedUserReferralsRow from './SelectedUserReferralsRow';
 import SelectedUsersReferralsTable from './SelectedUsersReferralsTable';
-import SelectedUsersTransfersTable from './SelectedUsersTransfersTable';
-import SelectedUserTransferRow from './SelectedUserTransferRow';
+import SelectedUsersTransactionsTable from './SelectedUsersTransactionsTable';
+import SelectedUserTransactionRow from './SelectedUserTransactionRow';
 import TransactionsPagination from './TransactionPagination';
 import TransfersEmptyState from './TransfersEmptyState';
 import TransferSummary from './TransferSummary';
@@ -39,8 +39,8 @@ export {
   SearchUsers,
   SelectedUserReferralsRow,
   SelectedUsersReferralsTable,
-  SelectedUsersTransfersTable,
-  SelectedUserTransferRow,
+  SelectedUsersTransactionsTable,
+  SelectedUserTransactionRow,
   TransactionsPagination,
   TransfersEmptyState,
   TransferSummary,

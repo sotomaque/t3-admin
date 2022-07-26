@@ -7,7 +7,7 @@ const initialUserRegistrationStepsState: UserRegistrationProgressType[] = [
     id: 0,
     name: 'Send Auth0 OTP Email',
     description:
-      'Senitd an email to the user with a link to verify their email address',
+      'Send an email to the user with a link to verify their email address',
     transferState: ['Initial'],
     status: 'current',
   },

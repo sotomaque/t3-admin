@@ -34,21 +34,10 @@ const NewUserContent = () => {
     setEmail,
     setHasSubmittedEmail,
     setTaskStatus,
-    submitKycDocumentsData,
-    submitKycDocumentsError,
   } = useRegisterUser();
-
   useEffect(() => {
     setSelectedRoute('Users');
   }, [setSelectedRoute]);
-
-  // ??
-  useEffect(() => {
-    submitKycDocumentsData && console.log({ submitKycDocumentsData });
-  }, [submitKycDocumentsData]);
-  useEffect(() => {
-    submitKycDocumentsError && console.error({ submitKycDocumentsError });
-  }, [submitKycDocumentsError]);
 
   // Function(s)
   const handleOnBackClicked = () => {
@@ -59,15 +48,15 @@ const NewUserContent = () => {
     <div className="h-full w-full py-10">
       <div className="max-w-10xl mx-auto lg:px-4">
         <div className="max-w-7xl mx-auto">
-          <div className="p-4 sm:p-2 bg-white">
+          <div className="p-4 sm:p-2 bg-white dark:bg-slate-800 ">
             <div className="p-4 sm:px-2 lg:px-8">
               {/* Add User Button */}
               <div className="sm:flex sm:items-center">
                 <div className="sm:flex-auto">
-                  <h1 className="text-xl font-semibold text-gray-900">
+                  <h1 className="text-xl font-semibold text-gray-900 dark:text-slate-300">
                     Create New User
                   </h1>
-                  <p className="mt-2 text-sm text-gray-700">
+                  <p className="mt-2 text-sm text-gray-700 dark:text-slate-400">
                     Create new user in staging environment with a custom KYC
                     State
                   </p>
@@ -84,9 +73,9 @@ const NewUserContent = () => {
               </div>
               {/* Content */}
               <div className="mt-8 flex flex-col">
-                <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                <div className="-my-2 -mx-4 overflow-x-auto lg:-mx-8">
                   <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
-                    <div className="overflow-hidden flex flex-col justify-start">
+                    <div className="overflow-hidden flex flex-col justify-start space-y-4">
                       {/* Email Section */}
                       <EmailSection
                         email={email}

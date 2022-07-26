@@ -5,7 +5,7 @@ import { TRPCError } from '@trpc/server';
 export const registrationRouter = createRouter()
   .mutation('sendOTP', {
     input: z.object({ email: z.string().min(0).max(400) }),
-    async resolve({ ctx, input }) {
+    async resolve({ input }) {
       // Process Input
       const { email } = input;
       const client_id = process.env.AUTH0_CLIENT_ID;
@@ -70,7 +70,7 @@ export const registrationRouter = createRouter()
       otp: z.string().min(6).max(6),
       email: z.string().min(0).max(100),
     }),
-    async resolve({ ctx, input }) {
+    async resolve({ input }) {
       // Process Input
       const { otp, email } = input;
 
@@ -185,7 +185,7 @@ export const registrationRouter = createRouter()
         }),
       }),
     }),
-    async resolve({ ctx, input }) {
+    async resolve({ input }) {
       // Process Input
       const { token, registrationData } = input;
       if (!token || !registrationData) {
@@ -238,7 +238,7 @@ export const registrationRouter = createRouter()
   })
   .mutation('isUsernameAvailable', {
     input: z.object({ username: z.string().min(0).max(400) }),
-    async resolve({ ctx, input }) {
+    async resolve({ input }) {
       // Process Input
       const { username } = input;
       if (!username || typeof username !== 'string') {

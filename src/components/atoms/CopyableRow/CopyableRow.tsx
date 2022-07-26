@@ -10,6 +10,11 @@ const CopyableRow = ({
   rowData,
   disableCopying = false,
   className = '',
+  rowNameClassName = '',
+  rowDataClassName = '',
+  iconClassName = '',
+  iconDefaultColor = '',
+  iconSuccessColor = '',
   chip = false,
   chipColor = 'bg-green-100 text-green-800',
   onClick,
@@ -18,19 +23,26 @@ const CopyableRow = ({
   rowData: string;
   disableCopying?: boolean;
   className?: string;
+  rowNameClassName?: string;
+  rowDataClassName?: string;
+  iconClassName?: string;
+  iconDefaultColor?: string;
+  iconSuccessColor?: string;
   chip?: boolean;
   chipColor?: string;
   onClick?: () => void;
 }) => {
   const [hasCopied, setHasCopied] = useState(false);
-  const { setShowNotification } = useLayout();
+  const { setNotificationMessage, setShowNotification } = useLayout();
 
   const handleCopy = () => {
     if (disableCopying) return;
     navigator.clipboard.writeText(rowData);
     setHasCopied(true);
+    setNotificationMessage('Copied to clipboard');
     setShowNotification(true);
     setTimeout(() => {
+      setNotificationMessage('');
       setShowNotification(false);
       setHasCopied(false);
     }, 3000);
@@ -40,7 +52,13 @@ const CopyableRow = ({
     <div
       className={`flex justify-between mt-4 ${className != '' && className}`}
     >
-      <p className="text-left text-xs hidden md:flex">{rowName}</p>
+      <p
+        className={`text-left text-xs hidden md:flex ${
+          rowNameClassName != '' && rowNameClassName
+        }`}
+      >
+        {rowName}
+      </p>
 
       <div className="flex items-center">
         {onClick ? (
@@ -48,7 +66,7 @@ const CopyableRow = ({
             onClick={onClick}
             className={`text-sm text-center md:text-right text-blue-500 ${
               chip ? `px-2.5 py-0.5 rounded-full ${chipColor}` : 'pr-1'
-            }`}
+            } ${rowDataClassName != '' && rowDataClassName}`}
           >
             {rowData}
           </button>
@@ -56,7 +74,7 @@ const CopyableRow = ({
           <p
             className={`text-sm text-center md:text-right ${
               chip ? `px-2.5 py-0.5 rounded-full ${chipColor}` : 'pr-1'
-            }`}
+            } ${rowDataClassName != '' && rowDataClassName}`}
           >
             {rowData}
           </p>
@@ -65,9 +83,19 @@ const CopyableRow = ({
         {!disableCopying && (
           <div onClick={() => handleCopy()} className="cursor-pointer">
             {hasCopied ? (
-              <ClipboardCheckIcon color="green" height={15} width={15} />
+              <ClipboardCheckIcon
+                className={`${iconClassName != '' && iconClassName}`}
+                color={`${iconSuccessColor != '' ? iconSuccessColor : 'green'}`}
+                height={15}
+                width={15}
+              />
             ) : (
-              <ClipboardCopyIcon height={15} width={15} />
+              <ClipboardCopyIcon
+                className={`${iconClassName != '' && iconClassName}`}
+                color={`${iconDefaultColor != '' && iconDefaultColor}`}
+                height={15}
+                width={15}
+              />
             )}
           </div>
         )}

@@ -59,34 +59,6 @@ This is an app bootstrapped according to the [init.tips](https://init.tips) stac
   - teach the team via trial and error how to deal with a large app (component library, architecture, etc.)
   - help us identify technologies we want to work with
 
-## Todo
-
-- [&check;] General Skeleton UI
-- [&check;] Recent Users UI
-- [&check;] Recent Users API Routes
-- [&check;] Search
-- [&check;] Select User
-- [&check;] User Creation Skeleton UI
-- [&check;] User Transfers UI
-- [&check;] User Transfers API
-- [&check;] Update ENVs
-- [&check;] Deploy to Vercel
-- [&check;] Referrals
-- [&check;] Pretty Placeholder
-- [ ] LaunchDarkly connection (toggle flags, toggle flags for user)
-- [ ] Create Referrals (in any valid state)
-- [ ] Create Transfers (depoit / withdraw / giftcard)
-- [ ] Pinwheel (see their set up payrolls)
-- [ ] Lithic (see users cards / transactions / apply for card / etc.)
-- [ ] Papaya (read only -> see bill payments)
-- [ ] Auth (Google / Github)
-- [ ] Finish User Creation Flow
-- [ ] Services / Repos Section
-- [ ] Transfer Processing Flow
-- [ ] UI Polish
-- [ ] Darkmode
-- [ ] Multiple Envs (Staging (Default) / Dev (custom NGROK Url))
-
 ## Getting Started
 
 - `pnpm i`

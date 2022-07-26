@@ -42,7 +42,7 @@ const EmailSection = ({
       <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:pt-5">
         <label
           htmlFor="email"
-          className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
+          className="block text-sm font-medium text-gray-700 dark:text-slate-100 sm:mt-px sm:pt-2"
         >
           Unique email
         </label>

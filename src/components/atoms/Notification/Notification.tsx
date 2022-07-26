@@ -1,6 +1,7 @@
 import { Transition } from '@headlessui/react';
 import { CheckCircleIcon, XIcon } from '@heroicons/react/outline';
 import { Fragment } from 'react';
+import { useLayout } from 'store';
 
 const Notification = ({
   show,
@@ -9,6 +10,8 @@ const Notification = ({
   show: boolean;
   setShow: (showNotification: boolean) => void;
 }) => {
+  const { notificationMessage } = useLayout();
+
   return (
     <div
       aria-live="assertive"
@@ -36,7 +39,7 @@ const Notification = ({
                 </div>
                 <div className="ml-3 w-0 flex-1 pt-0.5">
                   <p className="text-sm font-medium text-gray-900">
-                    Copied Successfully
+                    {notificationMessage}
                   </p>
                 </div>
                 <div className="ml-4 flex-shrink-0 flex">

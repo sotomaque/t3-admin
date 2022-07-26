@@ -1,6 +1,7 @@
 import { Fragment } from 'react';
 import { Popover, Transition } from '@headlessui/react';
-import { MenuIcon, XIcon } from '@heroicons/react/outline';
+import { MenuIcon, XIcon, MoonIcon } from '@heroicons/react/outline';
+import { MoonIcon as MoonIconSolid } from '@heroicons/react/solid';
 import Image from 'next/image';
 import { CommandPalette, Notification } from 'components/atoms';
 import { useLayout } from 'store';
@@ -17,18 +18,18 @@ const navigation: NavigationRoute[] = [
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const {
-    showNotification,
-    setShowNotification,
-    selectedRoute,
-    showPopup,
-    setShowPopup,
     searchComponent,
+    selectedRoute,
+    setShowNotification,
+    setShowPopup,
+    showNotification,
+    showPopup,
   } = useLayout();
 
   return (
     <>
-      <div className="min-h-full">
-        <Popover as="header" className="pb-24 bg-indigo-600">
+      <div className={`min-h-screen dark:bg-slate-800`}>
+        <Popover as="header" className="pb-24 bg-indigo-600 dark:bg-indigo-900">
           {({ open }) => (
             <>
               <div className="max-w-3xl mx-auto p-4 sm:pt-6 sm:px-6 lg:max-w-7xl lg:px-8">
@@ -46,7 +47,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             </>
           )}
         </Popover>
-        <main className="-mt-20 pb-8">
+        <main className="-mt-20 pb-8 ">
           <>
             {children}
             <Notification
@@ -97,30 +98,50 @@ const NavigationRow = ({
 };
 
 const MenuButton = ({ open }: { open: boolean }) => {
+  const { isDark, toggleIsDark } = useLayout();
+
+  const handleOnToggle = () => {
+    toggleIsDark();
+  };
+
   return (
-    <div className="absolute right-0 flex-shrink-0 lg:hidden">
-      {/* Mobile menu button */}
-      <Popover.Button className="bg-transparent p-2 rounded-md inline-flex items-center justify-center text-indigo-200 hover:text-white hover:bg-white hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-white">
-        <span className="sr-only">Open main menu</span>
-        {open ? (
-          <XIcon className="block h-6 w-6" aria-hidden="true" />
+    <>
+      <div className="absolute right-0 flex-shrink-0 lg:hidden">
+        {/* Mobile menu button */}
+        <Popover.Button className="bg-transparent p-2 rounded-md inline-flex items-center justify-center text-indigo-200 hover:text-white hover:bg-white hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-white">
+          <span className="sr-only">Open main menu</span>
+          {open ? (
+            <XIcon className="block h-6 w-6" aria-hidden="true" />
+          ) : (
+            <MenuIcon className="block h-6 w-6" aria-hidden="true" />
+          )}
+        </Popover.Button>
+      </div>
+      <div className="absolute right-14 lg:right-0 flex-shrink-0">
+        {isDark ? (
+          <MoonIconSolid color="white" height={25} onClick={handleOnToggle} />
         ) : (
-          <MenuIcon className="block h-6 w-6" aria-hidden="true" />
+          <MoonIcon color="white" height={25} onClick={handleOnToggle} />
         )}
-      </Popover.Button>
-    </div>
+      </div>
+    </>
   );
 };
 
 const Logo = () => {
+  const { isDark } = useLayout();
   return (
     <div className="absolute left-0 flex-shrink-0 lg:static">
       <a href="#">
-        <span className="sr-only">Workflow</span>
+        <span className="sr-only">Eco</span>
         <Image
           height="30"
           width="90"
-          src="https://eco.github.io/assets/images/eco-logo-color-140.png"
+          src={
+            isDark
+              ? 'https://eco.github.io/assets/images/eco-logo-white.svg'
+              : 'https://eco.github.io/assets/images/eco-logo-color-140.png'
+          }
           alt="Eco Admin"
         />
       </a>
@@ -130,9 +151,9 @@ const Logo = () => {
 
 const Footer = () => {
   return (
-    <footer>
+    <footer className="dark:bg-slate-800">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 lg:max-w-7xl">
-        <div className="border-t border-gray-200 py-8 text-sm text-gray-500 text-center sm:text-left">
+        <div className="border-t border-gray-200 dark:border-slate-700 py-8 text-sm text-gray-500 text-center sm:text-left">
           <span className="block sm:inline">&copy; 2022 Eco Inc.</span>{' '}
           <span className="block sm:inline">All rights reserved.</span>
         </div>

@@ -71,7 +71,7 @@ const RecentUsersPage: NextPage = () => {
         <div className="h-full w-full py-10">
           <div className="max-w-10xl mx-auto lg:px-4">
             <div className="max-w-7xl mx-auto">
-              <div className="md:p-4 bg-white">
+              <div className="md:p-4 bg-white dark:bg-slate-800">
                 <RecentUsersSection users={recentUsers} />
               </div>
 

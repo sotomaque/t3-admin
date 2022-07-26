@@ -87,58 +87,58 @@ const useUserKYC = ({ user }: { user: User }) => {
 
   const ptStateColor = useMemo(() => {
     if (primeTrust === 'KYC_REQUIRED') {
-      return 'text-gray-500';
+      return 'text-gray-500 dark:text-slate-100';
     } else if (primeTrust === 'KYC_PENDING') {
-      return 'text-orange-500';
+      return 'text-orange-500 dark:text-orange-50';
     } else if (primeTrust === 'KYC_FAILED') {
-      return 'text-red-500';
+      return 'text-red-500 dark:text-red-100';
     } else if (primeTrust === 'KYC_PASSED') {
-      return 'text-green-500';
+      return 'text-green-500 dark:text-green-100';
     }
 
-    return 'text-gray-500';
+    return 'text-gray-500 dark:text-slate-100';
   }, [primeTrust]);
 
   const cognitoStateColor = useMemo(() => {
     if (cognito === 'KYC_REQUIRED') {
-      return 'text-gray-500';
+      return 'text-gray-500 dark:text-slate-100';
     } else if (cognito === 'KYC_PENDING') {
-      return 'text-orange-500';
+      return 'text-orange-500 dark:text-orange-50';
     } else if (cognito === 'KYC_FAILED') {
-      return 'text-red-500';
+      return 'text-red-500  dark:text-red-100';
     } else if (cognito === 'KYC_PASSED') {
-      return 'text-green-500';
+      return 'text-green-500 dark:text-green-100';
     }
 
-    return 'text-gray-500';
+    return 'text-gray-500 dark:text-slate-100';
   }, [cognito]);
 
   const cognitoStateBackgroundColor = useMemo(() => {
     if (cognitoStateLabel === 'Required') {
-      return 'bg-gray-100';
+      return 'bg-gray-100 dark:bg-slate-600';
     } else if (cognitoStateLabel === 'Pending') {
-      return 'bg-orange-100';
+      return 'bg-orange-100 dark:bg-orange-600';
     } else if (cognitoStateLabel === 'Failed') {
-      return 'bg-red-100';
+      return 'bg-red-100 dark:bg-red-600';
     } else if (cognitoStateLabel === 'Passed') {
-      return 'bg-green-100';
+      return 'bg-green-100 dark:bg-green-600';
     }
 
-    return 'bg-gray-100';
+    return 'bg-gray-100 dark:bg-slate-600';
   }, [cognitoStateLabel]);
 
   const ptStateBackgroundColor = useMemo(() => {
     if (ptStateLabel === 'Required') {
-      return 'bg-gray-100';
+      return 'bg-gray-100 dark:bg-slate-600';
     } else if (ptStateLabel === 'Pending') {
-      return 'bg-orange-100';
+      return 'bg-orange-100 dark:bg-orange-600';
     } else if (ptStateLabel === 'Failed') {
-      return 'bg-red-100';
+      return 'bg-red-100 dark:bg-red-600';
     } else if (ptStateLabel === 'Passed') {
-      return 'bg-green-100';
+      return 'bg-green-100 dark:bg-green-600';
     }
 
-    return 'bg-gray-100';
+    return 'bg-gray-100 dark:bg-slate-600';
   }, [ptStateLabel]);
 
   return {

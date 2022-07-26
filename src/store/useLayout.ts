@@ -4,6 +4,10 @@ import create from 'zustand';
 
 // STATE TYPE
 type LayoutState = {
+  // Dark Mode
+  isDark: boolean;
+  toggleIsDark: () => void;
+
   // Routes
   selectedRoute: RoutePath;
   setSelectedRoute: (selectedRoute: RoutePath) => void;
@@ -11,6 +15,8 @@ type LayoutState = {
   // Notifications
   showNotification: boolean;
   setShowNotification: (showNotification: boolean) => void;
+  notificationMessage: string;
+  setNotificationMessage: (notificationMessage: string) => void;
 
   // Popup
   showPopup: boolean;
@@ -24,6 +30,10 @@ type LayoutState = {
 
 // INITIAL STATE
 export const useLayout = create<LayoutState>((set) => ({
+  // Dark Mode
+  isDark: false,
+  toggleIsDark: () => set((state) => ({ isDark: !state.isDark })),
+
   // Routes
   selectedRoute: 'Home',
   setSelectedRoute: (selectedRoute: RoutePath) =>
@@ -33,6 +43,9 @@ export const useLayout = create<LayoutState>((set) => ({
   showNotification: false,
   setShowNotification: (showNotification: boolean) =>
     set(() => ({ showNotification })),
+  notificationMessage: '',
+  setNotificationMessage: (notificationMessage: string) =>
+    set(() => ({ notificationMessage })),
 
   // Popup
   showPopup: false,
