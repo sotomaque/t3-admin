@@ -15,10 +15,18 @@ import {
   PlusSmIcon,
 } from '@heroicons/react/solid';
 import { XIcon } from '@heroicons/react/outline';
+import { trpc } from 'utils/trpc';
 
-const sortOptions = [
-  { name: 'Newest', href: '#', current: true },
-  { name: 'Oldest', href: '#', current: false },
+type SortType = 'Newest' | 'Oldest';
+
+type SortOption = {
+  name: SortType;
+  current: boolean;
+};
+
+const defaultSortOptions: SortOption[] = [
+  { name: 'Newest', current: true },
+  { name: 'Oldest', current: false },
 ];
 
 const filters = [
@@ -50,19 +58,53 @@ const filters = [
 ];
 
 const RecentTransfersSection = ({ transfers }: { transfers: Transfer[] }) => {
-  const { loading } = useTransfers();
+  // State
+  const [sortOptions, setSortOptions] =
+    useState<SortOption[]>(defaultSortOptions);
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+  const { setLoading, setRecentTransfers } = useTransfers();
+  const { mutateAsync } = trpc.useMutation(['transfer.recentTransfers'], {
+    onMutate() {
+      setLoading(true);
+    },
+    onSuccess(data) {
+      if (data && data.transfers) {
+        setRecentTransfers(data.transfers);
+      }
+    },
+    onSettled() {
+      setLoading(false);
+    },
+  });
 
+  // Effect(s)
+  const { loading } = useTransfers();
   const showRecentTransfers = useMemo(() => {
-    return true; // todo: house conditional when we have search filter / error / results
-  }, []);
+    return transfers.length > 0;
+  }, [transfers]);
 
-  console.log('IN HERE');
+  // Function(s)
+  const onToggleSort = async (sortOption: SortOption) => {
+    if (sortOption.current) {
+      return;
+    }
+
+    let sortOrder = sortOption.name === 'Newest' ? 'desc' : 'asc';
+    await mutateAsync({ sortOrder });
+    setSortOptions((prev) => {
+      return prev.map((option) => {
+        return { ...option, current: option.name === sortOption.name };
+      });
+    });
+  };
+
+  const onToggleFilter = () => {};
 
   return (
     <div className="lg:px-8">
-      {/* Mobile filter dialog */}
+      {/* Filter Section */}
       <Transition.Root show={mobileFiltersOpen} as={Fragment}>
+        {/* Filter Sidepanel */}
         <Dialog
           as="div"
           className="relative z-40 "
@@ -180,14 +222,14 @@ const RecentTransfersSection = ({ transfers }: { transfers: Transfer[] }) => {
           </p>
         </div>
         <div className="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
-          {/* Replace Button with Sort / Filter */}
+          {/* Sort Section */}
           <div className="flex items-center">
             <Menu as="div" className="relative inline-block text-left">
               <div>
-                <Menu.Button className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
+                <Menu.Button className="group inline-flex justify-center text-sm font-medium text-gray-700 dark:text-slate-300 hover:text-gray-900 dark:hover:text-slate-100">
                   Sort
                   <ChevronDownIcon
-                    className="flex-shrink-0 -mr-1 ml-1 h-5 w-5 text-gray-400 group-hover:text-gray-500"
+                    className="flex-shrink-0 -mr-1 ml-1 h-5 w-5 text-gray-400 dark:text-slate-400 group-hover:text-gray-500  dark:group-hover:text-slate-200"
                     aria-hidden="true"
                   />
                 </Menu.Button>
@@ -202,25 +244,21 @@ const RecentTransfersSection = ({ transfers }: { transfers: Transfer[] }) => {
                 leaveFrom="transform opacity-100 scale-100"
                 leaveTo="transform opacity-0 scale-95"
               >
-                <Menu.Items className="origin-top-right absolute right-0 mt-2 w-40 rounded-md shadow-2xl bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                <Menu.Items className="origin-top-right absolute right-0 mt-2 rounded-md shadow-2xl bg-white dark:bg-slate-600 ring-1 ring-black dark:ring-slate-500 ring-opacity-5 focus:outline-none">
                   <div className="py-1">
                     {sortOptions.map((option) => (
                       <Menu.Item key={option.name}>
                         {({ active }) => (
-                          <a
-                            href={option.href}
-                            className={`
-                             ${
-                               option.current
-                                 ? 'font-medium text-gray-900'
-                                 : 'text-gray-500'
-                             }
-                             ${active ? 'bg-gray-100' : ''}
-                             block px-4 py-2 text-sm
-                            )`}
+                          <button
+                            onClick={() => onToggleSort(option)}
+                            className={`p-2 text-sm w-full ${
+                              option.current
+                                ? 'font-medium text-gray-900 dark:text-slate-100'
+                                : 'text-gray-500 dark:text-slate-400'
+                            } ${active && 'bg-gray-100 dark:bg-slate-700'}`}
                           >
                             {option.name}
-                          </a>
+                          </button>
                         )}
                       </Menu.Item>
                     ))}

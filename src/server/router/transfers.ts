@@ -40,6 +40,12 @@ export const transferRouter = createRouter()
           code: 'INTERNAL_SERVER_ERROR',
         });
       }
+      if (sortOrder !== 'desc' && sortOrder !== 'asc') {
+        throw new TRPCError({
+          message: 'Invalid Sort Order',
+          code: 'BAD_REQUEST',
+        });
+      }
       const pageNumberQuery = `?pageNumber=${pageNumber}`;
       const pageSizeQuery = `&pageSize=${pageSize}`;
       const startDateQuery = `&startDate=${startDate}`;
