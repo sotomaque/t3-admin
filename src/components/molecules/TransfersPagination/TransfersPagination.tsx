@@ -9,22 +9,19 @@ const TransfersPagination = () => {
 
   // Effect(s)
   const { setLoading, setRecentTransfers } = useTransfers();
-  const { mutateAsync, variables } = trpc.useMutation(
-    ['transfer.recentTransfers'],
-    {
-      onMutate: () => {
-        setLoading(true);
-      },
-      onSuccess: (data) => {
-        if (data && data.transfers) {
-          setRecentTransfers(data.transfers);
-        }
-      },
-      onSettled: () => {
-        setLoading(false);
-      },
-    }
-  );
+  const { mutateAsync } = trpc.useMutation(['transfer.recentTransfers'], {
+    onMutate: () => {
+      setLoading(true);
+    },
+    onSuccess: (data) => {
+      if (data && data.transfers) {
+        setRecentTransfers(data.transfers);
+      }
+    },
+    onSettled: () => {
+      setLoading(false);
+    },
+  });
 
   // Function(s)
   const handleOnClick = async (newPage: number) => {

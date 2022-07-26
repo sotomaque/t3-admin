@@ -9,8 +9,7 @@ import { useLayout, useTransfers } from 'store';
 import { trpc } from 'utils/trpc';
 
 const TransfersPage: NextPage = () => {
-  const { setSelectedRoute, setSearchComponent, clearSearchComponent } =
-    useLayout();
+  const { setSelectedRoute } = useLayout();
   const { setLoading, setRecentTransfers, recentTransfers } = useTransfers();
 
   const { isLoading: transfersLoading, mutate } = trpc.useMutation(
@@ -36,13 +35,18 @@ const TransfersPage: NextPage = () => {
     setLoading(transfersLoading);
   }, [setLoading, transfersLoading]);
 
-  return (
-    <SingleColumnContentWrapper>
-      {transfersLoading && (
+  if (transfersLoading) {
+    return (
+      <SingleColumnContentWrapper>
         <div className="flex items-center justify-center h-screen">
           <Spinner />
         </div>
-      )}
+      </SingleColumnContentWrapper>
+    );
+  }
+
+  return (
+    <SingleColumnContentWrapper>
       {!!recentTransfers && !transfersLoading && (
         <div className="h-full w-full py-10">
           <div className="max-w-10xl mx-auto lg:px-4">
