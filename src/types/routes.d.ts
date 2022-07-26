@@ -6,6 +6,7 @@ export type NavigationRoute = {
 export type RoutePath =
   | 'Home'
   | 'Users'
+  | 'Transfers'
   | 'Services'
   | 'Repos'
   | 'Dashboard'

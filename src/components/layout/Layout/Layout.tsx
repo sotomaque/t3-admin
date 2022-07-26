@@ -10,6 +10,7 @@ import { NavigationRoute, RoutePath } from 'types/routes';
 const navigation: NavigationRoute[] = [
   { name: 'Home', href: '/' },
   { name: 'Users', href: '/users' },
+  { name: 'Transfers', href: '/transfers' },
   { name: 'Services', href: '/services' },
   { name: 'Repos', href: '/repos' },
   { name: 'Dashboard', href: '/dashboards' },
