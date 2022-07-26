@@ -14,7 +14,7 @@ import { z } from 'zod';
 import { TRPCError } from '@trpc/server';
 
 export const transferRouter = createRouter()
-  .query('recentTransfers', {
+  .mutation('recentTransfers', {
     input: z.object({
       pageNumber: z.string().default('0').nullable(),
       pageSize: z.string().default('10').nullable(),

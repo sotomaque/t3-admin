@@ -42,12 +42,6 @@ const RecentTransfersTable = ({ transfers }: RecentTransfersTableProps) => {
           </th>
           <th
             scope="col"
-            className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-slate-300"
-          >
-            Process
-          </th>
-          <th
-            scope="col"
             className="px-3 py-3.5 text-right pr-6 text-sm font-semibold text-gray-900 dark:text-slate-300"
           >
             <span className="sr-only">Select</span>

@@ -1,13 +1,18 @@
 import { Spinner } from 'components/atoms';
 import {
   RecentTransfersTable,
-  SelectedUsersTransactionsTable,
+  TransfersPagination,
 } from 'components/molecules';
+import { useMemo } from 'react';
 import { useTransfers } from 'store';
 import { Transfer } from 'types';
 
 const RecentTransfersSection = ({ transfers }: { transfers: Transfer[] }) => {
   const { loading } = useTransfers();
+
+  const showRecentTransfers = useMemo(() => {
+    return true; // todo: house conditional when we have search filter / error / results
+  }, []);
 
   return (
     <div className="lg:px-8">
@@ -55,8 +60,14 @@ const RecentTransfersSection = ({ transfers }: { transfers: Transfer[] }) => {
               )}
 
               {/* Default Recent Transfers */}
-              <RecentTransfersTable transfers={transfers} />
-              {/* Pagination */}
+              {showRecentTransfers && (
+                <RecentTransfersTable transfers={transfers} />
+              )}
+              {showRecentTransfers && transfers.length >= 10 && (
+                <div className="pt-2">
+                  <TransfersPagination />
+                </div>
+              )}
             </div>
           </div>
         </div>

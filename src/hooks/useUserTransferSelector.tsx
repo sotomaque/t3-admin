@@ -70,6 +70,8 @@ const useUserTransferSelector = ({ transfer }: { transfer: Transfer }) => {
         return 'Eco Points Rewards';
       case 'EXTERNAL_TRANSFER':
         return 'External Transfer';
+      case 'OPENING_BONUS':
+        return 'Opening Bonus';
       default:
         return transfer.trackingData.transferCategory;
     }

@@ -11,41 +11,39 @@ import { trpc } from 'utils/trpc';
 const TransfersPage: NextPage = () => {
   const { setSelectedRoute, setSearchComponent, clearSearchComponent } =
     useLayout();
-  const { setLoading, setRecentTransfers, recentTransfers, loading } =
-    useTransfers();
+  const { setLoading, setRecentTransfers, recentTransfers } = useTransfers();
 
-  const {
-    data,
-    isLoading: tranfersLoading,
-    error,
-  } = trpc.useQuery([
-    'transfer.recentTransfers',
+  const { isLoading: transfersLoading, mutate } = trpc.useMutation(
+    ['transfer.recentTransfers'],
     {
-      pageNumber: '0',
-      pageSize: '10',
-    },
-  ]);
+      onSuccess(data) {
+        if (data && data.transfers) {
+          setRecentTransfers(data.transfers);
+        }
+      },
+    }
+  );
+
+  useEffect(() => {
+    mutate({ pageNumber: '0' });
+  }, [mutate]);
 
   useEffect(() => {
     setSelectedRoute('Transfers');
   }, [setSelectedRoute]);
 
   useEffect(() => {
-    setLoading(tranfersLoading);
-  }, [setLoading, tranfersLoading]);
-
-  useEffect(() => {
-    setRecentTransfers(data?.transfers ?? []);
-  }, [data, setRecentTransfers]);
+    setLoading(transfersLoading);
+  }, [setLoading, transfersLoading]);
 
   return (
     <SingleColumnContentWrapper>
-      {loading && (
+      {transfersLoading && (
         <div className="flex items-center justify-center h-screen">
           <Spinner />
         </div>
       )}
-      {!!recentTransfers && !loading && (
+      {!!recentTransfers && !transfersLoading && (
         <div className="h-full w-full py-10">
           <div className="max-w-10xl mx-auto lg:px-4">
             <div className="max-w-7xl mx-auto">

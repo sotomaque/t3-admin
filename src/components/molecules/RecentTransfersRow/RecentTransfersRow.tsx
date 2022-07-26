@@ -40,23 +40,6 @@ const RecentTransfersRow = ({ transfer }: RecentTransfersRowProps) => {
         </span>
       </td>
 
-      {/* <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-left text-sm font-medium sm:pr-6">
-      {canProcessTransaction && (
-        <button
-          role="button"
-          className="text-indigo-600 dark:text-purple-400 hover:text-indigo-900 dark:hover:text-purple-200"
-          onClick={() => handleOnProcess()}
-          disabled={isLoading || Boolean(error)}
-        >
-          {isLoading ? (
-            <Spinner styles={'h-4 w-4 flex justify-center items-center'} />
-          ) : (
-            'Process Transfer'
-          )}
-        </button>
-      )}
-    </td> */}
-
       {/* <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 text-indigo-600 hover:text-indigo-900 cursor-pointer">
       {canSelectTransaction && (
         <button

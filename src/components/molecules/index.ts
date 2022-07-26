@@ -18,6 +18,7 @@ import SelectedUsersTransactionsTable from './SelectedUsersTransactionsTable';
 import SelectedUserTransactionRow from './SelectedUserTransactionRow';
 import TransactionsPagination from './TransactionPagination';
 import TransfersEmptyState from './TransfersEmptyState';
+import TransfersPagination from './TransfersPagination';
 import TransferSummary from './TransferSummary';
 import UserFlagsCard from './UserFlagsCard';
 import UserFlagsContent from './UserFlagsContent';
@@ -47,6 +48,7 @@ export {
   SelectedUserTransactionRow,
   TransactionsPagination,
   TransfersEmptyState,
+  TransfersPagination,
   TransferSummary,
   UserFlagsCard,
   UserFlagsContent,
