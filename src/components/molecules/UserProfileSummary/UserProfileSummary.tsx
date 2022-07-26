@@ -45,8 +45,8 @@ const UserProfileSummary = ({ user }: UserProfileSummaryProps) => {
           rowName="User Id"
           rowData={user.userID}
           className="py-2"
-          rowDataClassName="dark:text-slate-200"
           rowNameClassName="dark:text-slate-200"
+          rowDataClassName="dark:text-slate-200"
           iconDefaultColor={`${isDark ? 'white' : 'black'}`}
         />
         <hr className="my-2" />
@@ -54,8 +54,8 @@ const UserProfileSummary = ({ user }: UserProfileSummaryProps) => {
           rowName="Email"
           rowData={user.email}
           className="py-2"
-          rowDataClassName="dark:text-slate-200"
           rowNameClassName="dark:text-slate-200"
+          rowDataClassName="dark:text-slate-200"
           iconDefaultColor={`${isDark ? 'white' : 'black'}`}
         />
         <hr className="my-2" />

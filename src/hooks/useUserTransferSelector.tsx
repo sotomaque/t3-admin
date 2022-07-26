@@ -79,6 +79,8 @@ const useUserTransferSelector = ({ transfer }: { transfer: Transfer }) => {
         return 'Completed';
       case 'TRANSFER_INITIATION_FAILED':
         return 'Initiation Failed';
+      case 'TRANSFER_QUEUED':
+        return 'Queued';
       default:
         return transfer.state;
     }
@@ -96,27 +98,45 @@ const useUserTransferSelector = ({ transfer }: { transfer: Transfer }) => {
     return transfer.state === 'TRANSFER_COMPLETED';
   }, [transfer.state]);
 
+  const isTransferQueued = useMemo(() => {
+    return transfer.state === 'TRANSFER_QUEUED';
+  }, [transfer.state]);
+
   const transferStateColor = useMemo(() => {
     if (isTransferPending) {
-      return 'text-gray-500';
+      return 'text-orange-500 dark:text-orange-50';
     } else if (isTransferError) {
-      return 'text-red-500';
+      return 'text-red-500 dark:text-red-100';
     } else if (isTransferCompleted) {
-      return 'text-green-500';
+      return 'text-green-500 dark:text-green-100';
+    } else if (isTransferQueued) {
+      return 'text-gray-500 dark:text-slate-100';
     }
-    return 'text-gray-500';
-  }, [isTransferPending, isTransferError, isTransferCompleted]);
+    return 'text-gray-500 dark:text-slate-100';
+  }, [
+    isTransferPending,
+    isTransferError,
+    isTransferCompleted,
+    isTransferQueued,
+  ]);
 
   const transferStateBackgroundColor = useMemo(() => {
     if (isTransferPending) {
-      return 'bg-gray-100';
+      return 'bg-orange-100 dark:bg-orange-600';
     } else if (isTransferError) {
-      return 'bg-red-100';
+      return 'bg-red-100 dark:bg-red-600';
     } else if (isTransferCompleted) {
-      return 'bg-green-100';
+      return 'bg-green-100 dark:bg-green-600';
+    } else if (isTransferQueued) {
+      return 'bg-gray-100 dark:bg-slate-600';
     }
-    return 'bg-gray-100';
-  }, [isTransferPending, isTransferError, isTransferCompleted]);
+    return 'bg-gray-100 dark:bg-slate-600';
+  }, [
+    isTransferPending,
+    isTransferError,
+    isTransferCompleted,
+    isTransferQueued,
+  ]);
 
   return {
     formattedDestinationTransferFundsAccountID,
@@ -129,6 +149,7 @@ const useUserTransferSelector = ({ transfer }: { transfer: Transfer }) => {
     isTransferCompleted,
     isTransferError,
     isTransferPending,
+    isTransferQueued,
     transferStateBackgroundColor,
     transferStateColor,
   };
