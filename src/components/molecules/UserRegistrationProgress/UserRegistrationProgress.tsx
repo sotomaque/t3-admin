@@ -40,7 +40,7 @@ const UserRegistrationProgress = () => {
                 ) : null}
                 <div className="relative flex items-start group">
                   <span className="h-9 flex items-center">
-                    <span className="relative z-10 w-8 h-8 flex items-center justify-center bg-indigo-600 dark:bg-slate-200 rounded-full group-hover:bg-indigo-800">
+                    <span className="relative z-10 w-8 h-8 flex items-center justify-center bg-indigo-600 rounded-full group-hover:bg-indigo-800 dark:group-hover:bg-indigo-500">
                       <CheckIcon
                         className="w-5 h-5 text-white"
                         aria-hidden="true"
@@ -48,10 +48,10 @@ const UserRegistrationProgress = () => {
                     </span>
                   </span>
                   <span className="ml-4 min-w-0 flex flex-col">
-                    <span className="text-xs font-semibold tracking-wide uppercase">
+                    <span className="text-xs font-semibold tracking-wide uppercase dark:text-slate-100">
                       {step.name}
                     </span>
-                    <span className="text-sm text-gray-500 dark:bg-slate-400">
+                    <span className="text-sm text-gray-500 dark:text-slate-200">
                       {step.description}
                     </span>
                   </span>
