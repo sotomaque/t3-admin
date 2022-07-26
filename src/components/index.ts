@@ -1,6 +1,7 @@
 import {
   CommandPalette,
   CopyableRow,
+  ErrorPlaceholder,
   Notification,
   PaginatedFooter,
   Popup,
@@ -50,6 +51,7 @@ export {
   CommandPalette,
   CopyableRow,
   EmailSection,
+  ErrorPlaceholder,
   FeatureFlagGridList,
   FeatureFlagsEmptyState,
   FeatureFlagToggleList,
