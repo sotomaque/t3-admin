@@ -63,7 +63,7 @@ const SelectedUserTransfersSection = ({ userId }: { userId: string }) => {
               {selectedUserTransactions && !transfersLoading && (
                 <>
                   <SelectedUsersTransactionsTable
-                    transaction={
+                    transactions={
                       collapsed
                         ? selectedUserTransactions.slice(0, 1)
                         : selectedUserTransactions

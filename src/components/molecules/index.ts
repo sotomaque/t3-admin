@@ -3,6 +3,8 @@ import EmailSection from './EmailSection';
 import FeatureFlagGridList from './FeatureFlagGridList';
 import FeatureFlagsEmptyState from './FeatureFlagsEmptyState';
 import FeatureFlagToggleList from './FeatureFlagToggleList';
+import RecentTransfersRow from './RecentTransfersRow';
+import RecentTransfersTable from './RecentTransfersTable';
 import RecentUsersEmptyState from './RecentUsersEmptyState';
 import RecentUsersPagination from './RecentUsersPagination';
 import RecentUsersRow from './RecentUsersRow';
@@ -16,6 +18,7 @@ import SelectedUsersTransactionsTable from './SelectedUsersTransactionsTable';
 import SelectedUserTransactionRow from './SelectedUserTransactionRow';
 import TransactionsPagination from './TransactionPagination';
 import TransfersEmptyState from './TransfersEmptyState';
+import TransfersPagination from './TransfersPagination';
 import TransferSummary from './TransferSummary';
 import UserFlagsCard from './UserFlagsCard';
 import UserFlagsContent from './UserFlagsContent';
@@ -30,6 +33,8 @@ export {
   FeatureFlagGridList,
   FeatureFlagsEmptyState,
   FeatureFlagToggleList,
+  RecentTransfersRow,
+  RecentTransfersTable,
   RecentUsersEmptyState,
   RecentUsersPagination,
   RecentUsersRow,
@@ -43,6 +48,7 @@ export {
   SelectedUserTransactionRow,
   TransactionsPagination,
   TransfersEmptyState,
+  TransfersPagination,
   TransferSummary,
   UserFlagsCard,
   UserFlagsContent,

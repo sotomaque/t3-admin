@@ -32,7 +32,7 @@ const TransferSummary = ({ transfer }: { transfer: Transfer }) => {
       <div className="flex w-full pl-3 sm:pl-6 pr-3 py-5 items-center justify-between bg-blue-600 dark:bg-slate-700 rounded-t">
         <div className="flex">
           <h3 className="text-lg leading-6 font-medium text-white">
-            Transfer Details
+            Transfer Summary
           </h3>
           <h4 className="px-2 font-light text-white dark:text-slate-200">
             {' '}
@@ -63,10 +63,22 @@ const TransferSummary = ({ transfer }: { transfer: Transfer }) => {
         <CopyableRow
           disableCopying
           rowName="Category"
-          rowData={transfer.trackingData.transferCategory}
+          rowData={formattedTransferCategory}
           rowDataClassName="dark:text-slate-200"
           rowNameClassName="dark:text-slate-200"
         />
+        {transfer.trackingData.trackingID.startsWith('gift:') && (
+          <>
+            <hr className="my-4" />
+            <CopyableRow
+              disableCopying
+              rowName="Merchant"
+              rowData={transfer.trackingData.additionalData.description}
+              rowDataClassName="dark:text-slate-200"
+              rowNameClassName="dark:text-slate-200"
+            />
+          </>
+        )}
         <hr className="my-4" />
         <CopyableRow
           disableCopying

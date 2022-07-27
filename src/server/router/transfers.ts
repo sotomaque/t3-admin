@@ -14,6 +14,63 @@ import { z } from 'zod';
 import { TRPCError } from '@trpc/server';
 
 export const transferRouter = createRouter()
+  .mutation('recentTransfers', {
+    input: z.object({
+      pageNumber: z.string().default('0').nullable(),
+      pageSize: z.string().default('10').nullable(),
+      startDate: z.string().default('1').nullable(),
+      sortOrder: z.string().default('desc').nullable(),
+    }),
+    async resolve({ input }) {
+      // Get query params from input
+      const { pageNumber, pageSize, startDate, sortOrder } = input;
+
+      // Build URL
+      const baseURL = process.env.ECO_BASE_URL;
+      const recentTransfersURL = process.env.ECO_TRANSFERS;
+      if (!baseURL || typeof baseURL !== 'string') {
+        throw new TRPCError({
+          message: 'Missing Base URL',
+          code: 'INTERNAL_SERVER_ERROR',
+        });
+      }
+      if (!recentTransfersURL || typeof recentTransfersURL !== 'string') {
+        throw new TRPCError({
+          message: 'Missing Recent Transfers URL',
+          code: 'INTERNAL_SERVER_ERROR',
+        });
+      }
+      if (sortOrder !== 'desc' && sortOrder !== 'asc') {
+        throw new TRPCError({
+          message: 'Invalid Sort Order',
+          code: 'BAD_REQUEST',
+        });
+      }
+      const pageNumberQuery = `?pageNumber=${pageNumber}`;
+      const pageSizeQuery = `&pageSize=${pageSize}`;
+      const startDateQuery = `&startDate=${startDate}`;
+      const sortOrderQuery = `&sortOrder=${sortOrder}`;
+      const fullURL = `${baseURL}${recentTransfersURL}${pageNumberQuery}${pageSizeQuery}${startDateQuery}${sortOrderQuery}`;
+      // make fetch request to the server for given userId
+      const response = await fetch(fullURL);
+
+      // // parse the response
+      const body = await response.json();
+      if (!body || !Array.isArray(body)) {
+        throw new TRPCError({
+          message:
+            'Invalid Response (empty or not an array) in recentTransfers',
+          code: 'INTERNAL_SERVER_ERROR',
+        });
+      }
+
+      // extract transfers from the response
+      const transfers: Transfer[] = body;
+
+      // return transfers
+      return { transfers };
+    },
+  })
   .query('transferDetailsByTransferId', {
     input: z.object({
       transferId: z.string(),

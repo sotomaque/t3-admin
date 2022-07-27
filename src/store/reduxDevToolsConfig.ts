@@ -1,4 +1,4 @@
-import { useUsers, useLayout } from 'store';
+import { useUsers, useLayout, useTransfers } from 'store';
 
 export const connectZustandStateToReduxDevtools = () => {
   let isUpdateFromDevtools = false;
@@ -23,13 +23,19 @@ export const connectZustandStateToReduxDevtools = () => {
     const connection = window?.__REDUX_DEVTOOLS_EXTENSION__?.connect({
       name: 'User State',
     });
-    connection?.init(useUsers.getState());
+    connection?.init([
+      useUsers.getState(),
+      useLayout.getState(),
+      useTransfers.getState(),
+    ]);
     // @ts-ignore
     connection?.subscribe((evt) => {
       if (evt.type === 'DISPATCH') {
         const newState = JSON.parse(evt.state);
         isUpdateFromDevtools = true;
         useUsers.setState(newState);
+        useLayout.setState(newState);
+        useTransfers.setState(newState);
         isUpdateFromDevtools = false;
       }
     });
@@ -43,21 +49,17 @@ export const connectZustandStateToReduxDevtools = () => {
         }
       }
     });
-    // @ts-ignore next-line
-    const connection2 = window?.__REDUX_DEVTOOLS_EXTENSION__?.connect({
-      name: 'Layout State',
-    });
-    connection2?.init(useLayout.getState());
-    // @ts-ignore
-    connection2?.subscribe((evt) => {
-      if (evt.type === 'DISPATCH') {
-        const newState = JSON.parse(evt.state);
-        isUpdateFromDevtools = true;
-        useLayout.setState(newState);
-        isUpdateFromDevtools = false;
+    useLayout.subscribe((newState, prevState) => {
+      if (!isUpdateFromDevtools) {
+        const changedKey = returnKeyOfChangedValue(prevState, newState);
+        if (changedKey) {
+          connection?.send(`${changedKey}`, newState);
+        } else {
+          connection?.send('Initial State', newState);
+        }
       }
     });
-    useLayout.subscribe((newState, prevState) => {
+    useTransfers.subscribe((newState, prevState) => {
       if (!isUpdateFromDevtools) {
         const changedKey = returnKeyOfChangedValue(prevState, newState);
         if (changedKey) {

@@ -1,19 +1,14 @@
-import { useUsers } from 'store';
-import { Transaction } from 'types';
-import SelectedUserTransactionRow from '../SelectedUserTransactionRow';
+import { Transfer } from 'types';
+import RecentTransfersRow from '../RecentTransfersRow';
 import TransactionsEmptyState from '../TransfersEmptyState';
 
-interface SelectedUsersTransactionsTableProps {
-  transactions: [] | Transaction[];
+interface RecentTransfersTableProps {
+  transfers: [] | Transfer[];
 }
 
-const SelectedUsersTransactionsTable = ({
-  transactions,
-}: SelectedUsersTransactionsTableProps) => {
-  const { selectedUser } = useUsers();
-
-  if (transactions.length === 0) {
-    return <TransactionsEmptyState userId={selectedUser?.userID} />;
+const RecentTransfersTable = ({ transfers }: RecentTransfersTableProps) => {
+  if (transfers.length === 0) {
+    return <TransactionsEmptyState />;
   }
 
   return (
@@ -47,12 +42,6 @@ const SelectedUsersTransactionsTable = ({
           </th>
           <th
             scope="col"
-            className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-slate-300"
-          >
-            Process
-          </th>
-          <th
-            scope="col"
             className="px-3 py-3.5 text-right pr-6 text-sm font-semibold text-gray-900 dark:text-slate-300"
           >
             <span className="sr-only">Select</span>
@@ -62,12 +51,12 @@ const SelectedUsersTransactionsTable = ({
 
       {/* Body */}
       <tbody className="divide-y divide-gray-200 dark:divide-slate-600 bg-white dark:bg-slate-800">
-        {transactions.map((transaction) => (
+        {transfers.map((transfer) => (
           <tr
-            key={transaction.transactionID}
+            key={transfer.transferID}
             className="hover:bg-gray-50 dark:hover:bg-slate-700"
           >
-            <SelectedUserTransactionRow transaction={transaction} />
+            <RecentTransfersRow transfer={transfer} />
           </tr>
         ))}
       </tbody>
@@ -75,4 +64,4 @@ const SelectedUsersTransactionsTable = ({
   );
 };
 
-export default SelectedUsersTransactionsTable;
+export default RecentTransfersTable;
