@@ -1,5 +1,6 @@
 import AccessCodeSection from './AccessCodeSection';
 import BankConnectionEmptyState from './BankConnectionEmptyState';
+import BankSubaccountsEmptyState from './BankSubaccountsEmptyState';
 import EmailSection from './EmailSection';
 import FeatureFlagGridList from './FeatureFlagGridList';
 import FeatureFlagsEmptyState from './FeatureFlagsEmptyState';
@@ -34,6 +35,7 @@ import UserSearchResultsEmptyState from './UserSearchResultsEmptyState';
 export {
   AccessCodeSection,
   BankConnectionEmptyState,
+  BankSubaccountsEmptyState,
   EmailSection,
   FeatureFlagGridList,
   FeatureFlagsEmptyState,

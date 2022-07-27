@@ -46,14 +46,6 @@ const SelectedUsersBankConnectionRow = ({
       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-slate-200">
         {formattedCreatedAt}
       </td>
-      <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 text-indigo-600 hover:text-indigo-900 cursor-pointer">
-        <button
-          className="text-indigo-600 dark:text-purple-400 hover:text-indigo-900 dark:hover:text-purple-200"
-          // onClick={() => handleOnSelect()}
-        >
-          Select
-        </button>
-      </td>
     </>
   );
 };
