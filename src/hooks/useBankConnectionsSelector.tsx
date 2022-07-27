@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { BankConnection } from 'types';
+import { BankConnection } from 'types/bankConnections';
 
 const useBankConnectionsSelector = ({
   connection,

@@ -1,5 +1,5 @@
 import { useBankConnectionsSelector } from 'hooks';
-import { BankConnection } from 'types';
+import { BankConnection } from 'types/bankConnections';
 
 interface SelectedUsersBankConnectionRowProps {
   connection: BankConnection;

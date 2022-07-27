@@ -1,6 +1,7 @@
-import { User, Transaction, Referral, BankConnection } from 'types';
+import { User, Transaction, Referral } from 'types';
 import create from 'zustand';
 import { UserRegistrationProgressType } from 'components/molecules/UserRegistrationProgress/UserRegistrationProgress';
+import { BankConnection, BankSubaccount } from 'types/bankConnections';
 
 const initialUserRegistrationStepsState: UserRegistrationProgressType[] = [
   {
@@ -102,6 +103,9 @@ type UserState = {
   selectedUserBankConnections: BankConnection[] | [];
   setSelectedUserBankConnections: (bankConnections: BankConnection[]) => void;
 
+  selectedUserBankSubaccounts: BankSubaccount[] | [];
+  setSelectedUserBankSubaccounts: (subaccounts: any) => void;
+
   filter: string;
   searchResults: User[] | null;
   setSearchResults: (results: User[] | null) => void;
@@ -154,6 +158,12 @@ export const useUsers = create<UserState>((set) => ({
   setSelectedUserBankConnections: (
     selectedUserBankConnections: BankConnection[]
   ) => set(() => ({ selectedUserBankConnections })),
+
+  // SELECTED USERS BANK SUBACCOUNTS
+  selectedUserBankSubaccounts: [],
+  setSelectedUserBankSubaccounts: (
+    selectedUserBankSubaccounts: BankSubaccount[]
+  ) => set(() => ({ selectedUserBankSubaccounts })),
 
   // SEARCH FILTER
   filter: '',
