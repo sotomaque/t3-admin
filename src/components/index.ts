@@ -10,6 +10,7 @@ import {
 } from './atoms';
 import {
   AccessCodeSection,
+  BankConnectionEmptyState,
   EmailSection,
   FeatureFlagGridList,
   FeatureFlagsEmptyState,
@@ -24,6 +25,8 @@ import {
   RegisteredUserData,
   SearchUsers,
   SelectedUserReferralsRow,
+  SelectedUsersBankConnectionRow,
+  SelectedUsersBankConnectionsTable,
   SelectedUsersReferralsTable,
   SelectedUsersTransactionsTable,
   SelectedUserTransactionRow,
@@ -42,6 +45,7 @@ import {
   RecentTransfersSection,
   RecentUsersSection,
   SelectedUserReferralsSection,
+  SelectedUsersBankSection,
   SelectedUserSection,
   SelectedUserTransfersSection,
 } from './organisms';
@@ -53,6 +57,7 @@ import {
 
 export {
   AccessCodeSection,
+  BankConnectionEmptyState,
   CommandPalette,
   CopyableRow,
   EmailSection,
@@ -77,6 +82,9 @@ export {
   SearchUsers,
   SelectedUserReferralsRow,
   SelectedUserReferralsSection,
+  SelectedUsersBankConnectionRow,
+  SelectedUsersBankConnectionsTable,
+  SelectedUsersBankSection,
   SelectedUserSection,
   SelectedUsersReferralsTable,
   SelectedUsersTransactionsTable,

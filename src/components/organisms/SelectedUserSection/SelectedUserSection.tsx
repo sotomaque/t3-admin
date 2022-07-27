@@ -3,6 +3,7 @@ import {
   SelectedUserTransfersSection,
   SelectedUserReferralsSection,
   UserFlagsCard,
+  SelectedUsersBankSection,
 } from 'components';
 import { User } from 'types';
 
@@ -32,6 +33,11 @@ const SelectedUserSection = ({ user }: SelectedUserSectionProps) => {
       <div className="h-10" />
       <div className="p-4 bg-white dark:bg-slate-800">
         <SelectedUserReferralsSection user={user} />
+      </div>
+      {/* Bank Connection */}
+      <div className="h-10" />
+      <div className="p-4 bg-white dark:bg-slate-800">
+        <SelectedUsersBankSection user={user} />
       </div>
     </div>
   );

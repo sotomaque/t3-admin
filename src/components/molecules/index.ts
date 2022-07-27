@@ -1,4 +1,5 @@
 import AccessCodeSection from './AccessCodeSection';
+import BankConnectionEmptyState from './BankConnectionEmptyState';
 import EmailSection from './EmailSection';
 import FeatureFlagGridList from './FeatureFlagGridList';
 import FeatureFlagsEmptyState from './FeatureFlagsEmptyState';
@@ -13,6 +14,8 @@ import ReferralsEmptyState from './ReferralsEmptyState';
 import RegisteredUserData from './RegisteredUserData';
 import SearchUsers from './SearchUsers';
 import SelectedUserReferralsRow from './SelectedUserReferralsRow';
+import SelectedUsersBankConnectionRow from './SelectedUsersBankConnectionRow';
+import SelectedUsersBankConnectionsTable from './SelectedUsersBankConnectionsTable';
 import SelectedUsersReferralsTable from './SelectedUsersReferralsTable';
 import SelectedUsersTransactionsTable from './SelectedUsersTransactionsTable';
 import SelectedUserTransactionRow from './SelectedUserTransactionRow';
@@ -29,6 +32,7 @@ import UserSearchResultsEmptyState from './UserSearchResultsEmptyState';
 
 export {
   AccessCodeSection,
+  BankConnectionEmptyState,
   EmailSection,
   FeatureFlagGridList,
   FeatureFlagsEmptyState,
@@ -43,6 +47,8 @@ export {
   RegisteredUserData,
   SearchUsers,
   SelectedUserReferralsRow,
+  SelectedUsersBankConnectionRow,
+  SelectedUsersBankConnectionsTable,
   SelectedUsersReferralsTable,
   SelectedUsersTransactionsTable,
   SelectedUserTransactionRow,
