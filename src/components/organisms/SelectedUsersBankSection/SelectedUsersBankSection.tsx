@@ -9,6 +9,7 @@ import { useUsers } from 'store';
 import { User } from 'types';
 import { trpc } from 'utils/trpc';
 
+// TODO: Unlink button
 const SelectedUsersBankSection = ({ user }: { user: User }) => {
   // Effect(s)
   const {
@@ -56,7 +57,9 @@ const SelectedUsersBankSection = ({ user }: { user: User }) => {
     {
       onSuccess() {
         setSelectedUserBankSubaccounts([]);
-        refetch();
+        setTimeout(() => {
+          refetch();
+        }, 1500);
       },
     }
   );
@@ -106,10 +109,14 @@ const SelectedUsersBankSection = ({ user }: { user: User }) => {
           {showRelinkButton && (
             <button
               disabled={isRelinkLoading}
-              className=" bg-blue-400 hover:bg-blue-600 dark:bg-blue-200 dark:hover:bg-blue-100 p-2 rounded-lg text-white dark:text-slate-600 dark:hover:text-slate-800 text-sm"
+              className="bg-blue-400 hover:bg-blue-600 dark:bg-blue-200 dark:hover:bg-blue-100 px-4 py-2 text-center flex items-center rounded-lg text-white dark:text-slate-600 dark:hover:text-slate-800 text-sm"
               onClick={() => handleOnRelinkPressed()}
             >
-              Trigger Relink
+              {isRelinkLoading ? (
+                <Spinner styles="h-4 w-4" />
+              ) : (
+                'Trigger Relink'
+              )}
             </button>
           )}
         </div>
