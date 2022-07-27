@@ -2,19 +2,21 @@
 import { createRouter } from './context';
 import superjson from 'superjson';
 
-import { userRouter } from './user';
-import { transferRouter } from './transfers';
-import { registrationRouter } from './registration';
-import { kycRouter } from './kyc';
 import { featureFlagRouter } from './featureFlags';
+import { kycRouter } from './kyc';
+import { plaidRouter } from './plaid';
+import { registrationRouter } from './registration';
+import { transferRouter } from './transfers';
+import { userRouter } from './user';
 
 export const appRouter = createRouter()
   .transformer(superjson)
-  .merge('user.', userRouter)
-  .merge('registration.', registrationRouter)
+  .merge('featureFlags.', featureFlagRouter)
   .merge('kyc.', kycRouter)
+  .merge('plaid.', plaidRouter)
+  .merge('registration.', registrationRouter)
   .merge('transfer.', transferRouter)
-  .merge('featureFlags.', featureFlagRouter);
+  .merge('user.', userRouter);
 
 // export type definition of API
 export type AppRouter = typeof appRouter;

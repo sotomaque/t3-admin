@@ -1,3 +1,4 @@
+import { PlusIcon } from '@heroicons/react/outline';
 import {
   Spinner,
   SelectedUsersTransactionsTable,
@@ -8,7 +9,6 @@ import { useUsers } from 'store';
 import { trpc } from 'utils/trpc';
 
 const SelectedUserTransfersSection = ({ userId }: { userId: string }) => {
-  const [collapsed, setCollapsed] = useState(false);
   const { selectedUserTransactions, setSelectedUserTransactions } = useUsers();
   const { data: transfersData, isLoading: transfersLoading } = trpc.useQuery(
     [
@@ -41,14 +41,16 @@ const SelectedUserTransfersSection = ({ userId }: { userId: string }) => {
             {userId}
           </p>
         </div>
-        {/* Collapse Button */}
-        {selectedUserTransactions && selectedUserTransactions.length > 1 && (
-          <button
-            className="bg-blue-400 hover:bg-blue-600 px-2 my-2 rounded-lg text-white text-sm dark:bg-blue-200 dark:hover:bg-blue-100 dark:text-slate-600 dark:hover:text-slate-800 "
-            onClick={() => setCollapsed(!collapsed)}
-          >
-            {collapsed ? 'Show' : 'Collapse'}
-          </button>
+        {transfersData && transfersData.transfers.length > 0 && (
+          <div className="pl-6 pt-3">
+            <button
+              type="button"
+              className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 dark:bg-purple-700 hover:bg-indigo-700 dark:hover:bg-purple-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-purple-600"
+            >
+              <PlusIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
+              New Transaction
+            </button>
+          </div>
         )}
       </div>
       <div className="mt-8 flex flex-col">
@@ -63,11 +65,7 @@ const SelectedUserTransfersSection = ({ userId }: { userId: string }) => {
               {selectedUserTransactions && !transfersLoading && (
                 <>
                   <SelectedUsersTransactionsTable
-                    transactions={
-                      collapsed
-                        ? selectedUserTransactions.slice(0, 1)
-                        : selectedUserTransactions
-                    }
+                    transactions={selectedUserTransactions}
                   />
                   {selectedUserTransactions.length >= 10 && (
                     <div className="pt-2">
