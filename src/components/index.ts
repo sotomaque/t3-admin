@@ -6,6 +6,7 @@ import {
   PaginatedFooter,
   Popup,
   Spinner,
+  Sidebar,
 } from './atoms';
 import {
   AccessCodeSection,
@@ -81,6 +82,7 @@ export {
   SelectedUsersTransactionsTable,
   SelectedUserTransactionRow,
   SelectedUserTransfersSection,
+  Sidebar,
   SingleColumnContentWrapper,
   Spinner,
   TransactionsPagination,

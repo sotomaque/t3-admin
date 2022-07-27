@@ -4,6 +4,7 @@ import ErrorPlaceholder from './ErrorPlaceholder';
 import Notification from './Notification';
 import PaginatedFooter from './PaginatedFooter';
 import Popup from './Popup';
+import Sidebar from './Sidebar';
 import Spinner from './Spinner';
 
 export {
@@ -13,5 +14,6 @@ export {
   Notification,
   PaginatedFooter,
   Popup,
+  Sidebar,
   Spinner,
 };

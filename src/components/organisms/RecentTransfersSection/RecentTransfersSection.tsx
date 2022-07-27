@@ -1,20 +1,19 @@
-import { Spinner } from 'components/atoms';
+import { Sidebar, Spinner } from 'components/atoms';
 import {
   RecentTransfersTable,
   TransfersPagination,
 } from 'components/molecules';
 import { useMemo, useState } from 'react';
-import { useTransfers } from 'store';
+import { useLayout, useTransfers } from 'store';
 import { Transfer } from 'types';
 import { Fragment } from 'react';
-import { Dialog, Menu, Transition, Disclosure } from '@headlessui/react';
+import { Menu, Transition, Disclosure } from '@headlessui/react';
 import {
   ChevronDownIcon,
   FilterIcon,
   MinusSmIcon,
   PlusSmIcon,
 } from '@heroicons/react/solid';
-import { XIcon } from '@heroicons/react/outline';
 import { trpc } from 'utils/trpc';
 
 type SortType = 'Newest' | 'Oldest';
@@ -78,6 +77,7 @@ const RecentTransfersSection = ({ transfers }: { transfers: Transfer[] }) => {
   });
 
   // Effect(s)
+  const { isDark } = useLayout();
   const { loading } = useTransfers();
   const showRecentTransfers = useMemo(() => {
     return transfers.length > 0;
@@ -103,114 +103,93 @@ const RecentTransfersSection = ({ transfers }: { transfers: Transfer[] }) => {
   return (
     <div className="lg:px-8">
       {/* Filter Section */}
-      <Transition.Root show={mobileFiltersOpen} as={Fragment}>
-        {/* Filter Sidepanel */}
-        <Dialog
-          as="div"
-          className="relative z-40 "
-          onClose={setMobileFiltersOpen}
+      <Sidebar
+        show={mobileFiltersOpen}
+        onClose={setMobileFiltersOpen}
+        onClick={() => setMobileFiltersOpen(false)}
+        title="Filters"
+      >
+        <form
+          className={`mt-4 border-t ${
+            isDark ? 'border-slate-500' : 'border-gray-200'
+          } `}
         >
-          <Transition.Child
-            as={Fragment}
-            enter="transition-opacity ease-linear duration-300"
-            enterFrom="opacity-0"
-            enterTo="opacity-100"
-            leave="transition-opacity ease-linear duration-300"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
-          >
-            <div className="fixed inset-0 bg-black bg-opacity-25" />
-          </Transition.Child>
-
-          <div className="fixed inset-0 flex z-40">
-            <Transition.Child
-              as={Fragment}
-              enter="transition ease-in-out duration-300 transform"
-              enterFrom="translate-x-full"
-              enterTo="translate-x-0"
-              leave="transition ease-in-out duration-300 transform"
-              leaveFrom="translate-x-0"
-              leaveTo="translate-x-full"
+          {filters.map((section) => (
+            <Disclosure
+              as="div"
+              key={section.id}
+              className={`border-t ${
+                isDark ? 'border-slate-800 border-opacity-0' : 'border-gray-200'
+              } px-4 py-6`}
             >
-              <Dialog.Panel className="ml-auto relative max-w-xs w-full h-full bg-white shadow-xl py-4 pb-12 flex flex-col overflow-y-auto">
-                <div className="px-4 flex items-center justify-between">
-                  <h2 className="text-lg font-medium text-gray-900">Filters</h2>
-                  <button
-                    type="button"
-                    className="-mr-2 w-10 h-10 bg-white p-2 rounded-md flex items-center justify-center text-gray-400"
-                    onClick={() => setMobileFiltersOpen(false)}
-                  >
-                    <span className="sr-only">Close menu</span>
-                    <XIcon className="h-6 w-6" aria-hidden="true" />
-                  </button>
-                </div>
-
-                {/* Filters */}
-                <form className="mt-4 border-t border-gray-200">
-                  {filters.map((section) => (
-                    <Disclosure
-                      as="div"
-                      key={section.id}
-                      className="border-t border-gray-200 px-4 py-6"
+              {({ open }) => (
+                <>
+                  <h3 className="-mx-2 -my-3 flow-root">
+                    <Disclosure.Button
+                      className={`${
+                        isDark
+                          ? 'bg-slate-500 text-slate-400 hover:text-slate-300'
+                          : 'bg-white text-gray-400 hover:text-gray-500'
+                      } px-2 py-3 w-full flex items-center justify-between rounded-md`}
                     >
-                      {({ open }) => (
-                        <>
-                          <h3 className="-mx-2 -my-3 flow-root">
-                            <Disclosure.Button className="px-2 py-3 bg-white w-full flex items-center justify-between text-gray-400 hover:text-gray-500">
-                              <span className="font-medium text-gray-900">
-                                {section.name}
-                              </span>
-                              <span className="ml-6 flex items-center">
-                                {open ? (
-                                  <MinusSmIcon
-                                    className="h-5 w-5"
-                                    aria-hidden="true"
-                                  />
-                                ) : (
-                                  <PlusSmIcon
-                                    className="h-5 w-5"
-                                    aria-hidden="true"
-                                  />
-                                )}
-                              </span>
-                            </Disclosure.Button>
-                          </h3>
-                          <Disclosure.Panel className="pt-6">
-                            <div className="space-y-6">
-                              {section.options.map((option, optionIdx) => (
-                                <div
-                                  key={option.value}
-                                  className="flex items-center"
-                                >
-                                  <input
-                                    id={`filter-mobile-${section.id}-${optionIdx}`}
-                                    name={`${section.id}[]`}
-                                    defaultValue={option.value}
-                                    type="checkbox"
-                                    defaultChecked={option.checked}
-                                    className="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500"
-                                  />
-                                  <label
-                                    htmlFor={`filter-mobile-${section.id}-${optionIdx}`}
-                                    className="ml-3 min-w-0 flex-1 text-gray-500"
-                                  >
-                                    {option.label}
-                                  </label>
-                                </div>
-                              ))}
-                            </div>
-                          </Disclosure.Panel>
-                        </>
-                      )}
-                    </Disclosure>
-                  ))}
-                </form>
-              </Dialog.Panel>
-            </Transition.Child>
-          </div>
-        </Dialog>
-      </Transition.Root>
-
+                      <span
+                        className={`font-medium ${
+                          isDark ? 'text-slate-50' : 'text-gray-900'
+                        }`}
+                      >
+                        {section.name}
+                      </span>
+                      <span className="ml-6 flex items-center ">
+                        {open ? (
+                          <MinusSmIcon
+                            className="h-5 w-5"
+                            aria-hidden="true"
+                            color={`${isDark ? 'white' : 'black'}`}
+                          />
+                        ) : (
+                          <PlusSmIcon
+                            className="h-5 w-5"
+                            aria-hidden="true"
+                            color={`${isDark ? 'white' : 'black'}`}
+                          />
+                        )}
+                      </span>
+                    </Disclosure.Button>
+                  </h3>
+                  <Disclosure.Panel className="pt-6">
+                    <div className="space-y-6">
+                      {section.options.map((option, optionIdx) => (
+                        <div key={option.value} className="flex items-center">
+                          <input
+                            id={`filter-mobile-${section.id}-${optionIdx}`}
+                            name={`${section.id}[]`}
+                            defaultValue={option.value}
+                            type="checkbox"
+                            defaultChecked={option.checked}
+                            className={`h-4 w-4 rounded ${
+                              isDark
+                                ? 'text-slate-300 focus:ring-slate-200 border-slate-500'
+                                : 'text-indigo-600 focus:ring-indigo-500 border-gray-300'
+                            }`}
+                          />
+                          <label
+                            htmlFor={`filter-mobile-${section.id}-${optionIdx}`}
+                            className={`ml-3 min-w-0 flex-1 ${
+                              isDark ? 'text-slate-200' : 'text-gray-500'
+                            } `}
+                          >
+                            {option.label}
+                          </label>
+                        </div>
+                      ))}
+                    </div>
+                  </Disclosure.Panel>
+                </>
+              )}
+            </Disclosure>
+          ))}
+        </form>
+      </Sidebar>
       {/* Add User Button */}
       <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto">
