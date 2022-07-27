@@ -327,6 +327,7 @@ export interface TrackingData {
 export interface AdditionalData {
   accountData: AccountData;
   ecoTransferID: string;
+  description: string;
 }
 export interface AccountData {
   srcAccount: PtPlaidAccount;

@@ -100,6 +100,18 @@ const RecentTransfersSection = ({ transfers }: { transfers: Transfer[] }) => {
 
   const onToggleFilter = () => {};
 
+  /*
+  TODO:
+  - select a transfer
+  - /admin/eco/transfers?transferID=<transferID> -> show details
+  - filtered query
+  - search
+  - view selected transfers details
+  - additional "transfer like" tables
+  - add recurring transfers table to selected user section {{server_url}}/api/v1/admin/recurringtransfers
+
+  */
+
   return (
     <div className="lg:px-8">
       {/* Filter Section */}
@@ -114,6 +126,9 @@ const RecentTransfersSection = ({ transfers }: { transfers: Transfer[] }) => {
             isDark ? 'border-slate-500' : 'border-gray-200'
           } `}
         >
+          {/* By default all of them should be checked, 
+              since api only lets us sort by one state, we have to ensure they cannot check multiple states
+              i.e. either all are checked or just one is checked */}
           {filters.map((section) => (
             <Disclosure
               as="div"

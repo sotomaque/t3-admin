@@ -23,6 +23,7 @@ const TransferDetailsPage: NextPage = () => {
         </div>
       ) : (
         <TransferSummary transfer={data.transfer} />
+        // if its a deposit or withdraw, do primetrust call to get prime trust details
       )}
     </SingleColumnContentWrapper>
   );
