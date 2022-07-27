@@ -1,5 +1,5 @@
 import { TRPCError } from '@trpc/server';
-import { Referral, User } from 'types/index';
+import { BankConnection, Referral, User } from 'types/index';
 import { createRouter } from './context';
 import { z } from 'zod';
 
@@ -219,5 +219,62 @@ export const userRouter = createRouter()
 
       // return referrals
       return { referrals };
+    },
+  })
+  .query('bankConnectionsByUserId', {
+    input: z.object({
+      userId: z.string(),
+    }),
+    async resolve({ input }) {
+      // get userId from input
+      const { userId } = input;
+
+      // validate userId
+      if (!userId.startsWith('user:')) {
+        throw new TRPCError({
+          message: 'Invalid UserID Provided to bankConnectionsByUserId',
+          code: 'BAD_REQUEST',
+        });
+      }
+
+      // Build URL
+      const baseURL = process.env.ECO_BASE_URL;
+      const bankConnectionsURL = process.env.ECO_BANK_CONNECTIONS;
+      if (!baseURL || typeof baseURL !== 'string') {
+        throw new TRPCError({
+          message: 'Missing Base URL',
+          code: 'INTERNAL_SERVER_ERROR',
+        });
+      }
+      if (!bankConnectionsURL || typeof bankConnectionsURL !== 'string') {
+        throw new TRPCError({
+          message: 'Missing Bank Connections URL',
+          code: 'INTERNAL_SERVER_ERROR',
+        });
+      }
+      const userIdQuery = `?userID=${userId}`;
+      const fullURL = `${baseURL}${bankConnectionsURL}${userIdQuery}`;
+
+      // make fetch request to the server for given userId
+      const response = await fetch(fullURL);
+
+      // parse the response
+      const body = await response.json();
+      if (!body || !Array.isArray(body)) {
+        throw new TRPCError({
+          message: 'Invalid Response in bankConnectionsByUserId',
+          code: 'INTERNAL_SERVER_ERROR',
+        });
+      }
+
+      if (body.length < 1) {
+        return { connections: [] };
+      }
+
+      // extract connections from the response
+      const connections: BankConnection[] = body;
+
+      // return connections
+      return { connections };
     },
   });

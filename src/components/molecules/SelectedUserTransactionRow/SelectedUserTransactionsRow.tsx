@@ -57,10 +57,10 @@ const SelectedUserTransactionRow = ({
 
   return (
     <>
-      <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 dark:text-slate-200  hidden xl:table-cell">
+      <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 dark:text-slate-200 hidden xl:table-cell">
         {transaction.transactionID}
       </td>
-      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-slate-200 ">
+      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-slate-200">
         {formattedTransactionCategory}
       </td>
       <td
@@ -71,7 +71,7 @@ const SelectedUserTransactionRow = ({
         {formattedTransactionAmount}
       </td>
       <td
-        className={`whitespace-nowrap px-3 py-4 text-sm text-gray-500 ${transactionStateColor}`}
+        className={`whitespace-nowrap px-3 py-4 text-sm ${transactionStateColor}`}
       >
         <span
           className={`px-3 py-1 rounded-full text-xs font-medium ${transactionStateBackgroundColor}`}
@@ -79,7 +79,6 @@ const SelectedUserTransactionRow = ({
           {formattedTransactionState}
         </span>
       </td>
-
       <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-left text-sm font-medium sm:pr-6">
         {canProcessTransaction && (
           <button
@@ -96,7 +95,6 @@ const SelectedUserTransactionRow = ({
           </button>
         )}
       </td>
-
       <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 text-indigo-600 hover:text-indigo-900 cursor-pointer">
         {canSelectTransaction && (
           <button

@@ -1,16 +1,23 @@
-import { SelectedUsersReferralsTable, Spinner } from 'components';
-import { useEffect, useState } from 'react';
-import { Referral, User } from 'types';
+import { Spinner } from 'components/atoms';
+import { SelectedUsersBankConnectionsTable } from 'components/molecules';
+import { useUsers } from 'store';
+import { User } from 'types';
 import { trpc } from 'utils/trpc';
 
-const SelectedUserReferralsSection = ({ user }: { user: User }) => {
-  // TODO: set these in the user store
-  const [referrals, setReferrals] = useState<Referral[] | []>([]);
+const SelectedUsersBankSection = ({ user }: { user: User }) => {
+  // Effect(s)
+  const { selectedUserBankConnections, setSelectedUserBankConnections } =
+    useUsers();
   const { isLoading } = trpc.useQuery(
-    ['user.referralsByUserId', { userId: user.userID }],
+    [
+      'user.bankConnectionsByUserId',
+      {
+        userId: user.userID,
+      },
+    ],
     {
       onSuccess(data) {
-        setReferrals(data.referrals);
+        setSelectedUserBankConnections(data.connections);
       },
     }
   );
@@ -20,7 +27,7 @@ const SelectedUserReferralsSection = ({ user }: { user: User }) => {
       <div className="sm:flex sm:items-center py-2">
         <div className="sm:flex-auto">
           <h1 className="text-xl font-semibold text-gray-900 dark:text-slate-100">
-            Referrals
+            Bank Information
           </h1>
           <p className="mt-2 text-sm text-gray-700 dark:text-slate-200">
             {user.userID}
@@ -36,8 +43,10 @@ const SelectedUserReferralsSection = ({ user }: { user: User }) => {
                   <Spinner />
                 </div>
               )}
-              {referrals && !isLoading && (
-                <SelectedUsersReferralsTable referrals={referrals} />
+              {selectedUserBankConnections && !isLoading && (
+                <SelectedUsersBankConnectionsTable
+                  connections={selectedUserBankConnections}
+                />
               )}
             </div>
           </div>
@@ -47,4 +56,4 @@ const SelectedUserReferralsSection = ({ user }: { user: User }) => {
   );
 };
 
-export default SelectedUserReferralsSection;
+export default SelectedUsersBankSection;
