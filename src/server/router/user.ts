@@ -260,7 +260,6 @@ export const userRouter = createRouter()
 
       // parse the response
       const body = await response.json();
-      console.log({ body });
       if (!body || !Array.isArray(body)) {
         throw new TRPCError({
           message: 'Invalid Response in bankConnectionsByUserId',
