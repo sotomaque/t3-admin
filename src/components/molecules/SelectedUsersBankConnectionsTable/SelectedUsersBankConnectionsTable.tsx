@@ -57,12 +57,6 @@ const SelectedUsersBankConnectionsTable = ({
           >
             Created At
           </th>
-          <th
-            scope="col"
-            className="px-3 py-3.5 text-right pr-6 text-sm font-semibold text-gray-900 dark:text-slate-300"
-          >
-            <span className="sr-only">Select</span>
-          </th>
         </tr>
       </thead>
 

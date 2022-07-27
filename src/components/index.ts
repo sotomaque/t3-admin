@@ -11,6 +11,7 @@ import {
 import {
   AccessCodeSection,
   BankConnectionEmptyState,
+  BankSubaccountsEmptyState,
   EmailSection,
   FeatureFlagGridList,
   FeatureFlagsEmptyState,
@@ -58,6 +59,7 @@ import {
 export {
   AccessCodeSection,
   BankConnectionEmptyState,
+  BankSubaccountsEmptyState,
   CommandPalette,
   CopyableRow,
   EmailSection,
