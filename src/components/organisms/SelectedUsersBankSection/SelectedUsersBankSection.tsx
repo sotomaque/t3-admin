@@ -29,23 +29,26 @@ const SelectedUsersBankSection = ({ user }: { user: User }) => {
       },
     }
   );
-  const { refetch: fetchLinkedSubaccounts, isLoading: isSubaccountsLoading } =
-    trpc.useQuery(
-      [
-        'plaid.linkedSubaccount',
-        {
-          userId: user.userID,
-          itemId: selectedUserBankConnections?.[0]?.itemID ?? '',
-        },
-      ],
+  const {
+    refetch: fetchLinkedSubaccounts,
+    isLoading: isSubaccountsLoading,
+    error,
+  } = trpc.useQuery(
+    [
+      'plaid.linkedSubaccount',
       {
-        enabled: selectedUserBankConnections?.length > 0,
-        refetchOnWindowFocus: false,
-        onSuccess(data) {
-          setSelectedUserBankSubaccounts(data.subaccounts);
-        },
-      }
-    );
+        userId: user.userID,
+        itemId: selectedUserBankConnections?.[0]?.itemID ?? '',
+      },
+    ],
+    {
+      enabled: selectedUserBankConnections?.length > 0,
+      refetchOnWindowFocus: false,
+      onSuccess(data) {
+        setSelectedUserBankSubaccounts(data.subaccounts);
+      },
+    }
+  );
 
   return (
     <div className="p-4 sm:px-6 lg:px-8 dark:bg-slate-700 rounded-xl space-y-6">
@@ -81,50 +84,52 @@ const SelectedUsersBankSection = ({ user }: { user: User }) => {
         </div>
       </>
       {/* Bank Subaccount(s) */}
-      <>
-        <div className="sm:flex sm:items-center py-2">
-          <div className="sm:flex-auto">
-            <h1 className="text-xl font-semibold text-gray-900 dark:text-slate-100">
-              Bank Subaccounts
-            </h1>
-            <p className="mt-2 text-sm text-gray-700 dark:text-slate-200">
-              {user.userID}
-            </p>
+      {!error && (
+        <>
+          <div className="sm:flex sm:items-center py-2">
+            <div className="sm:flex-auto">
+              <h1 className="text-xl font-semibold text-gray-900 dark:text-slate-100">
+                Bank Subaccounts
+              </h1>
+              <p className="mt-2 text-sm text-gray-700 dark:text-slate-200">
+                {user.userID}
+              </p>
+            </div>
           </div>
-        </div>
-        <div className="mt-8 flex flex-col">
-          <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
-            <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8 space-y-6">
-              <div className="overflow-hidden shadow md:rounded-lg">
-                {isSubaccountsLoading && (
-                  <div className="flex items-center justify-center h-screen">
-                    <Spinner />
-                  </div>
-                )}
-                {selectedUserBankSubaccounts &&
-                  selectedUserBankSubaccounts.length > 0 &&
-                  !isSubaccountsLoading && (
-                    <>
-                      {selectedUserBankSubaccounts.map((subaccount, idx) => (
-                        <div
-                          className={`${
-                            idx != selectedUserBankSubaccounts.length - 1 &&
-                            'mb-6'
-                          } md:md:rounded-lg`}
-                          key={`${subaccount.account_id}-${idx}`}
-                        >
-                          <SelectedUsersSubaccountTable
-                            subaccount={subaccount}
-                          />
-                        </div>
-                      ))}
-                    </>
+          <div className="mt-8 flex flex-col">
+            <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
+              <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8 space-y-6">
+                <div className="overflow-hidden shadow md:rounded-lg">
+                  {isSubaccountsLoading && (
+                    <div className="flex items-center justify-center h-screen">
+                      <Spinner />
+                    </div>
                   )}
+                  {selectedUserBankSubaccounts &&
+                    selectedUserBankSubaccounts.length > 0 &&
+                    !isSubaccountsLoading && (
+                      <>
+                        {selectedUserBankSubaccounts.map((subaccount, idx) => (
+                          <div
+                            className={`${
+                              idx != selectedUserBankSubaccounts.length - 1 &&
+                              'mb-6'
+                            } md:md:rounded-lg`}
+                            key={`${subaccount.account_id}-${idx}`}
+                          >
+                            <SelectedUsersSubaccountTable
+                              subaccount={subaccount}
+                            />
+                          </div>
+                        ))}
+                      </>
+                    )}
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </>
+        </>
+      )}
     </div>
   );
 };
