@@ -17,6 +17,7 @@ import SelectedUserReferralsRow from './SelectedUserReferralsRow';
 import SelectedUsersBankConnectionRow from './SelectedUsersBankConnectionRow';
 import SelectedUsersBankConnectionsTable from './SelectedUsersBankConnectionsTable';
 import SelectedUsersReferralsTable from './SelectedUsersReferralsTable';
+import SelectedUsersSubaccountTable from './SelectedUsersSubaccountTable';
 import SelectedUsersTransactionsTable from './SelectedUsersTransactionsTable';
 import SelectedUserTransactionRow from './SelectedUserTransactionRow';
 import TransactionsPagination from './TransactionPagination';
@@ -50,6 +51,7 @@ export {
   SelectedUsersBankConnectionRow,
   SelectedUsersBankConnectionsTable,
   SelectedUsersReferralsTable,
+  SelectedUsersSubaccountTable,
   SelectedUsersTransactionsTable,
   SelectedUserTransactionRow,
   TransactionsPagination,

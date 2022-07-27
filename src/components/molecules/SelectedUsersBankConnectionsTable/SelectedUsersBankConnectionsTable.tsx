@@ -1,5 +1,5 @@
 import { useUsers } from 'store';
-import { BankConnection } from 'types';
+import { BankConnection } from 'types/bankConnections';
 import BankConnectionEmptyState from '../BankConnectionEmptyState';
 import SelectedUsersBankConnectionRow from '../SelectedUsersBankConnectionRow';
 

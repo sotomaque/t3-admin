@@ -1,7 +1,8 @@
 import { TRPCError } from '@trpc/server';
-import { BankConnection, Referral, User } from 'types/index';
+import { Referral, User } from 'types/index';
 import { createRouter } from './context';
 import { z } from 'zod';
+import { BankConnection } from 'types/bankConnections';
 
 export const userRouter = createRouter()
   .mutation('recentUsers', {
