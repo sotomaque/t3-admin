@@ -9,7 +9,6 @@ import { useUsers } from 'store';
 import { User } from 'types';
 import { trpc } from 'utils/trpc';
 
-// TODO: Unlink button
 const SelectedUsersBankSection = ({ user }: { user: User }) => {
   // Effect(s)
   const {
@@ -17,7 +16,21 @@ const SelectedUsersBankSection = ({ user }: { user: User }) => {
     setSelectedUserBankConnections,
     selectedUserBankSubaccounts,
     setSelectedUserBankSubaccounts,
+    setSelectedUserPlaidId,
   } = useUsers();
+  trpc.useQuery(
+    [
+      'plaid.plaidItemId',
+      {
+        userId: user.userID,
+      },
+    ],
+    {
+      onSuccess(data) {
+        data && data.plaidItemId && setSelectedUserPlaidId(data.plaidItemId);
+      },
+    }
+  );
   const { isLoading: isBankConnectionsLoading, refetch } = trpc.useQuery(
     [
       'user.bankConnectionsByUserId',
