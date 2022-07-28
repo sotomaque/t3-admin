@@ -50,23 +50,14 @@ const CreateQuickTransferForm = ({ user }: { user: User }) => {
       },
     }
   );
-  useEffect(() => {
-    return () => {
-      clearPopupComponent();
-    };
-  }, [clearPopupComponent]);
 
   // Function(s)
   const handleOnCancel = () => {
     setShowPopup(false);
+    clearPopupComponent();
   };
   const handleOnCreateCustomTransfer = async () => {
-    setShowPopup(false);
     setPopupComponent(<CreateCustomTransferForm user={user} />);
-
-    setTimeout(() => {
-      setShowPopup(true);
-    }, 500);
   };
   const handleOnCreateQuickTranser = async () => {
     if (!selectedUserBankSubaccounts.length) return;

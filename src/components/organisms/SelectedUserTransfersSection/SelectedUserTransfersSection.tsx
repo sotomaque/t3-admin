@@ -37,8 +37,8 @@ const SelectedUserTransfersSection = ({ user }: { user: User }) => {
 
   // Function(s)
   const handleOnNewTransaction = () => {
-    setShowPopup(true);
     setPopupComponent(<CreateQuickTransferForm user={user} />);
+    setShowPopup(true);
   };
 
   return (

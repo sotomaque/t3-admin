@@ -2,6 +2,7 @@ import { Spinner } from 'components/atoms';
 import { useUsers } from 'store';
 import { User } from 'types';
 import RecentUsersRow from '../RecentUsersRow';
+import { useAutoAnimate } from '@formkit/auto-animate/react';
 
 interface RecentUsersTableProps {
   users: User[];
@@ -9,6 +10,7 @@ interface RecentUsersTableProps {
 
 const RecentUsersTable = ({ users }: RecentUsersTableProps) => {
   const { selectedUser, loading } = useUsers();
+  const [listRef] = useAutoAnimate<HTMLTableRowElement>();
 
   if (loading) {
     return (
@@ -86,6 +88,7 @@ const RecentUsersTable = ({ users }: RecentUsersTableProps) => {
               selectedUser.userID === user.userID &&
               'bg-gray-100 dark:bg-slate-700'
             } hover:bg-gray-50 dark:hover:bg-slate-700`}
+            ref={listRef}
           >
             <RecentUsersRow user={user} />
           </tr>

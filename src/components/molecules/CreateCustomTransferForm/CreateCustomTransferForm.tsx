@@ -51,11 +51,6 @@ const CreateCustomTransferForm = ({ user }: { user: User }) => {
       },
     }
   );
-  useEffect(() => {
-    return () => {
-      clearPopupComponent();
-    };
-  }, [clearPopupComponent]);
 
   // Function(s)
   const validateUserInput = () => {
@@ -69,6 +64,7 @@ const CreateCustomTransferForm = ({ user }: { user: User }) => {
   };
   const handleOnCancel = () => {
     setShowPopup(false);
+    clearPopupComponent();
   };
   const handleOnCreateCustomTransfer = async () => {
     if (userInput === '') return;
