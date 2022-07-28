@@ -1,11 +1,11 @@
 import { SVGProps } from 'react';
 
 export type RouteName =
-  | 'Dashboard'
+  | 'Home'
   | 'Users'
-  | 'Documentation'
-  | 'Repos'
+  | 'Transfers'
   | 'Services'
+  | 'Repos'
   | 'Feature Flags';
 
 export type RouteType = {
