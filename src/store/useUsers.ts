@@ -103,6 +103,9 @@ type UserState = {
   selectedUserBankConnections: BankConnection[] | [];
   setSelectedUserBankConnections: (bankConnections: BankConnection[]) => void;
 
+  selectedUserPlaidId: string | null;
+  setSelectedUserPlaidId: (plaidId: string | null) => void;
+
   selectedUserBankSubaccounts: BankSubaccount[] | [];
   setSelectedUserBankSubaccounts: (subaccounts: any) => void;
 
@@ -152,6 +155,11 @@ export const useUsers = create<UserState>((set) => ({
   selectedUserReferrals: [],
   setSelectedUserReferrals: (selectedUserReferrals: Referral[]) =>
     set(() => ({ selectedUserReferrals })),
+
+  // SELECTED USERS PLAID ID
+  selectedUserPlaidId: null,
+  setSelectedUserPlaidId: (selectedUserPlaidId: string | null) =>
+    set(() => ({ selectedUserPlaidId })),
 
   // SELECTED USERS BANK CONNECTIONS
   selectedUserBankConnections: [],

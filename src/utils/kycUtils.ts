@@ -45,11 +45,9 @@ export const getUploadDataFromServer = async ({
   const baseURL = process.env.ECO_BASE_URL;
   const postKYCDataURL = process.env.ECO_POST_KYC_DOCUMENTS_URL;
   if (!baseURL || !postKYCDataURL) {
-    console.log('Missing ECO_BASE_URL or ECO_POST_KYC_DOCUMENTS_URL');
     return { error: 'Missing ECO_BASE_URL or ECO_POST_KYC_DOCUMENTS_URL' };
   }
   const fullURL = `${baseURL}${postKYCDataURL}`;
-  console.log({ fullURL });
   // Make Request
   try {
     const req = axios.get(fullURL, {
@@ -63,7 +61,6 @@ export const getUploadDataFromServer = async ({
     const { data } = await req;
     return { data };
   } catch (error) {
-    console.log({ error });
     return { error };
   }
 };
