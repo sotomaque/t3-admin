@@ -13,13 +13,12 @@ import { trpc } from 'utils/trpc';
 const SelectedUserTransfersSection = ({ user }: { user: User }) => {
   // Effect(s)
   const { setShowPopup, setPopupComponent, clearPopupComponent } = useLayout();
+  const { selectedUserTransactions, setSelectedUserTransactions } = useUsers();
   const {
-    selectedUserTransactions,
-    setSelectedUserTransactions,
-    selectedUserBankConnections,
-    selectedUserBankSubaccounts,
-  } = useUsers();
-  const { data: transfersData, isLoading: transfersLoading } = trpc.useQuery(
+    data: transfersData,
+    isLoading: transfersLoading,
+    refetch: refetchTransfersByUserId,
+  } = trpc.useQuery(
     [
       'transfer.transfersByUserId',
       {
@@ -27,6 +26,7 @@ const SelectedUserTransfersSection = ({ user }: { user: User }) => {
       },
     ],
     {
+      retryOnMount: true,
       refetchOnWindowFocus: true,
       cacheTime: 0,
       enabled: true,
@@ -35,6 +35,7 @@ const SelectedUserTransfersSection = ({ user }: { user: User }) => {
       },
     }
   );
+
   // Search Component
   useEffect(() => {
     setPopupComponent(<CreateTransferForm user={user} />);
@@ -42,14 +43,7 @@ const SelectedUserTransfersSection = ({ user }: { user: User }) => {
     return () => {
       clearPopupComponent();
     };
-  }, [setPopupComponent, clearPopupComponent, user]);
-
-  useEffect(() => {
-    console.log({ selectedUserBankConnections });
-  }, [selectedUserBankConnections]);
-  useEffect(() => {
-    console.log({ selectedUserBankSubaccounts });
-  }, [selectedUserBankSubaccounts]);
+  }, [setPopupComponent, clearPopupComponent, user, refetchTransfersByUserId]);
 
   // Function(s)
   const handleOnNewTransaction = () => {

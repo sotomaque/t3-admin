@@ -27,7 +27,9 @@ const SelectedUsersBankSection = ({ user }: { user: User }) => {
     ],
     {
       onSuccess(data) {
-        data && data.plaidItemId && setSelectedUserPlaidId(data.plaidItemId);
+        data &&
+          data.primeAccountID &&
+          setSelectedUserPlaidId(data.primeAccountID);
       },
     }
   );

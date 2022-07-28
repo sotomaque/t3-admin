@@ -1,16 +1,50 @@
+import { useState } from 'react';
 import { useLayout, useUsers } from 'store';
 import { User } from 'types';
 import { trpc } from 'utils/trpc';
 
 const CreateTransferForm = ({ user }: { user: User }) => {
+  // State
+  const [loading, setLoading] = useState(false);
+
   // Effect(s)
   const { isDark, setShowPopup } = useLayout();
-  const { selectedUserBankSubaccounts } = useUsers();
+  const {
+    selectedUserBankSubaccounts,
+    selectedUserPlaidId,
+    setSelectedUserTransactions,
+  } = useUsers();
   const { mutateAsync, isLoading } = trpc.useMutation(
     'transfer.createQuickTransfer',
     {
+      onMutate() {
+        setLoading(true);
+      },
       onSuccess() {
         setShowPopup(false);
+      },
+      onSettled() {
+        setTimeout(() => {
+          refetchTransfersByUserId();
+          setLoading(false);
+        }, 1500);
+      },
+    }
+  );
+  const { refetch: refetchTransfersByUserId } = trpc.useQuery(
+    [
+      'transfer.transfersByUserId',
+      {
+        userId: user.userID,
+      },
+    ],
+    {
+      retryOnMount: false,
+      refetchOnWindowFocus: false,
+      cacheTime: 0,
+      enabled: true,
+      onSuccess(data) {
+        setSelectedUserTransactions(data.transfers);
       },
     }
   );
@@ -22,9 +56,9 @@ const CreateTransferForm = ({ user }: { user: User }) => {
   const handleOnCreateCustomTransfer = () => {};
   const handleOnCreateQuickTranser = async () => {
     if (!selectedUserBankSubaccounts.length) return;
-    if (!selectedUserBankSubaccounts[0]?.account_id) return;
+    if (!selectedUserPlaidId) return;
+    let ptPlaidAccountID = selectedUserPlaidId;
 
-    let ptPlaidAccountID = selectedUserBankSubaccounts[0].account_id;
     await mutateAsync({ ptPlaidAccountID, userID: user.userID });
   };
 
@@ -56,6 +90,7 @@ const CreateTransferForm = ({ user }: { user: User }) => {
         </div>
         <div className="mt-5 flex justify-between pt-4 ">
           <button
+            disabled={isLoading || loading}
             onClick={() => handleOnCancel()}
             type="button"
             className="inline-flex items-center justify-center px-4 py-2 border border-transparent font-medium rounded-md text-red-700 bg-red-100 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:text-sm"
@@ -64,6 +99,7 @@ const CreateTransferForm = ({ user }: { user: User }) => {
           </button>
           <div className="space-x-4">
             <button
+              disabled={isLoading || loading}
               onClick={() => handleOnCreateCustomTransfer()}
               type="button"
               className="inline-flex items-center justify-center px-4 py-2 border border-transparent font-medium rounded-md text-gray-700 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 sm:text-sm"
@@ -71,11 +107,14 @@ const CreateTransferForm = ({ user }: { user: User }) => {
               Create Custom Transfer
             </button>
             <button
+              disabled={isLoading || loading}
               onClick={() => handleOnCreateQuickTranser()}
               type="button"
               className="inline-flex items-center justify-center px-4 py-2 border border-transparent font-medium rounded-md text-green-700 bg-green-100 hover:bg-green-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:text-sm"
             >
-              {isLoading ? 'Creating Transfer...' : 'Create Quick Transfer'}
+              {isLoading || loading
+                ? 'Creating Transfer...'
+                : 'Create Quick Transfer'}
             </button>
           </div>
         </div>

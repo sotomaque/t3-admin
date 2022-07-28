@@ -3,7 +3,7 @@ import { Transaction } from 'types';
 import { trpc } from 'utils/trpc';
 import { useRouter } from 'next/router';
 import { useUserTransactionSelector } from 'hooks';
-import { useLayout } from 'store';
+import { useLayout, useUsers } from 'store';
 
 interface SelectedUserTransferRowProps {
   transaction: Transaction;
@@ -14,6 +14,7 @@ const SelectedUserTransactionRow = ({
 }: SelectedUserTransferRowProps) => {
   // Effects
   const router = useRouter();
+  const { selectedUser, setSelectedUserTransactions } = useUsers();
   const { setShowNotification, setNotificationMessage } = useLayout();
   const {
     canProcessTransaction,
@@ -30,6 +31,23 @@ const SelectedUserTransactionRow = ({
   const { isLoading, mutateAsync, error } = trpc.useMutation([
     'transfer.processTransfer',
   ]);
+  const { refetch: refetchTransfersByUserId } = trpc.useQuery(
+    [
+      'transfer.transfersByUserId',
+      {
+        userId: selectedUser?.userID ?? 'TODO',
+      },
+    ],
+    {
+      retryOnMount: false,
+      refetchOnWindowFocus: false,
+      cacheTime: 0,
+      enabled: true,
+      onSuccess(data) {
+        setSelectedUserTransactions(data.transfers);
+      },
+    }
+  );
 
   // Functions
   const handleOnProcess = async () => {
@@ -47,6 +65,11 @@ const SelectedUserTransactionRow = ({
             setNotificationMessage('');
             setShowNotification(false);
           }, 3000);
+        },
+        onSettled() {
+          setTimeout(() => {
+            refetchTransfersByUserId();
+          }, 5000);
         },
       }
     );

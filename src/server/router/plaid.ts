@@ -51,9 +51,31 @@ export const plaidRouter = createRouter()
         });
       }
       let plaidItemId = Object.keys(body)[0];
+      if (!plaidItemId) {
+        throw new TRPCError({
+          message: 'Unable to get plaid banking information',
+          code: 'INTERNAL_SERVER_ERROR',
+        });
+      }
+
+      if (
+        !body[plaidItemId] ||
+        !body[plaidItemId].accounts ||
+        !Array.isArray(Object.keys(body[plaidItemId].accounts)) ||
+        !body[plaidItemId].accounts.length ||
+        !body[plaidItemId].accounts[0] ||
+        !body[plaidItemId].accounts[0].accountID
+      ) {
+        throw new TRPCError({
+          message: 'Unable to get plaid banking information',
+          code: 'INTERNAL_SERVER_ERROR',
+        });
+      }
+
+      let primeAccountID = body[plaidItemId].accounts[0].accountID;
 
       return {
-        plaidItemId,
+        primeAccountID,
       };
     },
   })

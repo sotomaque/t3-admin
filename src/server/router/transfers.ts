@@ -430,15 +430,16 @@ export const transferRouter = createRouter()
         });
       }
       const fullURL = `${baseURL}${transfersEndpoint}`;
-      console.log({ fullURL });
 
+      // current dummy data TODO: let users customize this
       const destinationAccountID = `system:EARNINGS`;
       const amount = '25.00';
       const trackingData = {
         trackingID: `${uuidv4()}`,
         transferCategory: 'AD_HOC_DEPOSIT',
       };
-      // make fetch request
+
+      // make request
       const response = await fetch(fullURL, {
         method: 'POST',
         cache: 'no-cache',
@@ -448,27 +449,37 @@ export const transferRouter = createRouter()
         body: JSON.stringify({
           originatingUserID: userID,
           recipientUserID: userID,
-          adminUserID: 'user:9530c662-582c-4b6c-9e58-83286411740d', // satishgalt account
           source: {
-            plaidAccount: {
-              accountID: 'plaidacct:174bd8a5-df3b-4bef-8430-9828646e6ebd',
+            ptPlaidAccount: {
+              accountID: ptPlaidAccountID,
             },
           },
           destination: {
             primeTrustAccount: {
-              accountID: 'system:EARNINGS',
+              accountID: destinationAccountID,
             },
           },
           amount: {
-            currency: 'USD',
             value: amount,
           },
           trackingData,
         }),
       });
+
       const body = await response.json();
-      console.log({ body });
-      console.log('here');
+
+      if (
+        !body ||
+        !body.transferID ||
+        typeof body.transferID === 'undefined' ||
+        !body.transferID.startsWith('ecoxfer:')
+      ) {
+        throw new TRPCError({
+          message: 'Invalid Response when attempting to createQuickTransfer',
+          code: 'INTERNAL_SERVER_ERROR',
+        });
+      }
+
       return { success: true };
     },
   });
