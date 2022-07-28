@@ -218,6 +218,7 @@ export async function settleFundsTransfer(
 
   if (status === 'settled') {
     console.log('Funds transfer already settled');
+    // TODO: handle this case (still want to clear them?)
     return;
   }
 

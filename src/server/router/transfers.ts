@@ -12,6 +12,7 @@ import { Transaction, Transfer } from 'types/index';
 import { createRouter } from './context';
 import { z } from 'zod';
 import { TRPCError } from '@trpc/server';
+import { v4 as uuidv4 } from 'uuid';
 
 export const transferRouter = createRouter()
   .mutation('recentTransfers', {
@@ -385,5 +386,100 @@ export const transferRouter = createRouter()
           code: 'BAD_REQUEST',
         });
       }
+    },
+  })
+  .mutation('createQuickTransfer', {
+    input: z.object({
+      ptPlaidAccountID: z.string(),
+      userID: z.string(),
+    }),
+    async resolve({ input }) {
+      // Process Input
+      const { ptPlaidAccountID, userID } = input;
+
+      // Validate Input
+      if (
+        !userID ||
+        typeof userID !== 'string' ||
+        !userID.startsWith('user:')
+      ) {
+        throw new TRPCError({
+          message: 'Invalid userID Provided to createQuckTransfer',
+          code: 'BAD_REQUEST',
+        });
+      }
+      if (!ptPlaidAccountID || typeof ptPlaidAccountID !== 'string') {
+        throw new TRPCError({
+          message: 'Invalid ptPlaidAccountID Provided to createQuckTransfer',
+          code: 'BAD_REQUEST',
+        });
+      }
+
+      const baseURL = process.env.ECO_BASE_URL;
+      const transfersEndpoint = process.env.ECO_TRANSFERS;
+      if (!baseURL || typeof baseURL !== 'string') {
+        throw new TRPCError({
+          message: 'Missing Base URL',
+          code: 'INTERNAL_SERVER_ERROR',
+        });
+      }
+      if (!transfersEndpoint || typeof transfersEndpoint !== 'string') {
+        throw new TRPCError({
+          message: 'Missing Transfers URL',
+          code: 'INTERNAL_SERVER_ERROR',
+        });
+      }
+      const fullURL = `${baseURL}${transfersEndpoint}`;
+
+      // current dummy data TODO: let users customize this
+      const destinationAccountID = `system:EARNINGS`;
+      const amount = '25.00';
+      const trackingData = {
+        trackingID: `${uuidv4()}`,
+        transferCategory: 'AD_HOC_DEPOSIT',
+      };
+
+      // make request
+      const response = await fetch(fullURL, {
+        method: 'POST',
+        cache: 'no-cache',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          originatingUserID: userID,
+          recipientUserID: userID,
+          source: {
+            ptPlaidAccount: {
+              accountID: ptPlaidAccountID,
+            },
+          },
+          destination: {
+            primeTrustAccount: {
+              accountID: destinationAccountID,
+            },
+          },
+          amount: {
+            value: amount,
+          },
+          trackingData,
+        }),
+      });
+
+      const body = await response.json();
+
+      if (
+        !body ||
+        !body.transferID ||
+        typeof body.transferID === 'undefined' ||
+        !body.transferID.startsWith('ecoxfer:')
+      ) {
+        throw new TRPCError({
+          message: 'Invalid Response when attempting to createQuickTransfer',
+          code: 'INTERNAL_SERVER_ERROR',
+        });
+      }
+
+      return { success: true };
     },
   });

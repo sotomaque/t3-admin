@@ -21,6 +21,9 @@ type LayoutState = {
   // Popup
   showPopup: boolean;
   setShowPopup: (showPopup: boolean) => void;
+  popupComponent: React.ReactNode | null;
+  setPopupComponent: (popupComponent: React.ReactNode) => void;
+  clearPopupComponent: () => void;
 
   // Search
   searchComponent: React.ReactNode | null;
@@ -50,6 +53,15 @@ export const useLayout = create<LayoutState>((set) => ({
   // Popup
   showPopup: false,
   setShowPopup: (showPopup: boolean) => set(() => ({ showPopup })),
+  popupComponent: null,
+  setPopupComponent: (popupComponent: React.ReactNode) =>
+    set(() => ({
+      popupComponent,
+    })),
+  clearPopupComponent: () =>
+    set(() => ({
+      popupComponent: null,
+    })),
 
   // Search
   searchComponent: null,

@@ -1,13 +1,14 @@
-import { Fragment, useState } from 'react';
+import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
-import Popup from '../Popup';
 
 const CommandPalette = ({
-  show,
+  popupComponent,
   setShow,
+  show,
 }: {
-  show: boolean;
+  popupComponent: React.ReactNode;
   setShow: (showNotification: boolean) => void;
+  show: boolean;
 }) => {
   const handleOnClose = () => {
     setShow(false);
@@ -48,9 +49,7 @@ const CommandPalette = ({
             leaveTo="opacity-0 scale-95"
           >
             <Dialog.Panel className="mx-auto max-w-xl transform divide-y divide-gray-100 overflow-hidden rounded-xl bg-white shadow-2xl ring-1 ring-black ring-opacity-5 transition-all">
-              <div className="relative">
-                <Popup />
-              </div>
+              <div className="relative">{popupComponent}</div>
             </Dialog.Panel>
           </Transition.Child>
         </div>

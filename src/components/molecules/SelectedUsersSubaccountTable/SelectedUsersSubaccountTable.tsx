@@ -53,24 +53,27 @@ const SelectedUsersSubaccountTable = ({
 
       {/* Body */}
       <tbody className="divide-y divide-gray-200 bg-white dark:bg-slate-800">
-        <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 0 dark:text-slate-200 hidden xl:table-cell">
-          {subaccount.account_id}
-        </td>
-        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-slate-200">
-          {subaccount.balances.available}
-        </td>
-        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-slate-200">
-          {subaccount.name}
-        </td>
-        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-slate-200 hidden xl:table-cell">
-          {subaccount.official_name}
-        </td>
-        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-slate-200">
-          {subaccount.subtype}
-        </td>
-        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-slate-200">
-          {subaccount.mask}
-        </td>
+        <tr>
+          <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 0 dark:text-slate-200 hidden xl:table-cell">
+            {subaccount.account_id}
+          </td>
+
+          <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-slate-200">
+            {subaccount.balances.available}
+          </td>
+          <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-slate-200">
+            {subaccount.name}
+          </td>
+          <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-slate-200 hidden xl:table-cell">
+            {subaccount.official_name}
+          </td>
+          <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-slate-200">
+            {subaccount.subtype}
+          </td>
+          <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-slate-200">
+            {subaccount.mask}
+          </td>
+        </tr>
       </tbody>
     </table>
   );
