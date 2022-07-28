@@ -19,6 +19,7 @@ const navigation: NavigationRoute[] = [
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const {
+    popupComponent,
     searchComponent,
     selectedRoute,
     setShowNotification,
@@ -55,7 +56,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               show={showNotification}
               setShow={setShowNotification}
             />
-            <CommandPalette show={showPopup} setShow={setShowPopup} />
+            <CommandPalette
+              show={showPopup}
+              setShow={setShowPopup}
+              popupComponent={popupComponent}
+            />
           </>
         </main>
         <Footer />
