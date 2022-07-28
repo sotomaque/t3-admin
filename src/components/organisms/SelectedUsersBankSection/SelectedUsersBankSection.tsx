@@ -28,7 +28,7 @@ const SelectedUsersBankSection = ({ user }: { user: User }) => {
     {
       onSuccess(data) {
         setSelectedUserBankConnections(data.connections);
-        fetchLinkedSubaccounts();
+        data.connections.length > 0 && fetchLinkedSubaccounts();
       },
     }
   );
@@ -63,6 +63,18 @@ const SelectedUsersBankSection = ({ user }: { user: User }) => {
       },
     }
   );
+  const { isLoading: isUnlinkLoading, mutateAsync: unlink } = trpc.useMutation(
+    'plaid.unlinkAccount',
+    {
+      onSuccess() {
+        setSelectedUserBankConnections([]);
+        setSelectedUserBankSubaccounts([]);
+        setTimeout(() => {
+          refetch();
+        }, 1500);
+      },
+    }
+  );
 
   const showRelinkButton = useMemo(() => {
     return (
@@ -80,6 +92,10 @@ const SelectedUsersBankSection = ({ user }: { user: User }) => {
     selectedUserBankSubaccounts,
   ]);
 
+  const showUnlnkButton = useMemo(() => {
+    return selectedUserBankConnections?.length > 0;
+  }, [selectedUserBankConnections]);
+
   // Function(s)
   const handleOnRelinkPressed = async () => {
     if (!selectedUserBankConnections?.[0]) return;
@@ -87,6 +103,16 @@ const SelectedUsersBankSection = ({ user }: { user: User }) => {
 
     let plaidItemId = selectedUserBankConnections[0].itemID;
     await mutateAsync({
+      plaidItemId,
+    });
+  };
+  const handleOnUnlinkPressed = async () => {
+    if (!selectedUserBankConnections?.[0]) return;
+    if (!selectedUserBankSubaccounts?.length) return;
+
+    let plaidItemId = selectedUserBankConnections[0].itemID;
+    await unlink({
+      userId: user.userID,
       plaidItemId,
     });
   };
@@ -106,10 +132,27 @@ const SelectedUsersBankSection = ({ user }: { user: User }) => {
               </p>
             </>
           </div>
+          {showUnlnkButton && (
+            <button
+              disabled={isRelinkLoading}
+              className="
+              bg-purple-400 hover:bg-purple-600 text-white
+              dark:bg-purple-700 hover:dark:bg-purple-600  dark:text-slate-200 dark:hover:text-slate-100 
+              px-4 py-2 text-center flex items-center rounded-lg text-sm"
+              onClick={() => handleOnUnlinkPressed()}
+            >
+              {isUnlinkLoading ? (
+                <Spinner styles="h-4 w-4" />
+              ) : (
+                'Unlink Institution'
+              )}
+            </button>
+          )}
+
           {showRelinkButton && (
             <button
               disabled={isRelinkLoading}
-              className="bg-blue-400 hover:bg-blue-600 dark:bg-blue-200 dark:hover:bg-blue-100 px-4 py-2 text-center flex items-center rounded-lg text-white dark:text-slate-600 dark:hover:text-slate-800 text-sm"
+              className="bg-blue-400 hover:bg-blue-600 dark:bg-blue-200 dark:hover:bg-blue-100 ml-4 px-4 py-2 text-center flex items-center rounded-lg text-white dark:text-slate-600 dark:hover:text-slate-800 text-sm"
               onClick={() => handleOnRelinkPressed()}
             >
               {isRelinkLoading ? (

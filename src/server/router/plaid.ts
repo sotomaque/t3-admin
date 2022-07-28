@@ -125,4 +125,73 @@ export const plaidRouter = createRouter()
 
       return { success: true };
     },
+  })
+  .mutation('unlinkAccount', {
+    input: z.object({
+      userId: z.string(),
+      plaidItemId: z.string(),
+    }),
+    async resolve({ input }) {
+      // get itemId from input
+      const { userId, plaidItemId } = input;
+
+      // validate userId
+      if (!userId || userId === '' || !userId.startsWith('user:')) {
+        throw new TRPCError({
+          message: 'Invalid User ID Provided to linkedSubaccount',
+          code: 'BAD_REQUEST',
+        });
+      }
+      // validate itemId
+      if (
+        !plaidItemId ||
+        plaidItemId === '' ||
+        !plaidItemId.startsWith('plaiditem:')
+      ) {
+        throw new TRPCError({
+          message: 'Invalid Plaid Item ID Provided to triggerRelink',
+          code: 'BAD_REQUEST',
+        });
+      }
+
+      // Build URL
+      const baseURL = process.env.ECO_BASE_URL;
+      const unlinkEndpoint = process.env.ECO_PLAID_UNLINK;
+      if (!baseURL || typeof baseURL !== 'string') {
+        throw new TRPCError({
+          message: 'Missing Base URL',
+          code: 'INTERNAL_SERVER_ERROR',
+        });
+      }
+      if (!unlinkEndpoint || typeof unlinkEndpoint !== 'string') {
+        throw new TRPCError({
+          message: 'Missing Unlink URL',
+          code: 'INTERNAL_SERVER_ERROR',
+        });
+      }
+      const fullURL = `${baseURL}${unlinkEndpoint}`;
+
+      // make fetch request to the server for given userId
+      const response = await fetch(fullURL, {
+        method: 'PATCH',
+        cache: 'no-cache',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userID: userId,
+          itemID: plaidItemId,
+        }),
+      });
+      const body = await response.json();
+
+      if (!body || !body.institutionRemoved) {
+        throw new TRPCError({
+          message: 'Unable to unlink institution',
+          code: 'INTERNAL_SERVER_ERROR',
+        });
+      }
+
+      return { success: true };
+    },
   });
