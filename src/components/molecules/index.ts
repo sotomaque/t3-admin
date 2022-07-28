@@ -1,7 +1,8 @@
 import AccessCodeSection from './AccessCodeSection';
 import BankConnectionEmptyState from './BankConnectionEmptyState';
 import BankSubaccountsEmptyState from './BankSubaccountsEmptyState';
-import CreateTransferForm from './CreateTransferForm';
+import CreateCustomTransferForm from './CreateCustomTransferForm';
+import CreateQuickTransferForm from './CreateQuickTransferForm';
 import EmailSection from './EmailSection';
 import FeatureFlagGridList from './FeatureFlagGridList';
 import FeatureFlagsEmptyState from './FeatureFlagsEmptyState';
@@ -37,7 +38,8 @@ export {
   AccessCodeSection,
   BankConnectionEmptyState,
   BankSubaccountsEmptyState,
-  CreateTransferForm,
+  CreateCustomTransferForm,
+  CreateQuickTransferForm,
   EmailSection,
   FeatureFlagGridList,
   FeatureFlagsEmptyState,

@@ -11,6 +11,7 @@
   "dependencies": {
     "@beamnetwork/eco-prime-trust-api": "^1.0.20",
     "@faker-js/faker": "^7.3.0",
+    "@formkit/auto-animate": "1.0.0-beta.1",
     "@headlessui/react": "^1.6.6",
     "@heroicons/react": "^1.0.6",
     "@trpc/client": "^9.25.3",

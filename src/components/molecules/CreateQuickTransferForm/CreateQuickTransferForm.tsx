@@ -1,14 +1,16 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLayout, useUsers } from 'store';
 import { User } from 'types';
 import { trpc } from 'utils/trpc';
+import CreateCustomTransferForm from '../CreateCustomTransferForm';
 
-const CreateTransferForm = ({ user }: { user: User }) => {
+const CreateQuickTransferForm = ({ user }: { user: User }) => {
   // State
   const [loading, setLoading] = useState(false);
 
   // Effect(s)
-  const { isDark, setShowPopup } = useLayout();
+  const { isDark, setShowPopup, setPopupComponent, clearPopupComponent } =
+    useLayout();
   const {
     selectedUserBankSubaccounts,
     selectedUserPlaidId,
@@ -52,8 +54,11 @@ const CreateTransferForm = ({ user }: { user: User }) => {
   // Function(s)
   const handleOnCancel = () => {
     setShowPopup(false);
+    clearPopupComponent();
   };
-  const handleOnCreateCustomTransfer = () => {};
+  const handleOnCreateCustomTransfer = async () => {
+    setPopupComponent(<CreateCustomTransferForm user={user} />);
+  };
   const handleOnCreateQuickTranser = async () => {
     if (!selectedUserBankSubaccounts.length) return;
     if (!selectedUserPlaidId) return;
@@ -123,4 +128,4 @@ const CreateTransferForm = ({ user }: { user: User }) => {
   );
 };
 
-export default CreateTransferForm;
+export default CreateQuickTransferForm;

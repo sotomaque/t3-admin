@@ -2,6 +2,7 @@ import { useUsers } from 'store';
 import { Transaction } from 'types';
 import SelectedUserTransactionRow from '../SelectedUserTransactionRow';
 import TransactionsEmptyState from '../TransfersEmptyState';
+import { useAutoAnimate } from '@formkit/auto-animate/react';
 
 interface SelectedUsersTransactionsTableProps {
   transactions: [] | Transaction[];
@@ -11,6 +12,7 @@ const SelectedUsersTransactionsTable = ({
   transactions,
 }: SelectedUsersTransactionsTableProps) => {
   const { selectedUser } = useUsers();
+  const [listRef] = useAutoAnimate<HTMLTableRowElement>();
 
   if (transactions.length === 0) {
     return <TransactionsEmptyState userId={selectedUser?.userID} />;
@@ -66,6 +68,7 @@ const SelectedUsersTransactionsTable = ({
           <tr
             key={transaction.transactionID}
             className="hover:bg-gray-50 dark:hover:bg-slate-700"
+            ref={listRef}
           >
             <SelectedUserTransactionRow transaction={transaction} />
           </tr>
