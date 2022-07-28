@@ -1,11 +1,10 @@
 import { PlusIcon } from '@heroicons/react/outline';
 import {
-  CreateTransferForm,
+  CreateQuickTransferForm,
   SelectedUsersTransactionsTable,
   Spinner,
   TransactionsPagination,
 } from 'components';
-import { useEffect } from 'react';
 import { useLayout, useUsers } from 'store';
 import { User } from 'types';
 import { trpc } from 'utils/trpc';
@@ -36,20 +35,10 @@ const SelectedUserTransfersSection = ({ user }: { user: User }) => {
     }
   );
 
-  // Search Component
-  useEffect(() => {
-    setPopupComponent(<CreateTransferForm user={user} />);
-
-    return () => {
-      clearPopupComponent();
-    };
-  }, [setPopupComponent, clearPopupComponent, user, refetchTransfersByUserId]);
-
   // Function(s)
   const handleOnNewTransaction = () => {
-    // Route to new Page?
-    // Open Modal?
     setShowPopup(true);
+    setPopupComponent(<CreateQuickTransferForm user={user} />);
   };
 
   return (

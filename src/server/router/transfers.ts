@@ -390,12 +390,13 @@ export const transferRouter = createRouter()
   })
   .mutation('createQuickTransfer', {
     input: z.object({
+      amount: z.string().optional().default('25.00'),
       ptPlaidAccountID: z.string(),
       userID: z.string(),
     }),
     async resolve({ input }) {
       // Process Input
-      const { ptPlaidAccountID, userID } = input;
+      const { amount, ptPlaidAccountID, userID } = input;
 
       // Validate Input
       if (
@@ -433,7 +434,6 @@ export const transferRouter = createRouter()
 
       // current dummy data TODO: let users customize this
       const destinationAccountID = `system:EARNINGS`;
-      const amount = '25.00';
       const trackingData = {
         trackingID: `${uuidv4()}`,
         transferCategory: 'AD_HOC_DEPOSIT',
