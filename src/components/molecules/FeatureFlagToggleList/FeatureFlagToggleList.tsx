@@ -1,5 +1,4 @@
 import { Switch } from '@headlessui/react';
-import { useLayout } from 'store';
 
 const FeatureFlagToggleList = ({
   label,
@@ -10,17 +9,15 @@ const FeatureFlagToggleList = ({
   description: string;
   isEnabled: boolean;
 }) => {
-  const { setShowPopup } = useLayout();
-  const handleOnToggle = () => {
-    // setShowPopup(true);
-  };
-
   return (
-    <Switch.Group as="div" className="flex items-center justify-between pb-6">
+    <Switch.Group
+      as="div"
+      className="flex items-center justify-between pb-6 pl-2"
+    >
       <span className="flex-grow flex flex-col">
         <Switch.Label
           as="span"
-          className="text-sm font-medium text-gray-900"
+          className="text-sm font-medium text-gray-900 dark:text-slate-200"
           passive
         >
           {label}
@@ -31,9 +28,10 @@ const FeatureFlagToggleList = ({
       </span>
       <Switch
         checked={isEnabled}
-        onChange={() => handleOnToggle()}
+        disabled={true}
+        onChange={() => {}}
         className={`
-          ${isEnabled ? 'bg-indigo-600' : 'bg-gray-200'}
+          ${isEnabled ? 'bg-indigo-600' : 'bg-gray-200 dark:bg-slate-600'}
           relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
       >
         <span

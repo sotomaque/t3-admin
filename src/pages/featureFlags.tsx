@@ -12,27 +12,25 @@ import { trpc } from 'utils/trpc';
 const FeatureFlagsPage: NextPage = () => {
   const { setSelectedRoute } = useLayout();
   const [featureFlags, setFeatureFlags] = useState<FeatureFlag[] | []>([]);
-  const { data, isLoading, error } = trpc.useQuery(
-    ['featureFlags.getAllFeatureFlags'],
-    {
-      retry: false,
-    }
-  );
+  const { isLoading } = trpc.useQuery(['featureFlags.getAllFeatureFlags'], {
+    onSuccess: (data) => {
+      if (data && data.flags) {
+        setFeatureFlags(data.flags);
+      }
+    },
+    retry: false,
+  });
 
   useEffect(() => {
     setSelectedRoute('Feature Flags');
   }, [setSelectedRoute]);
-
-  useEffect(() => {
-    setFeatureFlags(data?.flags ?? []);
-  }, [data]);
 
   return (
     <SingleColumnContentWrapper>
       <div className="p-4 sm:px-6 lg:px-8">
         <div className="sm:flex sm:items-center">
           <div className="sm:flex-auto">
-            <h1 className="text-xl font-semibold text-gray-900">
+            <h1 className="text-xl font-semibold text-gray-900 dark:text-slate-100">
               Feature Flags
             </h1>
           </div>

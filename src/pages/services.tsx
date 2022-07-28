@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { SingleColumnContentWrapper } from 'components';
 import { NextPage } from 'next';
 import { useEffect } from 'react';
@@ -175,7 +176,9 @@ const ServicesPage: NextPage = () => {
       <div className="p-4 sm:px-6 lg:px-8">
         <div className="sm:flex sm:items-center">
           <div className="sm:flex-auto">
-            <h1 className="text-xl font-semibold text-gray-900">Services</h1>
+            <h1 className="text-xl font-semibold text-gray-900 dark:text-slate-100">
+              Services
+            </h1>
           </div>
         </div>
         <div className="mt-8 flex flex-col">
@@ -201,16 +204,16 @@ const ServicesGrid = () => {
       {services.map((service, idx) => (
         <li
           key={`${service.name}-${idx}`}
-          className="col-span-1 bg-white rounded-lg shadow divide-y divide-gray-200"
+          className="col-span-1 bg-white dark:bg-slate-700 rounded-lg shadow divide-y divide-gray-200 dark:divide-slate-500"
         >
-          <div className="w-full flex items-center justify-between p-6 space-x-6 ">
+          <div className="w-full flex items-center p-6 space-x-6">
             <div className="flex-1 truncate">
               <div className="flex items-center space-x-3">
-                <h3 className="text-gray-900 text-sm font-medium truncate">
+                <h3 className="text-gray-900 dark:text-slate-200 text-sm font-medium truncate">
                   {service.name}
                 </h3>
               </div>
-              <p className="mt-1 text-gray-500 text-sm truncate">
+              <p className="mt-1 text-gray-500 dark:text-slate-400 text-sm truncate">
                 {service.function}
               </p>
             </div>
@@ -221,25 +224,25 @@ const ServicesGrid = () => {
             />
           </div>
           <div>
-            <div className="-mt-px flex divide-x divide-gray-200">
+            <div className="flex divide-x divide-gray-200 dark:divide-slate-500">
               {service.adminEmail && (
-                <div className="w-0 flex-1 flex">
+                <div className="flex-1 flex">
                   <a
                     href={`mailto:${service.adminEmail}`}
-                    className="relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-bl-lg hover:text-gray-500"
+                    className="relative p-4 flex-1 inline-flex justify-center text-sm text-gray-700 dark:text-slate-300 font-medium rounded-bl-lg hover:text-gray-500 dark:hover:text-slate-100"
                   >
-                    <span className="ml-3">Request Access</span>
+                    <span>Request Access</span>
                   </a>
                 </div>
               )}
-              <div className="-ml-px w-0 flex-1 flex">
+              <div className="flex-1 flex">
                 <a
                   href={service.url}
                   target="_blank"
-                  className="relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500"
+                  className="relative p-4 flex-1 inline-flex justify-center text-sm text-gray-700 dark:text-slate-300 font-medium rounded-br-lg hover:text-gray-500 dark:hover:text-slate-100"
                   rel="noreferrer"
                 >
-                  <span className="ml-3">Go</span>
+                  <span>Go</span>
                 </a>
               </div>
             </div>
