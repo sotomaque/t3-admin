@@ -4,6 +4,59 @@ import { z } from 'zod';
 import { BankSubaccount } from 'types/bankConnections';
 
 export const plaidRouter = createRouter()
+  .query('plaidItemId', {
+    input: z.object({
+      userId: z.string(),
+    }),
+    async resolve({ input }) {
+      // get userId from input
+      const { userId } = input;
+
+      // validate userId
+      if (!userId || userId === '' || !userId.startsWith('user:')) {
+        throw new TRPCError({
+          message: 'Invalid User ID Provided to bankAccountData',
+          code: 'BAD_REQUEST',
+        });
+      }
+
+      // Build URL
+      const baseURL = process.env.ECO_BASE_URL;
+      const plaidAccountsURL = process.env.ECO_PLAID_ACCOUNTS;
+      if (!baseURL || typeof baseURL !== 'string') {
+        throw new TRPCError({
+          message: 'Missing Base URL',
+          code: 'INTERNAL_SERVER_ERROR',
+        });
+      }
+      if (!plaidAccountsURL || typeof plaidAccountsURL !== 'string') {
+        throw new TRPCError({
+          message: 'Missing plaidAccounts URL',
+          code: 'INTERNAL_SERVER_ERROR',
+        });
+      }
+      const fullURL = `${baseURL}${plaidAccountsURL}?userID=${userId}`;
+
+      // make request
+      const response = await fetch(fullURL);
+      const body = await response.json();
+      if (
+        !body ||
+        !Array.isArray(Object.keys(body)) ||
+        !Object.keys(body).length
+      ) {
+        throw new TRPCError({
+          message: 'Unable to get plaid banking information',
+          code: 'INTERNAL_SERVER_ERROR',
+        });
+      }
+      let plaidItemId = Object.keys(body)[0];
+
+      return {
+        plaidItemId,
+      };
+    },
+  })
   .query('linkedSubaccount', {
     input: z.object({
       userId: z.string(),
