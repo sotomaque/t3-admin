@@ -31,7 +31,7 @@ type LayoutState = {
 // INITIAL STATE
 export const useLayout = create<LayoutState>((set) => ({
   // Dark Mode
-  isDark: false,
+  isDark: true,
   toggleIsDark: () => set((state) => ({ isDark: !state.isDark })),
 
   // Routes
