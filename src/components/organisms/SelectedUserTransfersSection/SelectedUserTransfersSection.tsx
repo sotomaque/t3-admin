@@ -1,34 +1,62 @@
 import { PlusIcon } from '@heroicons/react/outline';
 import {
-  Spinner,
+  CreateTransferForm,
   SelectedUsersTransactionsTable,
+  Spinner,
   TransactionsPagination,
 } from 'components';
-import { useEffect, useState } from 'react';
-import { useUsers } from 'store';
+import { useEffect } from 'react';
+import { useLayout, useUsers } from 'store';
+import { User } from 'types';
 import { trpc } from 'utils/trpc';
 
-const SelectedUserTransfersSection = ({ userId }: { userId: string }) => {
-  const { selectedUserTransactions, setSelectedUserTransactions } = useUsers();
+const SelectedUserTransfersSection = ({ user }: { user: User }) => {
+  // Effect(s)
+  const { setShowPopup, setPopupComponent, clearPopupComponent } = useLayout();
+  const {
+    selectedUserTransactions,
+    setSelectedUserTransactions,
+    selectedUserBankConnections,
+    selectedUserBankSubaccounts,
+  } = useUsers();
   const { data: transfersData, isLoading: transfersLoading } = trpc.useQuery(
     [
       'transfer.transfersByUserId',
       {
-        userId,
+        userId: user.userID,
       },
     ],
     {
       refetchOnWindowFocus: true,
       cacheTime: 0,
       enabled: true,
+      onSuccess(data) {
+        setSelectedUserTransactions(data.transfers);
+      },
     }
   );
+  // Search Component
+  useEffect(() => {
+    setPopupComponent(<CreateTransferForm user={user} />);
+
+    return () => {
+      clearPopupComponent();
+    };
+  }, [setPopupComponent, clearPopupComponent, user]);
 
   useEffect(() => {
-    if (transfersData) {
-      setSelectedUserTransactions(transfersData.transfers);
-    }
-  }, [setSelectedUserTransactions, transfersData]);
+    console.log({ selectedUserBankConnections });
+  }, [selectedUserBankConnections]);
+  useEffect(() => {
+    console.log({ selectedUserBankSubaccounts });
+  }, [selectedUserBankSubaccounts]);
+
+  // Function(s)
+  const handleOnNewTransaction = () => {
+    // Route to new Page?
+    // Open Modal?
+    setShowPopup(true);
+  };
 
   return (
     <div className="p-4 sm:px-6 lg:px-8 dark:bg-slate-700 rounded-xl">
@@ -38,12 +66,13 @@ const SelectedUserTransfersSection = ({ userId }: { userId: string }) => {
             Transactions
           </h1>
           <p className="mt-2 text-sm text-gray-700 dark:text-slate-200">
-            {userId}
+            {user.userID}
           </p>
         </div>
         {transfersData && transfersData.transfers.length > 0 && (
           <div className="pl-6 pt-3">
             <button
+              onClick={() => handleOnNewTransaction()}
               type="button"
               className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 dark:bg-purple-700 hover:bg-indigo-700 dark:hover:bg-purple-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-purple-600"
             >
@@ -69,7 +98,7 @@ const SelectedUserTransfersSection = ({ userId }: { userId: string }) => {
                   />
                   {selectedUserTransactions.length >= 10 && (
                     <div className="pt-2">
-                      <TransactionsPagination userId={userId} />
+                      <TransactionsPagination userId={user.userID} />
                     </div>
                   )}
                 </>
