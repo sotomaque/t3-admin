@@ -28,7 +28,7 @@ This is an app bootstrapped according to the [init.tips](https://init.tips) stac
 
 - Why ReactQuery ?
 
-  - ReactQuery makes making requests easy and consistet; No need to have your component hold some local state such as `loading` / `error` / `retry`, and even more importantly, no need to develop your own caching / cache invalidation logic. Get it right out of the box with minimal overhead.
+  - ReactQuery makes making requests easy and consistant; No need to have your component hold some local state such as `loading` / `error` / `retry`, and even more importantly, no need to develop your own caching / cache invalidation logic. Get it right out of the box with minimal overhead.
 
 - Why tRPC?
   - I want to know the types that come back from my requests. I want to do this in a way that plays nicely with React / ReactQuery.
@@ -49,6 +49,8 @@ This is an app bootstrapped according to the [init.tips](https://init.tips) stac
     - and request access (i.e. Mixpanel, Twilio, Auth0, etc.)
 - Automate:
   - user account creation
+  - kyc state modification
+  - transfer processing
   - user transaction creation (dummy accounts) / processing (from pending -> queued -> failed / completed)
   - user referrals creation / processing
 - Do this in such a way that anyone can contribute:
