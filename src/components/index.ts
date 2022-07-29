@@ -51,6 +51,7 @@ import {
   SelectedUsersBankSection,
   SelectedUserSection,
   SelectedUserTransfersSection,
+  UnauthenticatedSection,
 } from './organisms';
 import {
   Layout,
@@ -104,6 +105,7 @@ export {
   TransfersPagination,
   TransferSummary,
   TwoColumnContentWrapper,
+  UnauthenticatedSection,
   UserFlagsCard,
   UserFlagsContent,
   UserFlagsEmptyState,

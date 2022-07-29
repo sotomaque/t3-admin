@@ -8,24 +8,32 @@ import { connectZustandStateToReduxDevtools } from 'store/reduxDevToolsConfig';
 import Head from 'next/head';
 import { Layout } from 'components';
 import { useLayout } from 'store';
+import { SessionProvider } from 'next-auth/react';
 
 connectZustandStateToReduxDevtools();
 
-const MyApp: AppType = ({ Component, pageProps }) => {
-  const { isDark } = useLayout();
-
+const MyApp: AppType = ({
+  Component,
+  pageProps: { session, ...pageProps },
+}) => {
+  const { isDark, showLayout } = useLayout();
   return (
-    <div className={`${isDark && 'dark'}`}>
-      <Head>
-        <title>Eco Admin App</title>
-        <meta name="description" content="Eco Admin App" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <Layout>
-        <Component {...pageProps} />
-        {/* <ReactQueryDevtools initialIsOpen={false} /> */}
-      </Layout>
-    </div>
+    <SessionProvider session={session}>
+      <div className={`${isDark && 'dark'}`}>
+        <Head>
+          <title>Eco Admin App</title>
+          <meta name="description" content="Eco Admin App" />
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
+        {showLayout ? (
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        ) : (
+          <Component {...pageProps} />
+        )}
+      </div>
+    </SessionProvider>
   );
 };
 

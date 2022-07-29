@@ -5,6 +5,7 @@ import superjson from 'superjson';
 import { featureFlagRouter } from './featureFlags';
 import { kycRouter } from './kyc';
 import { plaidRouter } from './plaid';
+import { protectedExampleRouter } from './protected-example-router';
 import { registrationRouter } from './registration';
 import { transferRouter } from './transfers';
 import { userRouter } from './user';
@@ -16,7 +17,8 @@ export const appRouter = createRouter()
   .merge('plaid.', plaidRouter)
   .merge('registration.', registrationRouter)
   .merge('transfer.', transferRouter)
-  .merge('user.', userRouter);
+  .merge('user.', userRouter)
+  .merge('question.', protectedExampleRouter);
 
 // export type definition of API
 export type AppRouter = typeof appRouter;

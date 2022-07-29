@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { SingleColumnContentWrapper } from 'components';
+import { useProtectedRoute } from 'hooks';
 import type { NextPage } from 'next';
 import { useEffect } from 'react';
 import { useLayout } from 'store';
@@ -56,8 +57,9 @@ const repos = [
 ];
 
 const ReposPage: NextPage = () => {
+  // Effect(s)
+  useProtectedRoute();
   const { setSelectedRoute } = useLayout();
-
   useEffect(() => {
     setSelectedRoute('Repos');
   }, [setSelectedRoute]);

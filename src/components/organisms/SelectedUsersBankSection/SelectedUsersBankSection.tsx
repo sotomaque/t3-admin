@@ -26,6 +26,12 @@ const SelectedUsersBankSection = ({ user }: { user: User }) => {
       },
     ],
     {
+      enabled: Boolean(
+        selectedUserBankConnections &&
+          selectedUserBankConnections.length > 0 &&
+          selectedUserBankSubaccounts &&
+          selectedUserBankSubaccounts.length > 0
+      ),
       onSuccess(data) {
         data &&
           data.primeAccountID &&
