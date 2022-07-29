@@ -5,11 +5,29 @@ import { env } from '../../../env/server.mjs';
 export const authOptions: NextAuthOptions = {
   // Include user.id on session
   callbacks: {
-    async signIn({ user, account, profile, email, credentials }) {
-      const baseURL = 'https://api.github.com';
-      const ecoOrgMembersURL = `/orgs/eco/public_members`;
+    async signIn({ profile }) {
+      // TODO: move all envs
+      // add new callback urls to github app settings
+      // deploy app on vercel and check if auth works
+      // add sign out button to mobile menu
+      // try to clean up flicker on route change / auth
+      // merge!
+      const baseURL = env.GITHUB_BASE_URL;
+      const ecoOrgMembersURL = env.GITHUB_ECO_ORG_MEMBERS_URL;
+      if (!baseURL || typeof baseURL !== 'string') {
+        console.error('MISSING BASE URL');
+        return false;
+      }
+      if (!ecoOrgMembersURL || typeof ecoOrgMembersURL !== 'string') {
+        console.error('MISSING ECO ORG MEMBERS URL');
+        return false;
+      }
       const url = `${baseURL}${ecoOrgMembersURL}`;
-      const githubToken = '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';
+      const githubToken = env.GITHUB_TOKEN;
+      if (!githubToken || typeof githubToken !== 'string') {
+        console.error('MISSING GITHUB TOKEN');
+        return false;
+      }
 
       // Make Request
       const request = await fetch(url, {
