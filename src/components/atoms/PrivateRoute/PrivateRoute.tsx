@@ -25,17 +25,10 @@ const PrivateRoute = ({
   const pathIsProtected = protectedRoutes.indexOf(router.pathname) !== -1;
 
   useEffect(() => {
-    console.log({
-      isProduction,
-      isAuthenticated,
-      pathIsProtected,
-      isLoading,
-      pathname: router.pathname,
-    });
     if (!isLoading && !isAuthenticated && pathIsProtected && isProduction) {
       router.push('/unauthed');
     }
-  }, [pathIsProtected, router, isLoading, isAuthenticated, isProduction]);
+  }, [pathIsProtected, router, isLoading, isAuthenticated]);
 
   if ((isLoading || !isAuthenticated) && pathIsProtected && isProduction) {
     return (
