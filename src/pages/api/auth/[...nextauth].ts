@@ -6,7 +6,6 @@ export const authOptions: NextAuthOptions = {
   // Include user.id on session
   callbacks: {
     async signIn({ profile }) {
-      console.log({ profile });
       const baseURL = env.GITHUB_BASE_URL;
       const ecoOrgMembersURL = env.GITHUB_ECO_ORG_MEMBERS_URL;
       if (!baseURL || typeof baseURL !== 'string') {
@@ -18,9 +17,7 @@ export const authOptions: NextAuthOptions = {
         return false;
       }
       const url = `${baseURL}${ecoOrgMembersURL}`;
-      console.log({ url });
       const githubToken = env.GITHUB_TOKEN;
-      console.log({ githubToken });
       if (!githubToken || typeof githubToken !== 'string') {
         console.error('MISSING GITHUB TOKEN');
         return false;
