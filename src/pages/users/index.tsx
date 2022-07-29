@@ -5,7 +5,6 @@ import {
   SingleColumnContentWrapper,
   Spinner,
 } from 'components';
-import { useProtectedRoute } from 'hooks';
 import { NextPage } from 'next';
 import React, { useEffect, useRef } from 'react';
 import { useLayout, useUsers } from 'store';
@@ -13,7 +12,6 @@ import { trpc } from 'utils/trpc';
 
 const RecentUsersPage: NextPage = () => {
   // Effect(s)
-  useProtectedRoute();
   const { setSelectedRoute, setSearchComponent, clearSearchComponent } =
     useLayout();
   const { setRecentUsers, recentUsers, selectedUser, setLoading } = useUsers();

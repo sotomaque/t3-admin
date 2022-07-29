@@ -5,8 +5,9 @@ import {
   Notification,
   PaginatedFooter,
   Popup,
-  Spinner,
+  PrivateRoute,
   Sidebar,
+  Spinner,
 } from './atoms';
 import {
   AccessCodeSection,
@@ -76,6 +77,7 @@ export {
   Notification,
   PaginatedFooter,
   Popup,
+  PrivateRoute,
   RecentTransfersRow,
   RecentTransfersSection,
   RecentTransfersTable,
