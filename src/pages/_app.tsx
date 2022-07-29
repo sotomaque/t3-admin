@@ -18,6 +18,7 @@ const MyApp: AppType = ({
 }) => {
   const { isDark, showLayout } = useLayout();
   const protectedRoutes = [
+    '/',
     '/users',
     '/users/[id]',
     '/users/new-user',

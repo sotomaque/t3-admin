@@ -119,7 +119,6 @@ const MenuButton = ({ open }: { open: boolean }) => {
 
   const handleOnLogout = () => {
     signOut();
-    router.replace('/unauthed');
   };
 
   return (
