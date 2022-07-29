@@ -6,12 +6,7 @@ export const authOptions: NextAuthOptions = {
   // Include user.id on session
   callbacks: {
     async signIn({ profile }) {
-      // TODO: move all envs
-      // add new callback urls to github app settings
-      // deploy app on vercel and check if auth works
-      // add sign out button to mobile menu
-      // try to clean up flicker on route change / auth
-      // merge!
+      console.log({ profile });
       const baseURL = env.GITHUB_BASE_URL;
       const ecoOrgMembersURL = env.GITHUB_ECO_ORG_MEMBERS_URL;
       if (!baseURL || typeof baseURL !== 'string') {
@@ -23,7 +18,9 @@ export const authOptions: NextAuthOptions = {
         return false;
       }
       const url = `${baseURL}${ecoOrgMembersURL}`;
+      console.log({ url });
       const githubToken = env.GITHUB_TOKEN;
+      console.log({ githubToken });
       if (!githubToken || typeof githubToken !== 'string') {
         console.error('MISSING GITHUB TOKEN');
         return false;
@@ -36,7 +33,7 @@ export const authOptions: NextAuthOptions = {
         },
       });
       const response = await request.json();
-
+      console.log({ response });
       // Validate Response
       if (!response || !Array.isArray(response) || response.length < 1) {
         return false;
