@@ -1,6 +1,7 @@
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { useEffect, useMemo } from 'react';
+import { isProduction } from 'utils/config';
 import Spinner from '../Spinner';
 
 interface PrivateRouteProps {
@@ -21,16 +22,15 @@ const PrivateRoute = ({
     return status === 'authenticated' && sessionData?.user;
   }, [status, sessionData]);
 
-  console.log({ page: router.pathname });
   const pathIsProtected = protectedRoutes.indexOf(router.pathname) !== -1;
 
   useEffect(() => {
-    if (!isLoading && !isAuthenticated && pathIsProtected) {
+    if (!isLoading && !isAuthenticated && pathIsProtected && isProduction) {
       router.push('/unauthed');
     }
   }, [pathIsProtected, router, isLoading, isAuthenticated]);
 
-  if ((isLoading || !isAuthenticated) && pathIsProtected) {
+  if ((isLoading || !isAuthenticated) && pathIsProtected && isProduction) {
     return (
       <div className="w-screen h-screen flex justify-center items-center">
         <Spinner />
