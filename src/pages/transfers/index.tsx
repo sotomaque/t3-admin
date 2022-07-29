@@ -3,7 +3,6 @@ import {
   SingleColumnContentWrapper,
   Spinner,
 } from 'components';
-import { useProtectedRoute } from 'hooks';
 import { NextPage } from 'next';
 import { useEffect } from 'react';
 import { useLayout, useTransfers } from 'store';
@@ -11,7 +10,6 @@ import { trpc } from 'utils/trpc';
 
 const TransfersPage: NextPage = () => {
   // Effect(s)
-  useProtectedRoute();
   const { setSelectedRoute } = useLayout();
   const { setLoading, setRecentTransfers, recentTransfers } = useTransfers();
   const { isLoading: transfersLoading, mutate } = trpc.useMutation(

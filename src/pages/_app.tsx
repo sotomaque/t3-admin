@@ -6,7 +6,7 @@ import superjson from 'superjson';
 import '../styles/globals.css';
 import { connectZustandStateToReduxDevtools } from 'store/reduxDevToolsConfig';
 import Head from 'next/head';
-import { Layout } from 'components';
+import { Layout, PrivateRoute } from 'components';
 import { useLayout } from 'store';
 import { SessionProvider } from 'next-auth/react';
 
@@ -17,22 +17,35 @@ const MyApp: AppType = ({
   pageProps: { session, ...pageProps },
 }) => {
   const { isDark, showLayout } = useLayout();
+  const protectedRoutes = [
+    '/users',
+    '/users/[id]',
+    '/users/new-user',
+    '/transfers',
+    '/transfers/[id]',
+    '/featureFlags',
+    '/repos',
+    '/services',
+  ];
+
   return (
     <SessionProvider session={session}>
-      <div className={`${isDark && 'dark'}`}>
-        <Head>
-          <title>Eco Admin App</title>
-          <meta name="description" content="Eco Admin App" />
-          <link rel="icon" href="/favicon.ico" />
-        </Head>
-        {showLayout ? (
-          <Layout>
+      <PrivateRoute protectedRoutes={protectedRoutes}>
+        <div className={`${isDark && 'dark'}`}>
+          <Head>
+            <title>Eco Admin App</title>
+            <meta name="description" content="Eco Admin App" />
+            <link rel="icon" href="/favicon.ico" />
+          </Head>
+          {showLayout ? (
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          ) : (
             <Component {...pageProps} />
-          </Layout>
-        ) : (
-          <Component {...pageProps} />
-        )}
-      </div>
+          )}
+        </div>
+      </PrivateRoute>
     </SessionProvider>
   );
 };

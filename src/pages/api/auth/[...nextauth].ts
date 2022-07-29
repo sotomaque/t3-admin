@@ -30,7 +30,7 @@ export const authOptions: NextAuthOptions = {
         },
       });
       const response = await request.json();
-      console.log({ response });
+
       // Validate Response
       if (!response || !Array.isArray(response) || response.length < 1) {
         return false;

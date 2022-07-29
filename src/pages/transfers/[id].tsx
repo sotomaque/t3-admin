@@ -3,7 +3,6 @@ import {
   Spinner,
   TransferSummary,
 } from 'components';
-import { useProtectedRoute } from 'hooks';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { trpc } from 'utils/trpc';
@@ -11,7 +10,6 @@ import { trpc } from 'utils/trpc';
 const TransferDetailsPage: NextPage = () => {
   // Effect(s)
   const router = useRouter();
-  useProtectedRoute();
   const { id } = router.query;
   const { data, isLoading } = trpc.useQuery([
     'transfer.transferDetailsByTransferId',
