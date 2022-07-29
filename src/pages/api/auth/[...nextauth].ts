@@ -29,7 +29,7 @@ export const authOptions: NextAuthOptions = {
       // Make Request
       const request = await fetch(url, {
         headers: {
-          Authorization: `token ${githubToken}`,
+          Authorization: `${githubToken}`,
         },
       });
       const response = await request.json();
