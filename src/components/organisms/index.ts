@@ -4,6 +4,7 @@ import SelectedUserReferralsSection from './SelectedUserReferralsSection';
 import SelectedUsersBankSection from './SelectedUsersBankSection';
 import SelectedUserSection from './SelectedUserSection';
 import SelectedUserTransfersSection from './SelectedUserTransfersSection';
+import UnauthenticatedSection from './UnauthenticatedSection';
 
 export {
   RecentTransfersSection,
@@ -12,4 +13,5 @@ export {
   SelectedUsersBankSection,
   SelectedUserSection,
   SelectedUserTransfersSection,
+  UnauthenticatedSection,
 };

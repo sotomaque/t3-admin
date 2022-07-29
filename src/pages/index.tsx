@@ -1,17 +1,17 @@
+import { useProtectedRoute } from 'hooks';
 import type { NextPage } from 'next';
 import { useEffect } from 'react';
 import { useLayout } from 'store';
 import Users from './users';
 
-// TODO: add custom homepage
 const Home: NextPage = () => {
+  // Effect(s)
   const { setSelectedRoute } = useLayout();
-
+  useProtectedRoute();
   useEffect(() => {
     setSelectedRoute('Home');
   }, [setSelectedRoute]);
 
-  // TODO: add home page content
   return <Users />;
 };
 

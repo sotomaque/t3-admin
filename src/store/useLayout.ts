@@ -29,6 +29,10 @@ type LayoutState = {
   searchComponent: React.ReactNode | null;
   setSearchComponent: (searchComponent: React.ReactNode) => void;
   clearSearchComponent: () => void;
+
+  // Layout
+  showLayout: boolean;
+  setShowLayout: (showLayout: boolean) => void;
 };
 
 // INITIAL STATE
@@ -73,4 +77,8 @@ export const useLayout = create<LayoutState>((set) => ({
     set(() => ({
       searchComponent: null,
     })),
+
+  // Layout
+  showLayout: true,
+  setShowLayout: (showLayout: boolean) => set(() => ({ showLayout })),
 }));

@@ -5,7 +5,7 @@ import {
   TwoColumnContentWrapper,
   UserRegistrationProgress,
 } from 'components';
-import { useRegisterUser } from 'hooks';
+import { useProtectedRoute, useRegisterUser } from 'hooks';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
@@ -38,7 +38,7 @@ const NewUserContent = () => {
   useEffect(() => {
     setSelectedRoute('Users');
   }, [setSelectedRoute]);
-
+  useProtectedRoute();
   // Function(s)
   const handleOnBackClicked = () => {
     router.back();

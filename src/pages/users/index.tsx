@@ -5,6 +5,7 @@ import {
   SingleColumnContentWrapper,
   Spinner,
 } from 'components';
+import { useProtectedRoute } from 'hooks';
 import { NextPage } from 'next';
 import React, { useEffect, useRef } from 'react';
 import { useLayout, useUsers } from 'store';
@@ -12,26 +13,28 @@ import { trpc } from 'utils/trpc';
 
 const RecentUsersPage: NextPage = () => {
   // Effect(s)
+  useProtectedRoute();
   const { setSelectedRoute, setSearchComponent, clearSearchComponent } =
     useLayout();
   const { setRecentUsers, recentUsers, selectedUser, setLoading } = useUsers();
-  const {
-    data: usersData,
-    isLoading: usersLoading,
-    mutate,
-  } = trpc.useMutation(['user.recentUsers']);
-
+  const { isLoading: usersLoading, mutate } = trpc.useMutation(
+    ['user.recentUsers'],
+    {
+      onSuccess(data) {
+        if (data && data.users) {
+          setRecentUsers(data.users);
+        } else {
+          setRecentUsers([]);
+        }
+      },
+    }
+  );
   useEffect(() => {
     mutate({ pageNumber: '0' });
   }, [mutate]);
-
   useEffect(() => {
     setSelectedRoute('Users');
   }, [setSelectedRoute]);
-
-  useEffect(() => {
-    setRecentUsers(usersData?.users ?? []);
-  }, [setRecentUsers, usersData]);
 
   useEffect(() => {
     setLoading(usersLoading);

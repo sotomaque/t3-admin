@@ -3,6 +3,7 @@ import {
   SingleColumnContentWrapper,
   Spinner,
 } from 'components';
+import { useProtectedRoute } from 'hooks';
 import type { NextPage } from 'next';
 import { useEffect, useState } from 'react';
 import { useLayout } from 'store';
@@ -10,6 +11,8 @@ import { FeatureFlag } from 'types/featureFlags';
 import { trpc } from 'utils/trpc';
 
 const FeatureFlagsPage: NextPage = () => {
+  // Effect(s)
+  useProtectedRoute();
   const { setSelectedRoute } = useLayout();
   const [featureFlags, setFeatureFlags] = useState<FeatureFlag[] | []>([]);
   const { isLoading } = trpc.useQuery(['featureFlags.getAllFeatureFlags'], {
@@ -20,7 +23,6 @@ const FeatureFlagsPage: NextPage = () => {
     },
     retry: false,
   });
-
   useEffect(() => {
     setSelectedRoute('Feature Flags');
   }, [setSelectedRoute]);

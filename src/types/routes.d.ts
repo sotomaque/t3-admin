@@ -9,5 +9,4 @@ export type RoutePath =
   | 'Transfers'
   | 'Services'
   | 'Repos'
-  | 'Dashboard'
   | 'Feature Flags';

@@ -1,11 +1,18 @@
 import { Fragment } from 'react';
 import { Popover, Transition } from '@headlessui/react';
-import { MenuIcon, XIcon, MoonIcon } from '@heroicons/react/outline';
+import {
+  MenuIcon,
+  XIcon,
+  MoonIcon,
+  LogoutIcon,
+} from '@heroicons/react/outline';
 import { MoonIcon as MoonIconSolid } from '@heroicons/react/solid';
 import Image from 'next/image';
 import { CommandPalette, Notification } from 'components/atoms';
 import { useLayout } from 'store';
 import { NavigationRoute, RoutePath } from 'types/routes';
+import { signOut } from 'next-auth/react';
+import { useRouter } from 'next/router';
 
 const navigation: NavigationRoute[] = [
   { name: 'Home', href: '/' },
@@ -104,9 +111,15 @@ const NavigationRow = ({
 
 const MenuButton = ({ open }: { open: boolean }) => {
   const { isDark, toggleIsDark } = useLayout();
+  const router = useRouter();
 
   const handleOnToggle = () => {
     toggleIsDark();
+  };
+
+  const handleOnLogout = () => {
+    signOut();
+    router.replace('/unauthed');
   };
 
   return (
@@ -124,7 +137,10 @@ const MenuButton = ({ open }: { open: boolean }) => {
       </div>
       <div className="absolute right-14 lg:right-0 flex-shrink-0">
         {isDark ? (
-          <MoonIconSolid color="white" height={25} onClick={handleOnToggle} />
+          <div className="flex space-x-4">
+            <MoonIconSolid color="white" height={25} onClick={handleOnToggle} />
+            <LogoutIcon color="white" height={25} onClick={handleOnLogout} />
+          </div>
         ) : (
           <MoonIcon color="white" height={25} onClick={handleOnToggle} />
         )}
