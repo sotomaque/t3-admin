@@ -70,3 +70,10 @@ This is an app bootstrapped according to the [init.tips](https://init.tips) stac
 ### Notes:
 
 - I personally recommend using `pnpm` but you can use `yarn` or `npm` if you prefer
+
+
+## Authentication
+
+- In order to use the app in production, you must authenticate with Github. For the Authentication process to to succeed, you must be a public member of the Eco Github Organization. 
+- To make yourself a public memeber, go to the [Eco Github Page](https://github.com/eco), then select "People", and then click public.
+- Authentication is not enforced in lower environments.
