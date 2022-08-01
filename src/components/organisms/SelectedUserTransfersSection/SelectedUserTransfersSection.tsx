@@ -5,19 +5,21 @@ import {
   Spinner,
   TransactionsPagination,
 } from 'components';
+import { useMemo } from 'react';
 import { useLayout, useUsers } from 'store';
 import { User } from 'types';
 import { trpc } from 'utils/trpc';
 
 const SelectedUserTransfersSection = ({ user }: { user: User }) => {
   // Effect(s)
-  const { setShowPopup, setPopupComponent, clearPopupComponent } = useLayout();
-  const { selectedUserTransactions, setSelectedUserTransactions } = useUsers();
+  const { setShowPopup, setPopupComponent } = useLayout();
   const {
-    data: transfersData,
-    isLoading: transfersLoading,
-    refetch: refetchTransfersByUserId,
-  } = trpc.useQuery(
+    selectedUserTransactions,
+    setSelectedUserTransactions,
+    selectedUserBankConnections,
+    selectedUserBankSubaccounts,
+  } = useUsers();
+  const { data: transfersData, isLoading: transfersLoading } = trpc.useQuery(
     [
       'transfer.transfersByUserId',
       {
@@ -34,6 +36,14 @@ const SelectedUserTransfersSection = ({ user }: { user: User }) => {
       },
     }
   );
+  const isCreateTransferEnabled = useMemo(() => {
+    return Boolean(
+      selectedUserBankConnections?.length > 0 &&
+        selectedUserBankConnections[0]?.itemID &&
+        selectedUserBankConnections[0]?.linkStatus === 'LINK_OK' &&
+        selectedUserBankSubaccounts?.length > 0
+    );
+  }, [selectedUserBankConnections, selectedUserBankSubaccounts]);
 
   // Function(s)
   const handleOnNewTransaction = () => {
@@ -55,9 +65,12 @@ const SelectedUserTransfersSection = ({ user }: { user: User }) => {
         {transfersData && transfersData.transfers.length > 0 && (
           <div className="pl-6 pt-3">
             <button
+              disabled={!isCreateTransferEnabled || transfersLoading}
               onClick={() => handleOnNewTransaction()}
               type="button"
-              className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 dark:bg-purple-700 hover:bg-indigo-700 dark:hover:bg-purple-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-purple-600"
+              className={`inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 dark:bg-purple-700 hover:bg-indigo-700 dark:hover:bg-purple-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-purple-600 ${
+                !isCreateTransferEnabled && 'opacity-50 cursor-not-allowed'
+              }`}
             >
               <PlusIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
               New Transaction

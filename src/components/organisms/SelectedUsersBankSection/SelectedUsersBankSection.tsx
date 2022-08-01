@@ -4,7 +4,7 @@ import {
   SelectedUsersBankConnectionsTable,
   SelectedUsersSubaccountTable,
 } from 'components/molecules';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useUsers } from 'store';
 import { User } from 'types';
 import { trpc } from 'utils/trpc';
@@ -49,7 +49,9 @@ const SelectedUsersBankSection = ({ user }: { user: User }) => {
     {
       onSuccess(data) {
         setSelectedUserBankConnections(data.connections);
-        data.connections.length > 0 && fetchLinkedSubaccounts();
+        data.connections.length > 0 &&
+          data.connections[0]?.linkStatus === 'LINK_OK' &&
+          fetchLinkedSubaccounts();
       },
     }
   );
@@ -66,7 +68,11 @@ const SelectedUsersBankSection = ({ user }: { user: User }) => {
       },
     ],
     {
-      enabled: selectedUserBankConnections?.length > 0,
+      enabled: Boolean(
+        selectedUserBankConnections?.length > 0 &&
+          selectedUserBankConnections[0]?.itemID &&
+          selectedUserBankConnections[0]?.linkStatus === 'LINK_OK'
+      ),
       refetchOnWindowFocus: false,
       onSuccess(data) {
         setSelectedUserBankSubaccounts(data.subaccounts);

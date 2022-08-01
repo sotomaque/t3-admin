@@ -13,6 +13,7 @@ const CreateCustomTransferForm = ({ user }: { user: User }) => {
   // Effect(s)
   const { isDark, setShowPopup, clearPopupComponent } = useLayout();
   const {
+    selectedUserBankConnections,
     selectedUserBankSubaccounts,
     selectedUserPlaidId,
     setSelectedUserTransactions,
@@ -89,6 +90,15 @@ const CreateCustomTransferForm = ({ user }: { user: User }) => {
   const showLightModeError = useMemo(() => {
     return !isDark && isError;
   }, [isDark, isError]);
+
+  const isCreateTransferEnabled = useMemo(() => {
+    return Boolean(
+      selectedUserBankConnections?.length > 0 &&
+        selectedUserBankConnections[0]?.itemID &&
+        selectedUserBankConnections[0]?.linkStatus === 'LINK_OK' &&
+        selectedUserBankSubaccounts?.length > 0
+    );
+  }, [selectedUserBankConnections, selectedUserBankSubaccounts]);
 
   return (
     <div
@@ -171,10 +181,14 @@ const CreateCustomTransferForm = ({ user }: { user: User }) => {
             Cancel
           </button>
           <button
-            disabled={isLoading || loading}
+            disabled={isLoading || loading || !isCreateTransferEnabled}
             onClick={() => handleOnCreateCustomTransfer()}
             type="button"
-            className="inline-flex items-center justify-center px-4 py-2 border border-transparent font-medium rounded-md text-green-700 bg-green-100 hover:bg-green-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:text-sm"
+            className={`text-green-700 bg-green-100 hover:bg-green-200 focus:ring-green-500 ${
+              !isCreateTransferEnabled && 'opacity-50 cursor-not-allowed'
+            }
+                         inline-flex items-center justify-center px-4 py-2 border border-transparent
+                         font-medium rounded-mdfocus:outline-none focus:ring-2 focus:ring-offset-2 sm:text-sm`}
           >
             {isLoading || loading ? 'Creating Transfer...' : 'Create Transfer'}
           </button>
