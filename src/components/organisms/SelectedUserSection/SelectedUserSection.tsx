@@ -26,17 +26,17 @@ const SelectedUserSection = ({ user }: SelectedUserSectionProps) => {
       </div>
       {/* Transfers */}
       <div className="h-10" />
-      <div className="p-4 bg-white dark:bg-slate-800">
+      <div className="md:p-4 bg-white dark:bg-slate-800">
         <SelectedUserTransfersSection user={user} />
       </div>
       {/* Referrals */}
       <div className="h-10" />
-      <div className="p-4 bg-white dark:bg-slate-800">
+      <div className="md:p-4 bg-white dark:bg-slate-800">
         <SelectedUserReferralsSection user={user} />
       </div>
       {/* Bank Connection */}
       <div className="h-10" />
-      <div className="p-4 bg-white dark:bg-slate-800">
+      <div className="md:p-4 bg-white dark:bg-slate-800">
         <SelectedUsersBankSection user={user} />
       </div>
     </div>

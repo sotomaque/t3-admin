@@ -69,12 +69,26 @@ const UserProfileSummary = ({ user }: UserProfileSummaryProps) => {
         />
         <hr className="my-2" />
         <CopyableRow
-          rowName="USDC Balance"
-          rowData={`$${
-            usdcBalances.disbursable?.toFixed(2) ?? '0.00'
-          } Disbursable / $${
-            usdcBalances.pending?.toFixed(2) ?? '0.00'
-          } Pending / $${usdcBalances.settled?.toFixed(2) ?? '0.00'} Settled`}
+          rowName="USDC Disburable Balance"
+          rowData={`$${usdcBalances.disbursable?.toFixed(2) ?? '0.00'}`}
+          disableCopying
+          className="py-2"
+          rowDataClassName="dark:text-slate-200"
+          rowNameClassName="dark:text-slate-200"
+        />
+        <hr className="my-2" />
+        <CopyableRow
+          rowName="USDC Pending Balance"
+          rowData={`$${usdcBalances.pending?.toFixed(2) ?? '0.00'}`}
+          disableCopying
+          className="py-2"
+          rowDataClassName="dark:text-slate-200"
+          rowNameClassName="dark:text-slate-200"
+        />
+        <hr className="my-2" />
+        <CopyableRow
+          rowName="USDC Settled Balance"
+          rowData={`$${usdcBalances.settled?.toFixed(2) ?? '0.00'}`}
           disableCopying
           className="py-2"
           rowDataClassName="dark:text-slate-200"
@@ -118,7 +132,7 @@ const UserProfileSummary = ({ user }: UserProfileSummaryProps) => {
           <span
             className={`flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${cognitoStateBackgroundColor}`}
           >
-            <p className={`pr-1 text-sm text-right ${cognitoStateColor}`}>
+            <p className={`text-sm text-right ${cognitoStateColor}`}>
               {cognitoStateLabel}
             </p>
           </span>
@@ -127,11 +141,13 @@ const UserProfileSummary = ({ user }: UserProfileSummaryProps) => {
         {/* Prime Trust */}
         <hr className="my-2" />
         <div className="flex justify-between mt-4 py-2">
-          <p className="text-xs text-left dark:text-slate-200">PT KYC Status</p>
+          <p className="text-xs text-center dark:text-slate-200">
+            PT KYC Status
+          </p>
           <span
             className={`flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${ptStateBackgroundColor}`}
           >
-            <p className={`pr-1 text-sm text-right ${ptStateColor}`}>
+            <p className={`text-sm text-right ${ptStateColor}`}>
               {ptStateLabel}
             </p>
           </span>

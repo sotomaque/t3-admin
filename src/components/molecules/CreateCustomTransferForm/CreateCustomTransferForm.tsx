@@ -131,9 +131,6 @@ const CreateCustomTransferForm = ({ user }: { user: User }) => {
           </label>
           <div className="mt-1 relative rounded-md shadow-sm">
             <input
-              type="email"
-              name="email"
-              id="email"
               className={`block w-full pr-10 focus:outline-none sm:text-sm rounded-md p-2 
               ${isDark ? 'bg-slate-600 text-slate-300' : 'bg-white text-black'} 
               ${
@@ -145,9 +142,7 @@ const CreateCustomTransferForm = ({ user }: { user: User }) => {
                 'border-red-300 text-red-300 placeholder-red-300 focus:ring-red-500 focus:border-red-500'
               }`}
               placeholder="25.00"
-              defaultValue="25.00"
               aria-invalid="true"
-              aria-describedby="email-error"
               onChange={(e) => {
                 if (isError) {
                   setError(false);

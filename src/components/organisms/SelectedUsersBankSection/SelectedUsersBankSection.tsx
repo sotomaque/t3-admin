@@ -4,7 +4,7 @@ import {
   SelectedUsersBankConnectionsTable,
   SelectedUsersSubaccountTable,
 } from 'components/molecules';
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 import { useUsers } from 'store';
 import { User } from 'types';
 import { trpc } from 'utils/trpc';
@@ -159,36 +159,34 @@ const SelectedUsersBankSection = ({ user }: { user: User }) => {
               </p>
             </>
           </div>
-          {showUnlnkButton && (
-            <button
-              disabled={isRelinkLoading}
-              className="
+          <div className="inline-flex mt-4 md:mt-0">
+            {showUnlnkButton && (
+              <button
+                disabled={isRelinkLoading}
+                className="
               bg-purple-400 hover:bg-purple-600 text-white
               dark:bg-purple-700 hover:dark:bg-purple-600  dark:text-slate-200 dark:hover:text-slate-100 
               px-4 py-2 text-center flex items-center rounded-lg text-sm"
-              onClick={() => handleOnUnlinkPressed()}
-            >
-              {isUnlinkLoading ? (
-                <Spinner styles="h-4 w-4" />
-              ) : (
-                'Unlink Institution'
-              )}
-            </button>
-          )}
+                onClick={() => handleOnUnlinkPressed()}
+              >
+                {isUnlinkLoading ? <Spinner styles="h-4 w-4" /> : 'Unlink'}
+              </button>
+            )}
 
-          {showRelinkButton && (
-            <button
-              disabled={isRelinkLoading}
-              className="bg-blue-400 hover:bg-blue-600 dark:bg-blue-200 dark:hover:bg-blue-100 ml-4 px-4 py-2 text-center flex items-center rounded-lg text-white dark:text-slate-600 dark:hover:text-slate-800 text-sm"
-              onClick={() => handleOnRelinkPressed()}
-            >
-              {isRelinkLoading ? (
-                <Spinner styles="h-4 w-4" />
-              ) : (
-                'Trigger Relink'
-              )}
-            </button>
-          )}
+            {showRelinkButton && (
+              <button
+                disabled={isRelinkLoading}
+                className="bg-blue-400 hover:bg-blue-600 dark:bg-blue-200 dark:hover:bg-blue-100 ml-4 px-4 py-2 text-center flex items-center rounded-lg text-white dark:text-slate-600 dark:hover:text-slate-800 text-sm"
+                onClick={() => handleOnRelinkPressed()}
+              >
+                {isRelinkLoading ? (
+                  <Spinner styles="h-4 w-4" />
+                ) : (
+                  'Trigger Relink'
+                )}
+              </button>
+            )}
+          </div>
         </div>
         <div className="mt-8 flex flex-col">
           <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
