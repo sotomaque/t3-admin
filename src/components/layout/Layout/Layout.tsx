@@ -141,7 +141,10 @@ const MenuButton = ({ open }: { open: boolean }) => {
             <LogoutIcon color="white" height={25} onClick={handleOnLogout} />
           </div>
         ) : (
-          <MoonIcon color="white" height={25} onClick={handleOnToggle} />
+          <div className="flex space-x-4">
+            <MoonIcon color="white" height={25} onClick={handleOnToggle} />
+            <LogoutIcon color="white" height={25} onClick={handleOnLogout} />
+          </div>
         )}
       </div>
     </>
@@ -183,6 +186,7 @@ const Footer = () => {
 };
 
 const MobileMenu = () => {
+  const { isDark } = useLayout();
   return (
     <Transition.Root as={Fragment}>
       <div className="lg:hidden">
@@ -196,6 +200,7 @@ const MobileMenu = () => {
           leaveTo="opacity-0"
         >
           <Popover.Overlay className="z-20 fixed inset-0 bg-black bg-opacity-25" />
+          {/* TODO: dark opacity bg color */}
         </Transition.Child>
 
         <Transition.Child
@@ -211,19 +216,23 @@ const MobileMenu = () => {
             focus
             className="z-30 absolute top-0 inset-x-0 max-w-3xl mx-auto w-full p-2 transition transform origin-top"
           >
-            <div className="rounded-lg shadow-lg ring-1 ring-black dark:ring-slate-600  ring-opacity-5 bg-white divide-y divide-gray-200">
+            <div className="rounded-lg shadow-lg ring-1 ring-black dark:ring-slate-600  ring-opacity-5 bg-white dark:bg-slate-700 divide-y divide-gray-200 dark:divide-slate-300">
               <div className="pt-3 pb-2">
                 <div className="flex items-center justify-between px-4">
                   <div>
                     <Image
                       height="30"
                       width="85"
-                      src="https://eco.github.io/assets/images/eco-logo-color-140.png"
+                      src={
+                        isDark
+                          ? 'https://eco.github.io/assets/images/eco-logo-white.svg'
+                          : 'https://eco.github.io/assets/images/eco-logo-color-140.png'
+                      }
                       alt="Eco Admin"
                     />
                   </div>
                   <div className="-mr-2">
-                    <Popover.Button className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+                    <Popover.Button className="bg-white dark:bg-slate-700 rounded-md p-2 inline-flex items-center justify-center text-gray-400 dark:text-slate-200 hover:text-gray-500 hover:bg-gray-100 dark:hover:bg-slate-600 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
                       <span className="sr-only">Close menu</span>
                       <XIcon className="h-6 w-6" aria-hidden="true" />
                     </Popover.Button>
@@ -234,7 +243,7 @@ const MobileMenu = () => {
                     <a
                       href={item.href}
                       key={`${item.name}-mobile-${idx}`}
-                      className="block rounded-md px-3 py-2 text-base text-gray-900 font-medium hover:bg-gray-100 hover:text-gray-800"
+                      className="block rounded-md px-3 py-2 text-base text-gray-900 dark:text-slate-200 font-medium hover:bg-gray-100 dark:hover:bg-slate-600 hover:text-gray-800 dark:hover:text-slate-300"
                     >
                       {item.name}
                     </a>

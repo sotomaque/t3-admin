@@ -102,7 +102,6 @@ export const plaidRouter = createRouter()
           code: 'BAD_REQUEST',
         });
       }
-
       // Build URL
       const baseURL = process.env.ECO_BASE_URL;
       const subaccountsURL = process.env.ECO_BANK_SUBACCOUNTS;
@@ -121,7 +120,6 @@ export const plaidRouter = createRouter()
       const itemIdQuery = `?itemID=${itemId}`;
       const userIdQuery = `&userID=${userId}`;
       const fullURL = `${baseURL}${subaccountsURL}${itemIdQuery}${userIdQuery}`;
-
       // make fetch request to the server for given userId
       const response = await fetch(fullURL);
 

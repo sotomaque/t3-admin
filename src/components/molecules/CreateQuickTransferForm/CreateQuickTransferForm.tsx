@@ -63,7 +63,6 @@ const CreateQuickTransferForm = ({ user }: { user: User }) => {
     if (!selectedUserBankSubaccounts.length) return;
     if (!selectedUserPlaidId) return;
     let ptPlaidAccountID = selectedUserPlaidId;
-
     await mutateAsync({ ptPlaidAccountID, userID: user.userID });
   };
 
